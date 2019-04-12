@@ -2,6 +2,7 @@ package tools;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Month;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Hashtable;
@@ -19,110 +20,114 @@ import java.util.regex.Pattern;
  * （5）第15、16位数字表示：所在地的派出所的代码；
  * （6）第17位数字表示性别：奇数表示男性，偶数表示女性
  * （7）第18位数字是校检码：根据一定算法生成
+ *
+ * @author laowu
  */
 public class IdCardVerification {
     /**
      * 身份证有效
      */
-    public static final String VALIDITY = "true";
+    private static final String VALIDITY = "true";
     /**
      * 位数不足
      */
-    public static final String LACKDIGITS = "身份证号码长度应该为15位或18位。";
+    private static final String LACKDIGITS = "身份证号码长度应该为15位或18位。";
     /**
      * 最后一位应为数字
      */
-    public static final String LASTOFNUMBER = "身份证15位号码都应为数字 ; 18位号码除最后一位外，都应为数字。";
+    private static final String LASTOFNUMBER = "身份证15位号码都应为数字 ; 18位号码除最后一位外，都应为数字。";
     /**
      * 出生日期无效
      */
-    public static final String INVALIDBIRTH = "身份证出生日期无效。";
+    private static final String INVALIDBIRTH = "身份证出生日期无效。";
     /**
      * 生日不在有效范围
      */
-    public static final String INVALIDSCOPE = "身份证生日不在有效范围。";
+    private static final String INVALIDSCOPE = "身份证生日不在有效范围。";
     /**
      * 月份无效
      */
-    public static final String INVALIDMONTH = "身份证月份无效";
+    private static final String INVALIDMONTH = "身份证月份无效";
     /**
      * 日期无效
      */
-    public static final String INVALIDDAY = "身份证日期无效";
+    private static final String INVALIDDAY = "身份证日期无效";
     /**
      * 身份证地区编码错误
      */
-    public static final String CODINGERROR = "身份证地区编码错误。";
+    private static final String CODINGERROR = "身份证地区编码错误。";
     /**
      * 身份证校验码无效
      */
-    public static final String INVALIDCALIBRATION = "身份证校验码无效，不是合法的身份证号码";
+    private static final String INVALIDCALIBRATION = "身份证校验码无效，不是合法的身份证号码";
+    private static final int ID_CARD_LENGTH_15 = 15;
+    private static final int ID_CARD_LENGTH_18 = 18;
+    private static final int MAX_DAY = 31;
+    private static final String SEP = "-";
+    private static final int LOCATION = 2;
 
     /**
      * 检验身份证号码是否符合规范
      *
-     * @param IDStr 身份证号码
      * @return 错误信息或成功信息
      */
-    public static String IDCardValidate(String IDStr) throws ParseException {
-        String tipInfo = VALIDITY;// 记录错误信息
-        String Ai = "";
+    public static String idCardValidate(String idStr) {
+        // 记录错误信息
+        String tipInfo = VALIDITY;
+        String ai;
         // 判断号码的长度 15位或18位
-        if (IDStr.length() != 15 && IDStr.length() != 18) {
+        if (idStr.length() != ID_CARD_LENGTH_15 && idStr.length() != ID_CARD_LENGTH_18) {
             tipInfo = LACKDIGITS;
             return tipInfo;
         }
-
         // 18位身份证前17位位数字，如果是15位的身份证则所有号码都为数字
-        if (IDStr.length() == 18) {
-            Ai = IDStr.substring(0, 17);
-        } else if (IDStr.length() == 15) {
-            Ai = IDStr.substring(0, 6) + "19" + IDStr.substring(6, 15);
+        if (idStr.length() == ID_CARD_LENGTH_18) {
+            ai = idStr.substring(0, ID_CARD_LENGTH_18 - 1);
+        } else {
+            ai = idStr.substring(0, 6) + "19" + idStr.substring(6, 15);
         }
-        if (isNumeric(Ai) == false) {
+        if (!isNumeric(ai)) {
             tipInfo = LASTOFNUMBER;
             return tipInfo;
         }
-
         // 判断出生年月是否有效
-        String strYear = Ai.substring(6, 10);// 年份
-        String strMonth = Ai.substring(10, 12);// 月份
-        String strDay = Ai.substring(12, 14);// 日期
-        if (isDate(strYear + "-" + strMonth + "-" + strDay) == false) {
+        String strYear = ai.substring(6, 10);
+        String strMonth = ai.substring(10, 12);
+        String strDay = ai.substring(12, 14);
+        if (!isDate(strYear + SEP + strMonth + SEP + strDay)) {
             tipInfo = INVALIDBIRTH;
             return tipInfo;
         }
         GregorianCalendar gc = new GregorianCalendar();
         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            if ((gc.get(Calendar.YEAR) - Integer.parseInt(strYear)) > 150
-                    || (gc.getTime().getTime() - s.parse(strYear + "-" + strMonth + "-" + strDay).getTime()) < 0) {
+            boolean ifMoreThan150 = (gc.get(Calendar.YEAR) - Integer.parseInt(strYear)) > 150;
+            boolean ifLessZero = (gc.getTime().getTime() - s.parse(strYear + "-" + strMonth + "-" + strDay).getTime()) < 0;
+            if (ifMoreThan150 || ifLessZero) {
                 tipInfo = INVALIDSCOPE;
                 return tipInfo;
             }
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
+        } catch (NumberFormatException | ParseException e) {
             e.printStackTrace();
         }
-        if (Integer.parseInt(strMonth) > 12 || Integer.parseInt(strMonth) == 0) {
+        if (Integer.parseInt(strMonth) > Month.values().length || Integer.parseInt(strMonth) == 0) {
             tipInfo = INVALIDMONTH;
             return tipInfo;
         }
-        if (Integer.parseInt(strDay) > 31 || Integer.parseInt(strDay) == 0) {
+        if (Integer.parseInt(strDay) > MAX_DAY || Integer.parseInt(strDay) == 0) {
             tipInfo = INVALIDDAY;
             return tipInfo;
         }
 
         // 判断地区码是否有效
-        Hashtable<String, String> areacode = GetAreaCode();
+        Hashtable<String, String> areacode = getAreaCode();
         // 如果身份证前两位的地区码不在Hashtable，则地区码有误
-        if (areacode.get(Ai.substring(0, 2)) == null) {
+        if (areacode.get(ai.substring(0, LOCATION)) == null) {
             tipInfo = CODINGERROR;
             return tipInfo;
         }
 
-        if (isVarifyCode(Ai, IDStr) == false) {
+        if (!isVarifyCode(ai, idStr)) {
             tipInfo = INVALIDCALIBRATION;
             return tipInfo;
         }
@@ -130,32 +135,26 @@ public class IdCardVerification {
         return tipInfo;
     }
 
-    /*
+    /**
      * 判断第18位校验码是否正确 第18位校验码的计算方式：
-     * 1. 对前17位数字本体码加权求和 公式为：S = Sum(Ai * Wi), i =
+     * 1. 对前17位数字本体码加权求和 公式为：S = Sum(ai * Wi), i =
      * 0, ... , 16 其中Ai表示第i个位置上的身份证号码数字值，Wi表示第i位置上的加权因子，其各位对应的值依次为： 7 9 10 5 8 4
      * 2 1 6 3 7 9 10 5 8 4 2
      * 2. 用11对计算结果取模 Y = mod(S, 11)
      * 3. 根据模的值得到对应的校验码
      * 对应关系为： Y值： 0 1 2 3 4 5 6 7 8 9 10 校验码： 1 0 X 9 8 7 6 5 4 3 2
      */
-    private static boolean isVarifyCode(String Ai, String IDStr) {
-        String[] VarifyCode = {"1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2"};
-        String[] Wi = {"7", "9", "10", "5", "8", "4", "2", "1", "6", "3", "7", "9", "10", "5", "8", "4", "2"};
+    private static boolean isVarifyCode(String ai, String idStr) {
+        String[] varifyCode = {"1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2"};
+        String[] wi = {"7", "9", "10", "5", "8", "4", "2", "1", "6", "3", "7", "9", "10", "5", "8", "4", "2"};
         int sum = 0;
-        for (int i = 0; i < 17; i++) {
-            sum = sum + Integer.parseInt(String.valueOf(Ai.charAt(i))) * Integer.parseInt(Wi[i]);
+        for (int i = 0; i < ID_CARD_LENGTH_18 - 1; i++) {
+            sum = sum + Integer.parseInt(String.valueOf(ai.charAt(i))) * Integer.parseInt(wi[i]);
         }
         int modValue = sum % 11;
-        String strVerifyCode = VarifyCode[modValue];
-        Ai = Ai + strVerifyCode;
-        if (IDStr.length() == 18) {
-            if (Ai.equals(IDStr) == false) {
-                return false;
-
-            }
-        }
-        return true;
+        String strVerifyCode = varifyCode[modValue];
+        ai = ai + strVerifyCode;
+        return idStr.length() != ID_CARD_LENGTH_18 || ai.equals(idStr);
     }
 
     /**
@@ -164,8 +163,8 @@ public class IdCardVerification {
      * @return Hashtable 对象
      */
 
-    private static Hashtable<String, String> GetAreaCode() {
-        Hashtable<String, String> hashtable = new Hashtable<String, String>();
+    private static Hashtable<String, String> getAreaCode() {
+        Hashtable<String, String> hashtable = new Hashtable<>();
         hashtable.put("11", "北京");
         hashtable.put("12", "天津");
         hashtable.put("13", "河北");
@@ -204,36 +203,31 @@ public class IdCardVerification {
         return hashtable;
     }
 
+
+    private static final Pattern IS_FREQUENT_NUMBER = Pattern.compile("[0-9]*");
+
     /**
-     * 判断字符串是否为数字,0-9重复0次或者多次
+     * if number
      *
-     * @param strnum
-     * @return true, 符合; false, 不符合。
+     * @param numStr string
+     * @return true false
      */
-    private static boolean isNumeric(String strnum) {
-        Pattern pattern = Pattern.compile("[0-9]*");
-        Matcher isNum = pattern.matcher(strnum);
-        if (isNum.matches()) {
-            return true;
-        } else {
-            return false;
-        }
+    private static boolean isNumeric(String numStr) {
+        Matcher isNum = IS_FREQUENT_NUMBER.matcher(numStr);
+        return isNum.matches();
     }
+
+    private static Pattern isBirthDay = Pattern.compile("^((\\d{2}(([02468][048])|([13579][26]))[\\-\\/\\s]?((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])))))|(\\d{2}(([02468][1235679])|([13579][01345789]))[\\-\\/\\s]?((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|(1[0-9])|(2[0-8]))))))?$");
 
     /**
      * 功能：判断字符串出生日期是否符合正则表达式：包括年月日，闰年、平年和每月31天、30天和闰月的28天或者29天
      *
-     * @param strDate
-     * @return true, 符合; false, 不符合。
+     * @param strDate string
+     * @return true false
      */
-    public static boolean isDate(String strDate) {
-        Pattern pattern = Pattern.compile("^((\\d{2}(([02468][048])|([13579][26]))[\\-\\/\\s]?((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])))))|(\\d{2}(([02468][1235679])|([13579][01345789]))[\\-\\/\\s]?((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|(1[0-9])|(2[0-8]))))))?$");
-        Matcher m = pattern.matcher(strDate);
-        if (m.matches()) {
-            return true;
-        } else {
-            return false;
-        }
+    private static boolean isDate(String strDate) {
+        Matcher m = isBirthDay.matcher(strDate);
+        return m.matches();
     }
 
 }

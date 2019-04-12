@@ -23,9 +23,11 @@ public class Line extends Graphic {
     Double y;
 
     public Line() {
+        super();
     }
 
     public Line(Point p1, Point p2) {
+        super();
         a = p1;
         b = p2;
         if (p1.x.equals(p2.x)) {
@@ -42,6 +44,7 @@ public class Line extends Graphic {
     }
 
     public Line(Line line, Double lineOffset, boolean addOrSub) {
+        super();
         if (Objects.isNull(lineOffset)) {
             lineOffset = 0.00005;
         }

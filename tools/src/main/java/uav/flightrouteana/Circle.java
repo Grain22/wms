@@ -24,20 +24,24 @@ public class Circle extends Graphic {
     double radiusWithSafe;
     double distance;
 
-    public Circle() {
+    public Circle() {        super();
+
     }
 
-    public Circle(Point point, String radiusStr) {
+    public Circle(Point point, String radiusStr) {        super();
+
         this.o = point;
         this.radius = Double.valueOf(radiusStr);
     }
 
-    public Circle(Point point, double radius) {
+    public Circle(Point point, double radius) {        super();
+
         this.o = point;
         this.radius = radius;
     }
 
-    public Circle(Point point, double radius, double safe) {
+    public Circle(Point point, double radius, double safe) {        super();
+
         this.o = point;
         this.radius = radius;
         this.radiusWithSafe = radius + safe;

@@ -10,6 +10,11 @@ class B implements food {
 }
 
 interface produce {
+    /**
+     * get food
+     *
+     * @return
+     */
     food get();
 }
 
