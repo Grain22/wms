@@ -1,6 +1,4 @@
-import java.lang.annotation.Native;
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Objects;
@@ -15,7 +13,7 @@ public class Connector {
 
     private static String url = "";
 
-    public static void getConnection(){
+    public static Connection getConnection(){
         if (Objects.isNull(connection)) {
             synchronized (connection) {
                 if (Objects.isNull(connection)) {
@@ -27,5 +25,6 @@ public class Connector {
                 }
             }
         }
+        return connection;
     }
 }

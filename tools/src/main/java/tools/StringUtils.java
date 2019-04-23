@@ -1,6 +1,6 @@
 package tools;
 
-import com.sun.istack.internal.NotNull;
+import lombok.NonNull;
 
 import java.util.List;
 import java.util.Random;
@@ -66,7 +66,7 @@ public final class StringUtils {
      * @param mobile string by int
      * @return true or false
      */
-    public static boolean isMobile(@NotNull String mobile) {
+    public static boolean isMobile(@NonNull String mobile) {
         return Pattern.matches("^(1(([34578][0-9])))\\d{8}$", mobile);
     }
 

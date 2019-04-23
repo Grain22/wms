@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+              http://www.springframework.org/schema/context
+
+">
+    <!--创建数据源1，连接数据库db1 -->
+    <bean id="dataSource1" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${db1.driver}"/>
+        <property name="url" value="${db1.url}"/>
+        <property name="username" value="${db1.username}"/>
+        <property name="password" value="${db1.password}"/>
+    </bean>
+    <!--创建数据源2，连接数据库db2 -->
+    <bean id="dataSource2" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${db2.driver}"/>
+        <property name="url" value="${db2.url}"/>
+        <property name="username" value="${db2.username}"/>
+        <property name="password" value="${db2.password}"/>
+    </bean>
+    <!--创建数据源3，连接数据库db3 -->
+    <bean id="dataSource3" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${db3.driver}"/>
+        <property name="url" value="${db3.url}"/>
+        <property name="username" value="${db3.username}"/>
+        <property name="password" value="${db3.password}"/>
+    </bean>
+
+    <bean id="dynamicDataSource" class="com.test.context.datasource.DynamicDataSource">
+        <property name="targetDataSources">
+            <map key-type="java.lang.String">
+                <!-- 指定lookupKey和与之对应的数据源 -->
+                <entry key="dataSource1" value-ref="dataSource1"></entry>
+                <entry key="dataSource2" value-ref="dataSource2"></entry>
+                <entry key="dataSource3 " value-ref="dataSource3"></entry>
+            </map>
+        </property>
+        <!-- 这里可以指定默认的数据源 -->
+        <property name="defaultTargetDataSource" ref="dataSource1"/>
+    </bean>
+
+    <bean>
+
+    </bean>
+    <context:property-placeholder location="dbProperty.properties"/>
+</beans>
