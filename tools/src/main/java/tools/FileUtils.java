@@ -11,28 +11,29 @@ import static java.io.File.separator;
 /**
  * @author laowu
  */
+@SuppressWarnings("unused")
 public class FileUtils {
 
-    static CustomerLogger logger = CustomerLogger.getLogger(FileUtils.class);
+    private static CustomerLogger logger = CustomerLogger.getLogger(FileUtils.class);
 
     private static boolean append = true;
 
-    private static final String def_path = separator + "temporary";
-    private static final String def_file_name = DateUtils.getTimeString() + ".log";
-    private static final String def_file = def_path + separator + def_file_name;
+    private static final String DEF_PATH = separator + "temporary";
+    private static final String DEF_FILE_NAME = DateUtils.getTimeString() + ".log";
+    private static final String DEF_FILE = DEF_PATH + separator + DEF_FILE_NAME;
 
     public static void writeToFile(String string) {
         writeToFile(Collections.singletonList(string));
     }
 
-    public static void writeToFile(List<String> strings) {
+    private static void writeToFile(List<String> strings) {
         writeToFile(strings, null);
     }
 
     /**
      * write to file
      *
-     * @param strings
+     * @param strings string s
      * @param filePath path
      * @param fileName name
      */
@@ -40,18 +41,18 @@ public class FileUtils {
         writeToFile(strings, filePath + separator + fileName);
     }
 
-    public static void writeToFile(List<String> strings, String pathWithName) {
+    private static void writeToFile(List<String> strings, String pathWithName) {
         try {
             File file;
             if (Objects.isNull(pathWithName)) {
-                pathWithName = def_file;
+                pathWithName = DEF_FILE;
             }
             file = new File(pathWithName);
             if (!file.getParentFile().exists()) {
-                file.getParentFile().mkdirs();
+                boolean mkdirs = file.getParentFile().mkdirs();
             }
             if (!file.exists()) {
-                file.createNewFile();
+                boolean newFile = file.createNewFile();
             }
             FileWriter writer = new FileWriter(file, append);
             for (String tem : strings) {
@@ -67,8 +68,8 @@ public class FileUtils {
     /**
      * read from file
      *
-     * @param pathWithName
-     * @return
+     * @param pathWithName path name
+     * @return string list
      */
     private static List<String> readFromFile(String pathWithName) {
         String encoding = "utf8";
@@ -96,5 +97,23 @@ public class FileUtils {
         } else {
             throw new RuntimeException("找不到指定的文件");
         }
+    }
+
+    private static boolean deleteDir(File dir) {
+        if (!dir.exists()) {
+            return false;
+        }
+        if (dir.isDirectory()) {
+            String[] childs = dir.list();
+            if (childs != null) {
+                for (String child : childs) {
+                    boolean success = deleteDir(new File(dir, child));
+                    if (!success) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return dir.delete();
     }
 }

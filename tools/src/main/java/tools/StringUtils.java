@@ -18,7 +18,7 @@ public final class StringUtils {
      * 中文转换为Unicode编码
      * translate chinese to unicode encoding
      *
-     * @param chinese
+     * @param chinese chinese code string
      * @return 编码转换结果
      */
     public String getUnicode(final String chinese) {
@@ -37,8 +37,8 @@ public final class StringUtils {
     /**
      * translate unicode to chinese default
      *
-     * @param unicodeStr
-     * @return
+     * @param unicodeStr wait for trans
+     * @return chinese
      */
     public static String decodeUnicode(final String unicodeStr) {
         int start = 0;
@@ -60,14 +60,16 @@ public final class StringUtils {
         return buffer.toString();
     }
 
+    private static final String PHONE = "^(1(([34578][0-9])))\\d{8}$";
+
     /**
-     * check if phone
+     * check if PHONE
      *
      * @param mobile string by int
      * @return true or false
      */
     public static boolean isMobile(@NonNull String mobile) {
-        return Pattern.matches("^(1(([34578][0-9])))\\d{8}$", mobile);
+        return Pattern.matches(PHONE, mobile);
     }
 
     /**
@@ -108,7 +110,7 @@ public final class StringUtils {
                 if (i++ == 0) {
                     str.append(s);
                 } else {
-                    str.append(s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase());
+                    str.append(s.substring(0, 1).toUpperCase()).append(s.substring(1).toLowerCase());
                 }
             }
             return str.toString();
@@ -143,5 +145,11 @@ public final class StringUtils {
         } else {
             return name;
         }
+    }
+
+    private static final String DOC = "(/\\*([^*]|[\\r\\n]|(\\*+([^*/]|[\\r\\n])))*\\*+/|[ \\t]*//.*)";
+
+    public static String removeDoc(String string) {
+        return string.replaceAll(DOC, "");
     }
 }
