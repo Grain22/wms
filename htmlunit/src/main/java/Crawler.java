@@ -10,15 +10,6 @@ public class Crawler {
     private static List<String> task = new LinkedList<>();
 
     public static void main(String[] args) {
-        initial();
-        doCrawler();
     }
 
-    private static void initial() {
-        task.add("first");
-    }
-
-    private static void doCrawler() {
-        System.out.println(task.stream().findFirst().get());
-    }
 }
