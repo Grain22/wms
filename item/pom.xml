@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>../htmlunit</module>
+        <module>../database</module>
     </modules>
 
     <dependencies>

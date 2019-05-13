@@ -1,6 +1,7 @@
 package tools;
 
 import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,7 +34,7 @@ public class FileUtils {
     /**
      * write to file
      *
-     * @param strings string s
+     * @param strings  string s
      * @param filePath path
      * @param fileName name
      */
@@ -115,5 +116,39 @@ public class FileUtils {
             }
         }
         return dir.delete();
+    }
+
+    public static File getFile(String s) {
+        try {
+            File file;
+            file = new File(s);
+            if (file.exists()) {
+                return file;
+            }
+            if (!file.getParentFile().exists()) {
+                boolean mkdirs = file.getParentFile().mkdirs();
+            }
+            if (!file.exists()) {
+                boolean newFile = file.createNewFile();
+            }
+            return file;
+        } catch (Exception e) {
+            throw new RuntimeException("file util get file error");
+        }
+    }
+
+    public static String getFileName(String url, String separator) {
+        File file = new File(url);
+        return file.getName();
+    }
+
+    public static String getFileName(Object url) {
+        File file = null;
+        if (url instanceof URL) {
+            file = new File(((URL) url).getPath());
+        } else {
+            file = new File(String.valueOf(url));
+        }
+        return file.getName();
     }
 }

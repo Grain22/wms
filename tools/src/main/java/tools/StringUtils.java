@@ -152,4 +152,24 @@ public final class StringUtils {
     public static String removeDoc(String string) {
         return string.replaceAll(DOC, "");
     }
+
+    public static String getterForMonth(int month) {
+        return getter(DateUtils.getMonthName(month));
+    }
+
+    public static String getterForMonth(int month, String otherStr) {
+        return getter(DateUtils.getMonthName(month)) + otherStr;
+    }
+
+    public static String setterForMonth(int month) {
+        return setter(DateUtils.getMonthName(month));
+    }
+
+    public static String getter(String beanPropertyName) {
+        return "get" + beanPropertyName.substring(0, 1).toUpperCase() + beanPropertyName.substring(1).toLowerCase();
+    }
+
+    public static String setter(String beanPropertyName) {
+        return "set" + beanPropertyName.substring(0, 1).toUpperCase() + beanPropertyName.substring(1).toLowerCase();
+    }
 }

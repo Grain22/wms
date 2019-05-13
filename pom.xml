@@ -219,7 +219,6 @@
             <version>1.9.3</version>
         </dependency>
 
-
     </dependencies>
 
 
@@ -241,7 +240,6 @@
         <module>core</module>
         <module>tools</module>
         <module>item</module>
-        <module>database</module>
     </modules>
 
 </project>

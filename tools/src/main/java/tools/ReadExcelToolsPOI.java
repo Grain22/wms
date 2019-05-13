@@ -1,7 +1,10 @@
 package tools;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
@@ -11,7 +14,7 @@ import java.util.List;
 /**
  * @author laowu
  */
-public class ReadExcelTools {
+public class ReadExcelToolsPOI {
     private final static String XLS = "xls";
     private final static String XLSX = "xlsx";
 
@@ -24,11 +27,12 @@ public class ReadExcelTools {
      */
     public static List<String[]> readExcel(String path) throws IOException {
         File file = new File(path);
-        return ReadExcelTools.readExcel(file);
+        return ReadExcelToolsPOI.readExcel(file);
     }
 
     /**
      * read excel
+     *
      * @param file
      * @return
      * @throws IOException
@@ -119,12 +123,16 @@ public class ReadExcelTools {
         if (cell == null) {
             return cellValue;
         }
-        //把数字当成String来读，避免出现1读成1.0的情况
-
-        if (cell.getCellType() == CellType.NUMERIC) {
-            cell.setCellType(CellType.STRING);
-        }
         //判断数据的类型
+        /*try {
+            cellValue = String.valueOf(cell.getClass().getDeclaredMethod(StringUtils.getter(cell.getCellType().name() + "CellValue")).invoke(cell));
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }*/
         switch (cell.getCellType()) {
             case NUMERIC:
                 cellValue = String.valueOf(cell.getNumericCellValue());
