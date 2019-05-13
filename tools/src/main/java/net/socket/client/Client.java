@@ -1,5 +1,7 @@
 package net.socket.client;
 
+import net.socket.contants.Contants;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -21,13 +23,12 @@ public class Client {
     public Client() {
         try {
             socket = new Socket("127.0.0.1", port);
-            new Thread(new ClientSender()).start();
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(socket
-                    .getInputStream()));
+            Contants.socket_client.submit(new ClientSender());
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader(
+                            socket.getInputStream()));
             String msg1;
             while ((msg1 = br.readLine()) != null) {
-
                 System.out.println(msg1);
             }
         } catch (Exception e) {
@@ -40,16 +41,20 @@ public class Client {
             try {
                 BufferedReader re = new BufferedReader(new InputStreamReader(System.in));
                 PrintWriter pw = new PrintWriter(socket.getOutputStream(), true);
-                String msg2;
+                String msg;
                 while (true) {
-                    msg2 = re.readLine();
-                    pw.println(msg2);
+                    msg = re.readLine();
+                    if ("".equals(msg.trim())) {
+                        continue;
+                    } else if (msg.equals(Contants.command + Contants.END)) {
+                        break;
+                    }
+                    pw.println(msg);
                 }
+                socket.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
         }
     }
 }
