@@ -1,10 +1,10 @@
-package net.socket.contants;
+package net.socket.constants;
 
 import tools.thread.CustomThreadPool;
 
 import java.util.concurrent.ExecutorService;
 
-public class Contants {
+public class Constants {
     public static final String END = "end";
     public static int POINT = 10000;
     public static String command = "///";

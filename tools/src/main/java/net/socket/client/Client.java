@@ -1,6 +1,6 @@
 package net.socket.client;
 
-import net.socket.contants.Contants;
+import net.socket.constants.Constants;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -13,17 +13,17 @@ import java.net.Socket;
  */
 public class Client {
 
-    public int port = 8888;
-    Socket socket = null;
+    private Socket socket = null;
 
     public static void main(String[] args) {
         new Client();
     }
 
-    public Client() {
+    private Client() {
         try {
+            int port = 8888;
             socket = new Socket("127.0.0.1", port);
-            Contants.socket_client.submit(new ClientSender());
+            Constants.socket_client.submit(new ClientSender());
             BufferedReader br = new BufferedReader(
                     new InputStreamReader(
                             socket.getInputStream()));
@@ -31,7 +31,7 @@ public class Client {
             while ((msg1 = br.readLine()) != null) {
                 System.out.println(msg1);
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -46,7 +46,7 @@ public class Client {
                     msg = re.readLine();
                     if ("".equals(msg.trim())) {
                         continue;
-                    } else if (msg.equals(Contants.command + Contants.END)) {
+                    } else if (msg.equals(Constants.command + Constants.END)) {
                         break;
                     }
                     pw.println(msg);

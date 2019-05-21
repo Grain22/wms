@@ -1,7 +1,7 @@
-package ioc;
+package spring.ioc;
 
-import ioc.context.IocContext;
-import ioc.controller.DemoCont;
+import spring.ioc.context.IocContext;
+import spring.ioc.controller.DemoCont;
 
 /**
  *  @author     laowu

@@ -1,8 +1,8 @@
-package ioc.controller;
+package spring.ioc.controller;
 
-import ioc.annotation.Component;
-import ioc.annotation.Inject;
-import ioc.service.DemoService;
+import spring.ioc.annotation.Component;
+import spring.ioc.annotation.Inject;
+import spring.ioc.service.DemoService;
 
 /**
  *  @author     laowu

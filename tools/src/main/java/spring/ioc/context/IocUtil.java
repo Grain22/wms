@@ -1,6 +1,6 @@
-package ioc.context;
+package spring.ioc.context;
 
-import ioc.annotation.Inject;
+import spring.ioc.annotation.Inject;
 
 import java.lang.reflect.Field;
 import java.util.Map;

@@ -1,6 +1,6 @@
-package ioc.context;
+package spring.ioc.context;
 
-import ioc.annotation.Component;
+import spring.ioc.annotation.Component;
 
 import java.io.File;
 import java.net.URL;
@@ -16,7 +16,7 @@ public class IocContext {
     public static final Map<Class<?>, Object> APPLICATION_CONTEXT = new ConcurrentHashMap<>();
 
     static {
-        String packageName = "ioc";
+        String packageName = "spring/ioc";
         try {
             initBean(packageName);
         } catch (Exception e) {

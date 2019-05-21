@@ -1,4 +1,4 @@
-package ioc.bean;
+package spring.ioc.bean;
 
 import lombok.Data;
 

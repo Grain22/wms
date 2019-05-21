@@ -1,7 +1,7 @@
-package ioc.service;
+package spring.ioc.service;
 
-import ioc.annotation.Component;
-import ioc.bean.Bean;
+import spring.ioc.annotation.Component;
+import spring.ioc.bean.Bean;
 
 /**
  * @author laowu
