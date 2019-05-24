@@ -1,6 +1,5 @@
 package sel.grain.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
 import sel.grain.service.DemoService;
 import spring.framework.annotation.GController;
 import spring.framework.annotation.GInject;
@@ -21,7 +20,7 @@ public class DemoController {
     @GInject
     private DemoService demoService;
 
-    @RequestMapping("/getInfo")
+    @GRequestMapping("/getInfo")
     public void getInfo(HttpServletRequest request, HttpServletResponse response, @GRequestParam("name") String name) {
         String info = demoService.getInfo(name);
         try {

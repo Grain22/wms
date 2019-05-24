@@ -32,97 +32,97 @@
         </dependency>
 
 
-        <!-- spring -->
-        <!--spring core tools-->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+        <!--&lt;!&ndash; spring &ndash;&gt;-->
+        <!--&lt;!&ndash;spring core tools&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-core</artifactId>-->
+            <!--<version>${spring.version}</version>-->
+        <!--</dependency>-->
 
-        <!--spring bean IOC/DI-->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-beans</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+        <!--&lt;!&ndash;spring bean IOC/DI&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-beans</artifactId>-->
+            <!--<version>${spring.version}</version>-->
+        <!--</dependency>-->
 
-        <!--spring aop-->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+        <!--&lt;!&ndash;spring aop&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-aop</artifactId>-->
+            <!--<version>${spring.version}</version>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-context</artifactId>-->
+            <!--<version>${spring.version}</version>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-tx</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-tx</artifactId>-->
+            <!--<version>${spring.version}</version>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-web</artifactId>-->
+            <!--<version>${spring.version}</version>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-webmvc</artifactId>-->
+            <!--<version>${spring.version}</version>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-jdbc</artifactId>-->
+            <!--<version>${spring.version}</version>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-orm</artifactId>-->
+            <!--<version>${spring.version}</version>-->
+        <!--</dependency>-->
 
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support
-            含支持UI模版（Velocity，FreeMarker，JasperReports），邮件服务，脚本服务(JRuby)，缓存Cache（EHCache），
-            任务计划Scheduling（uartz）方面的类。外部依赖spring-context, (spring-jdbc, Velocity, FreeMarker,
-            JasperReports, BSH, Groovy, JRuby, Quartz, EHCache) -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.springframework/spring-context-support-->
+            <!--含支持UI模版（Velocity，FreeMarker，JasperReports），邮件服务，脚本服务(JRuby)，缓存Cache（EHCache），-->
+            <!--任务计划Scheduling（uartz）方面的类。外部依赖spring-context, (spring-jdbc, Velocity, FreeMarker,-->
+            <!--JasperReports, BSH, Groovy, JRuby, Quartz, EHCache) &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-context-support</artifactId>-->
+            <!--<version>${spring.version}</version>-->
+        <!--</dependency>-->
 
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-expression
-            SPEL表达式支持:
-            一、基本表达式：字面量表达式、关系，逻辑与算数运算表达式、字符串连接及截取表达式、
-                三目运算及Elivis表达式、正则表达式、括号优先级表达式；
-            二、类相关表达式：类类型表达式、类实例化、instanceof表达式、变量定义及引用、赋值表达式、
-                自定义函数、对象属性存取及安全导航表达式、对象方法调用、Bean引用；
-            三、集合相关表达式：内联List、内联数组、集合，字典访问、列表，字典，数组修改、集合投影、
-                集合选择；不支持多维内联数组初始化；不支持内联字典定义；
-            四、其他表达式：模板表达式。
-            注：SpEL表达式中的关键字是不区分大小写的。
-        -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-expression</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.springframework/spring-expression-->
+            <!--SPEL表达式支持:-->
+            <!--一、基本表达式：字面量表达式、关系，逻辑与算数运算表达式、字符串连接及截取表达式、-->
+                <!--三目运算及Elivis表达式、正则表达式、括号优先级表达式；-->
+            <!--二、类相关表达式：类类型表达式、类实例化、instanceof表达式、变量定义及引用、赋值表达式、-->
+                <!--自定义函数、对象属性存取及安全导航表达式、对象方法调用、Bean引用；-->
+            <!--三、集合相关表达式：内联List、内联数组、集合，字典访问、列表，字典，数组修改、集合投影、-->
+                <!--集合选择；不支持多维内联数组初始化；不支持内联字典定义；-->
+            <!--四、其他表达式：模板表达式。-->
+            <!--注：SpEL表达式中的关键字是不区分大小写的。-->
+        <!--&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-expression</artifactId>-->
+            <!--<version>${spring.version}</version>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
-            <scope>test</scope>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-test</artifactId>-->
+            <!--<version>${spring.version}</version>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
 
 
         <!-- mybatis 包 -->

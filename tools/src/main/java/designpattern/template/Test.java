@@ -15,7 +15,6 @@ public class Test extends Operators {
     @Override
     public void end() {
         System.out.println("begin");
-
     }
 
     public static void main(String[] args) {

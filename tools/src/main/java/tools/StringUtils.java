@@ -2,6 +2,7 @@ package tools;
 
 import lombok.NonNull;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -15,7 +16,6 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unused")
 public final class StringUtils {
     /**
-     * 中文转换为Unicode编码
      * translate chinese to unicode encoding
      *
      * @param chinese chinese code string
@@ -171,5 +171,50 @@ public final class StringUtils {
 
     public static String setter(String beanPropertyName) {
         return "set" + beanPropertyName.substring(0, 1).toUpperCase() + beanPropertyName.substring(1).toLowerCase();
+    }
+
+    public static String getEncoding(String str) {
+        String encode = "GB2312";
+        try {
+            if (str.equals(new String(str.getBytes(encode), encode))) {
+                String s = encode;
+                return s;
+            }
+        } catch (Exception exception) {
+        }
+        encode = "ISO-8859-1";
+        try {
+            if (str.equals(new String(str.getBytes(encode), encode))) {
+                String s1 = encode;
+                return s1;
+            }
+        } catch (Exception exception1) {
+        }
+        encode = "UTF-8";
+        try {
+            if (str.equals(new String(str.getBytes(encode), encode))) {
+                String s2 = encode;
+                return s2;
+            }
+        } catch (Exception exception2) {
+        }
+        encode = "GBK";
+        try {
+            if (str.equals(new String(str.getBytes(encode), encode))) {
+                String s3 = encode;
+                return s3;
+            }
+        } catch (Exception exception3) {
+        }
+        return "";
+    }
+
+    public static String parseBytes(byte[] bytes, String encode) {
+        try {
+            return new String(bytes, "UTF-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 }

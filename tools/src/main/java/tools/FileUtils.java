@@ -151,4 +151,7 @@ public class FileUtils {
         }
         return file.getName();
     }
+
+    public static void scanFile(String filePath, String s) {
+    }
 }
