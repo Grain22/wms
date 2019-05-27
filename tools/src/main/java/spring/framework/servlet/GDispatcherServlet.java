@@ -24,6 +24,7 @@ import java.util.*;
  * @version 5/13/2019 3:31 PM
  */
 public class GDispatcherServlet extends HttpServlet {
+    private static final int BUFFER_SIZE = 1024;
 
     private static final String LOCATION = "contextConfigLocation";
 
@@ -46,7 +47,6 @@ public class GDispatcherServlet extends HttpServlet {
         doInstance();
         doAutowired();
         initHandlerMapping();
-        System.out.println("init successful");
     }
 
     private void initHandlerMapping() {
@@ -147,7 +147,6 @@ public class GDispatcherServlet extends HttpServlet {
         }
     }
 
-
     private void doLoadConfig(String resource) {
         InputStream inputStream = null;
         String[] paths = resource.split(";");
@@ -177,7 +176,6 @@ public class GDispatcherServlet extends HttpServlet {
         }
     }
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);
@@ -191,8 +189,6 @@ public class GDispatcherServlet extends HttpServlet {
             resp.getWriter().write("..." + Arrays.toString(e.getStackTrace()).replaceAll("\\[|\\}]", "").replaceAll(",\\s", "\r\n"));
         }
     }
-
-    private static final int BUFFER_SIZE = 1024;
 
     private void doDispatch(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         if (req.getRequestURI().endsWith(".html")) {
@@ -215,12 +211,12 @@ public class GDispatcherServlet extends HttpServlet {
                 System.out.println((System.currentTimeMillis() - l));
                 return;
             } catch (Exception e) {
-                System.out.println("file not read");
-                String errorMessage = "HTTP/1.1 404 File Not Found\r\n" +
-                        "Content-Type: text/html\r\n" +
-                        "Content-Length: 23\r\n" +
-                        "\r\n" +
-                        "<h1>File Not Found</h1>";
+                String errorMessage =
+                        "HTTP/1.1 404 File Not Found\r\n" +
+                                "Content-Type: text/html\r\n" +
+                                "Content-Length: 23\r\n" +
+                                "\r\n" +
+                                "<h1>File Not Found</h1>";
                 resp.getOutputStream().write(errorMessage.getBytes());
                 return;
             } finally {
