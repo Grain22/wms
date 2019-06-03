@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Level;
 @Log4j2
 public class test {
     public static void main(String[] args) {
-        log.log(Level.DEBUG,"reqrqe{}w{}","fdasfdas","111111111");
         log.log(Level.TRACE,"fdas");
+        log.log(Level.DEBUG,"fdsa");
     }
 }
