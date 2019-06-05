@@ -1,5 +1,5 @@
-.idea
 *.iml
+.idea
 database/target/
 gservletweb/target/
 htmlunit/target/
