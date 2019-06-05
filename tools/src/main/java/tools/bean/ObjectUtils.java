@@ -1,4 +1,4 @@
-package tools;
+package tools.bean;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

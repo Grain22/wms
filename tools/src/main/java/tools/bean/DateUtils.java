@@ -1,4 +1,4 @@
-package tools;
+package tools.bean;
 
 import java.text.DateFormat;
 import java.text.ParseException;

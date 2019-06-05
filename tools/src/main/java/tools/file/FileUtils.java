@@ -1,4 +1,7 @@
-package tools;
+package tools.file;
+
+import tools.CustomerLogger;
+import tools.bean.DateUtils;
 
 import java.io.*;
 import java.net.URL;
@@ -152,6 +155,7 @@ public class FileUtils {
         return file.getName();
     }
 
-    public static void scanFile(String filePath, String s) {
+    public static InputStream getResource(String path){
+        return FileUtils.class.getClassLoader().getResourceAsStream(path);
     }
 }

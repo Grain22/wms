@@ -1,4 +1,4 @@
-package tools;
+package tools.bean;
 
 import java.util.Hashtable;
 import java.util.Map;

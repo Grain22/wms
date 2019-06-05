@@ -15,6 +15,7 @@
         <module>../htmlunit</module>
         <module>../database</module>
         <module>../gservletweb</module>
+        <module>../springbootweb</module>
     </modules>
 
     <dependencies>

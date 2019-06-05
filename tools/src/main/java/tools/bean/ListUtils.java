@@ -1,4 +1,4 @@
-package tools;
+package tools.bean;
 
 import java.util.ArrayList;
 import java.util.List;

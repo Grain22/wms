@@ -1,4 +1,4 @@
-package tools;
+package tools.file;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * @author laowu
  */
-public class ReadExcelToolsPOI {
+public class ExcelUtils extends FileUtils {
     private final static String XLS = "xls";
     private final static String XLSX = "xlsx";
 
@@ -26,8 +26,7 @@ public class ReadExcelToolsPOI {
      * @throws IOException
      */
     public static List<String[]> readExcel(String path) throws IOException {
-        File file = new File(path);
-        return ReadExcelToolsPOI.readExcel(file);
+        return readExcel(getFile(path));
     }
 
     /**
@@ -91,21 +90,14 @@ public class ReadExcelToolsPOI {
     }
 
     public static Workbook getWorkBook(File file) {
-        //获得文件名
         String fileName = file.getName();
-        //创建Workbook工作薄对象，表示整个excel
         Workbook workbook = null;
-        String encoding = "utf8";
-        InputStreamReader read = null;
-        InputStream inputStream = null;
+        InputStream inputStream;
         try {
-            read = new InputStreamReader(
-                    new FileInputStream(file), encoding);
             inputStream = new FileInputStream(file);
             if (fileName.endsWith(XLS)) {
                 workbook = new HSSFWorkbook(inputStream);
             } else if (fileName.endsWith(XLSX)) {
-                //2007
                 workbook = new XSSFWorkbook(inputStream);
             }
         } catch (UnsupportedEncodingException e) {
@@ -123,16 +115,6 @@ public class ReadExcelToolsPOI {
         if (cell == null) {
             return cellValue;
         }
-        //判断数据的类型
-        /*try {
-            cellValue = String.valueOf(cell.getClass().getDeclaredMethod(StringUtils.getter(cell.getCellType().name() + "CellValue")).invoke(cell));
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }*/
         switch (cell.getCellType()) {
             case NUMERIC:
                 cellValue = String.valueOf(cell.getNumericCellValue());

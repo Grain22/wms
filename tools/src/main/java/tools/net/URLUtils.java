@@ -1,6 +1,6 @@
 package tools.net;
 
-import tools.FileUtils;
+import tools.file.FileUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

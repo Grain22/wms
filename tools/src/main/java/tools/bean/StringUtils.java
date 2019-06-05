@@ -1,8 +1,7 @@
-package tools;
+package tools.bean;
 
 import lombok.NonNull;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
