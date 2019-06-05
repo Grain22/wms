@@ -17,7 +17,6 @@
         <module>../gservletweb</module>
         <module>../springbootweb</module>
     </modules>
-
     <dependencies>
         <dependency>
             <groupId>grain</groupId>
