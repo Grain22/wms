@@ -32,3 +32,4 @@ META-INF/
 generator-output/
 /uloo-autoerp-sales/src/main/webapp/ulooerp/build/production/
 uloo-autoerp-sales/src/main/webapp/ulooerp/build/temp/
+/out/
