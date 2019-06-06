@@ -1,3 +1,7 @@
+/**
+ * @author laowu
+ * @version 6/5/2019 5:04 PM
+ */
 public class DynamicDataSourceHolder {
 
     public static final ThreadLocal<String> holder = new ThreadLocal<>();

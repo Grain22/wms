@@ -23,11 +23,6 @@
             <artifactId>core</artifactId>
             <version>20190411</version>
         </dependency>
-        <dependency>
-            <groupId>grain</groupId>
-            <artifactId>tools</artifactId>
-            <version>20190411</version>
-        </dependency>
     </dependencies>
     <build>
         <plugins>
