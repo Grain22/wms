@@ -20,7 +20,7 @@ public class DemoController {
     @GInject
     private DemoService demoService;
 
-    @GRequestMapping("/getInfo")
+    @GRequestMapping("/getMsg")
     public void getInfo(HttpServletRequest request, HttpServletResponse response, @GRequestParam("name") String name) {
         String info = demoService.getInfo(name);
         try {

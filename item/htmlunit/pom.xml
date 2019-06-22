@@ -6,11 +6,32 @@
         <artifactId>item</artifactId>
         <groupId>grain</groupId>
         <version>20190411</version>
-        <relativePath>../item/pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>database</artifactId>
+    <artifactId>htmlunit</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>grain</groupId>
+            <artifactId>database</artifactId>
+            <version>20190411</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sourceforge.htmlunit</groupId>
+            <artifactId>htmlunit</artifactId>
+            <version>2.32</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.11.3</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -23,19 +44,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.version>5.1.6.RELEASE</spring.version>
-        <jackson.version>2.5.0</jackson.version>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-    </dependencies>
-
 </project>

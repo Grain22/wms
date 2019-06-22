@@ -6,7 +6,7 @@
         <artifactId>item</artifactId>
         <groupId>grain</groupId>
         <version>20190411</version>
-        <relativePath>../item/pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 

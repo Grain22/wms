@@ -12,10 +12,12 @@
     <artifactId>item</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>../htmlunit</module>
-        <module>../database</module>
-        <module>../gservletweb</module>
-        <module>../springbootweb</module>
+        <module>htmlunit</module>
+        <module>database</module>
+        <module>gservletweb</module>
+        <module>springbootweb</module>
+        <module>ZookeeperDemo</module>
+        <module>springclouddemo</module>
     </modules>
     <dependencies>
         <dependency>
