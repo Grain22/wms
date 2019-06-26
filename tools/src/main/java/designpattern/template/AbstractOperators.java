@@ -5,7 +5,7 @@ package designpattern.template;
  *  @version    5/7/2019 2:31 PM
  *
 */
-public abstract class Operators {
+public abstract class AbstractOperators {
     public void go(){
         begin();
         then();

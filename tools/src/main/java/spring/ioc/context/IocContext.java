@@ -46,7 +46,7 @@ public class IocContext {
                         Class<?> clazz = Class.forName(packageName + "." + fileName.substring(0, fileName.lastIndexOf(".")));
                         //判断该类是否实现了注解
                         if (clazz.isAnnotationPresent(Component.class)) {
-                            APPLICATION_CONTEXT.put(clazz, clazz.newInstance());
+                            APPLICATION_CONTEXT.put(clazz, clazz.getDeclaredConstructor().newInstance());
                         }
                     } else {
                         addClassByAnnotation(f.getPath(), packageName + "." + fileName);

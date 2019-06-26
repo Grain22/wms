@@ -6,18 +6,29 @@ package webserver.constants;
  * http status
  */
 public enum HttpStatus {
+    /**
+     * pass
+     */
     OK(200),
+    /**
+     * not found
+     */
     NOT_FOUND(404),
+    /**
+     * internal server error
+     */
     INTERNAL_SERVER_ERROR(500),
+    /**
+     * bad request
+     */
     BAD_REQUEST(400),
+    /**
+     * moved temporarily
+     */
     MOVED_TEMPORARILY(302);
     private int code;
 
     HttpStatus(int code) {
         this.code = code;
-    }
-
-    public int getCode() {
-        return code;
     }
 }

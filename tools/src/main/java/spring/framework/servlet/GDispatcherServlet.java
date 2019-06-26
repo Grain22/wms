@@ -111,21 +111,21 @@ public class GDispatcherServlet extends HttpServlet {
                 Class clazz = Class.forName(className);
                 if (clazz.isAnnotationPresent(GController.class)) {
                     String beanName = clazz.getName();
-                    ioc.put(beanName, clazz.newInstance());
+                    ioc.put(beanName, clazz.getDeclaredConstructor().newInstance());
                 } else if (clazz.isAnnotationPresent(GService.class)) {
                     GService service = (GService) clazz.getAnnotation(GService.class);
                     String beanName = service.value();
                     if (!"".equals(beanName.trim())) {
-                        ioc.put(beanName, clazz.newInstance());
+                        ioc.put(beanName, clazz.getDeclaredConstructor().newInstance());
                         continue;
                     }
                     Class[] interfaces = clazz.getInterfaces();
                     if (clazz.isInterface()) {
                         for (Class ifs : interfaces) {
-                            ioc.put(ifs.getName(), clazz.newInstance());
+                            ioc.put(ifs.getName(), clazz.getDeclaredConstructor().newInstance());
                         }
                     } else {
-                        ioc.put(clazz.getName(), clazz.newInstance());
+                        ioc.put(clazz.getName(), clazz.getDeclaredConstructor().newInstance());
                     }
                 } else {
                 }
@@ -190,8 +190,10 @@ public class GDispatcherServlet extends HttpServlet {
         }
     }
 
+    private static String EndWithHTML = ".html";
+
     private void doDispatch(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        if (req.getRequestURI().endsWith(".html")) {
+        if (EndWithHTML.endsWith(req.getRequestURI())) {
             try {
                 String path = new File(this.getClass().getClassLoader().getResource("/").getFile()).getParentFile().getParentFile().getPath();
                 File file = new File(path + req.getRequestURI().replaceFirst(req.getContextPath(), ""));
@@ -201,13 +203,13 @@ public class GDispatcherServlet extends HttpServlet {
                 while ((read = inputStream.read()) != -1) {
                     resp.getOutputStream().write(read);
                 }
-             /*
-                              byte[] data = new byte[BUFFER_SIZE];
-              while (inputStream.read(data, 0, BUFFER_SIZE) != -1) {
-                    System.out.println(StringUtils.parseBytes(data, "UTF-8"));
-                    resp.getOutputStream().write(data, 0, BUFFER_SIZE);
-                    data = new byte[BUFFER_SIZE];
-                }*/
+//                byte[] data = new byte[BUFFER_SIZE];
+//                while (inputStream.read(data, 0, BUFFER_SIZE) != -1) {
+//                    System.out.println(StringUtils.parseBytes(data, "UTF-8"));
+//                    resp.getOutputStream().write(data, 0, BUFFER_SIZE);
+//                    data = new byte[BUFFER_SIZE];
+//                }
+                //
                 System.out.println((System.currentTimeMillis() - l));
                 return;
             } catch (Exception e) {
@@ -220,7 +222,6 @@ public class GDispatcherServlet extends HttpServlet {
                 resp.getOutputStream().write(errorMessage.getBytes());
                 return;
             } finally {
-                return;
             }
         }
         if (this.handlerMapping.isEmpty()) {

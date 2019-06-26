@@ -4,13 +4,17 @@
  */
 public class DynamicDataSourceHolder {
 
-    public static final ThreadLocal<String> holder = new ThreadLocal<>();
+    public static final ThreadLocal<String> HOLDER = new ThreadLocal<>();
 
     public static void putDataSource(String name) {
-        holder.set(name);
+        HOLDER.set(name);
     }
 
     public static String getDataSouce() {
-        return holder.get();
+        return HOLDER.get();
+    }
+
+    public static final void close(){
+        HOLDER.remove();
     }
 }

@@ -36,7 +36,7 @@ class FactoryForB implements produce {
  * @author laowu
  */
 public class AbstractFactory {
-    public void ClientCode(String name) {
+    public void clientCode(String name) {
         food x = new FactoryForA().get();
         x = new FactoryForB().get();
     }

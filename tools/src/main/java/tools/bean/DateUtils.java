@@ -14,7 +14,7 @@ import java.util.GregorianCalendar;
  */
 public class DateUtils {
 
-    private static final Calendar now = new GregorianCalendar();
+    private static final Calendar NOW = new GregorianCalendar();
 
     static final String DATA_PATTERN = "yyyy-MM-dd";
 
@@ -31,27 +31,27 @@ public class DateUtils {
     }
 
     public static int getCurrentYear() {
-        return now.get(Calendar.YEAR);
+        return NOW.get(Calendar.YEAR);
     }
 
     public static int getCurrentMonth() {
-        return now.get(Calendar.MONTH) + 1;
+        return NOW.get(Calendar.MONTH) + 1;
     }
 
     public static int getCurrentDay() {
-        return now.get(Calendar.DAY_OF_MONTH);
+        return NOW.get(Calendar.DAY_OF_MONTH);
     }
     public static int getCurrentHour() {
-        return now.get(Calendar.HOUR_OF_DAY);
+        return NOW.get(Calendar.HOUR_OF_DAY);
     }
     public static int getCurrentMinute() {
-        return now.get(Calendar.MINUTE);
+        return NOW.get(Calendar.MINUTE);
     }
     public static int getCurrentSecond() {
-        return now.get(Calendar.SECOND);
+        return NOW.get(Calendar.SECOND);
     }
     public static int getCurrentMillisecond() {
-        return now.get(Calendar.MILLISECOND);
+        return NOW.get(Calendar.MILLISECOND);
     }
     /**
      * get year month string length 6
@@ -65,33 +65,33 @@ public class DateUtils {
     }
 
     /**
-     * get now time string
+     * get NOW time string
      *
      * @return yyyy-MM-dd
      */
     public static String getTimeString() {
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        return format.format(now.getTime());
+        return format.format(NOW.getTime());
     }
 
     /**
-     * get now time string
+     * get NOW time string
      *
      * @return yyyy-MM-dd-HH-mm-ss
      */
     public static String getTimeStringFull() {
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-        return format.format(now.getTime());
+        return format.format(NOW.getTime());
     }
 
     /**
-     * get now time string
+     * get NOW time string
      *
      * @return yyyy-MM-dd-HH-mm-ss-SSS
      */
     public static String getTimeStringLong() {
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS");
-        return format.format(now.getTime());
+        return format.format(NOW.getTime());
     }
 
     /**
@@ -107,18 +107,18 @@ public class DateUtils {
     }
 
     /**
-     * if before now
+     * if before NOW
      * check min limit : all
      *
      * @param date
      * @return true/false
      */
     public static boolean ifBeforeNow(Date date) {
-        return getCalender(date).before(now);
+        return getCalender(date).before(NOW);
     }
 
     /**
-     * if before now
+     * if before NOW
      * check min limit : month
      *
      * @param year  compare year

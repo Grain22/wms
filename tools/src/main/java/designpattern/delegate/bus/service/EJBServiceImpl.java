@@ -2,12 +2,12 @@ package designpattern.delegate.bus.service;
 
 /**
  *  @author     laowu
- *  @version    5/6/2019 2:05 PM
+ *  @version    5/6/2019 2:04 PM
  *
 */
-public class JMSService implements BusinessService {
+public class EJBServiceImpl implements BusinessService {
     @Override
     public void doProcessing() {
-        System.out.println("jms");
+        System.out.println("ejb");
     }
 }

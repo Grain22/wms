@@ -2,14 +2,17 @@ package tools.bean;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 /**
  * @author laowu
  */
 public class BigDecimalUtils {
+    private static int scale = 2;
+
     public static final String getRateInTwoBigdecimal(BigDecimal b1, BigDecimal b2) {
-        return b1.divide(b1.add(b2), 2, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)).divide(new BigDecimal(1), 0, BigDecimal.ROUND_HALF_UP).toString() + "/" + b2.divide(b1.add(b2), 2, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)).divide(new BigDecimal(1), 0, BigDecimal.ROUND_HALF_UP).toString();
+        return b1.divide(b1.add(b2), scale, RoundingMode.HALF_UP).multiply(new BigDecimal(100)).divide(new BigDecimal(1), 0, RoundingMode.HALF_UP).toString() + "/" + b2.divide(b1.add(b2), scale, RoundingMode.HALF_UP).multiply(new BigDecimal(100)).divide(new BigDecimal(1), 0, RoundingMode.HALF_UP).toString();
     }
 
     public static boolean isEmpty(BigDecimal temp) {

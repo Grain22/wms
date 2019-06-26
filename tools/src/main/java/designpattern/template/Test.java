@@ -1,6 +1,6 @@
 package designpattern.template;
 
-public class Test extends Operators {
+public class Test extends AbstractOperators {
     @Override
     public void begin() {
         System.out.println("begin");
@@ -18,7 +18,7 @@ public class Test extends Operators {
     }
 
     public static void main(String[] args) {
-        Operators t = new Test();
+        AbstractOperators t = new Test();
         t.go();
     }
 }
