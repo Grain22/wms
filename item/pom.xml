@@ -17,6 +17,7 @@
         <module>gservletweb</module>
         <module>springbootweb</module>
         <module>springclouddemo</module>
+        <module>redisDemo</module>
     </modules>
     <dependencies>
         <dependency>
