@@ -1,2 +1,7 @@
-# wms
-##	this project is used for testing
+# 项目主要为日常学习测试所用
+
+tools 目录下主要为常用工具,模板,框架等测试位置
+
+item 目录下主要为项目结构测试位置
+
+内容比较随意
