@@ -18,6 +18,8 @@
         <module>springbootweb</module>
         <module>springclouddemo</module>
         <module>redisDemo</module>
+        <module>zookeeperdemo</module>
+        <module>dubbodemo</module>
     </modules>
     <dependencies>
         <dependency>
