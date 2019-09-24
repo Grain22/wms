@@ -1,3 +1,8 @@
 *.iml
+.project
+.classpath
+.factorypath
 .idea
-*/target/
+target/
+.svn/
+.settings/
