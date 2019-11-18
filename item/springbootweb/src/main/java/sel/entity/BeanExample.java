@@ -15,6 +15,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 @NoArgsConstructor
 @Accessors(chain = true)
 @EntityScan
-public class TB {
+public class BeanExample {
     private String testBeanValue;
 }

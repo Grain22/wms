@@ -2,7 +2,7 @@ package sel.serv.service;
 
 
 import org.springframework.stereotype.Service;
-import sel.entity.TB;
+import sel.entity.BeanExample;
 
 /**
  * @author laowu
@@ -11,7 +11,7 @@ import sel.entity.TB;
 @Service
 public class ServiceExample {
     public String getVal(){
-        TB tb = new TB().setTestBeanValue("test");
-        return tb.getTestBeanValue();
+        BeanExample beanExample = new BeanExample().setTestBeanValue("test");
+        return beanExample.getTestBeanValue();
     }
 }
