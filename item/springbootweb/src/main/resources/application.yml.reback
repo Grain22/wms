@@ -1,2 +1,21 @@
-server :
-  port : 8080
+server:
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:informix-sqli://10.1.69.150:7779/grain_test1:informixserver=dbserver;NEWLOCALE=zh_CN,en_us;NEWCODESET=gbk,8859-1,819;IFX_LOCK_MODE_WAIT=10
+    driver-class-name: com.informix.jdbc.IfxDriver
+    username: gansu
+    password: 1QAZ@wsx
+#    tomcat:
+#      max-active: 10
+#      initial-size: 2
+#      min-idle: 2
+#      max-idle: 100
+#      remove-abandoned: true
+  jpa:
+    show-sql: true
+    database: informix
+    hibernate:
+      ddl-auto: none
+
+    open-in-view: true

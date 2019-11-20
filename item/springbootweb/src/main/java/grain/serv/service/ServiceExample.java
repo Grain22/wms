@@ -2,10 +2,10 @@ package grain.serv.service;
 
 
 import grain.dao.UserInfoMapper;
+import grain.entity.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import grain.entity.BeanExample;
-import grain.entity.UserInfo;
 
 
 /**
