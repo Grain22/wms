@@ -1,6 +1,6 @@
-package sel.grain.controller;
+package grain.grain.controller;
 
-import sel.grain.service.DemoService;
+import grain.grain.service.DemoService;
 import spring.framework.annotation.GController;
 import spring.framework.annotation.GInject;
 import spring.framework.annotation.GRequestMapping;

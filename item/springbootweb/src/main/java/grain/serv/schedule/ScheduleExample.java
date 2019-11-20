@@ -1,4 +1,4 @@
-package sel.serv.schedule;
+package grain.serv.schedule;
 
 
 import org.springframework.scheduling.annotation.Scheduled;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ScheduleExample {
 
-    @Scheduled(cron = "*/5 * * * * *")
+    @Scheduled(cron = "* */1 * * * *")
     public void excuteExample(){
         System.out.println("spring boot schedule example is on");
     }

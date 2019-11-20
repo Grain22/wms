@@ -1,4 +1,4 @@
-package sel.grain.service;
+package grain.grain.service;
 
 import spring.framework.annotation.GService;
 
