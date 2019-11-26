@@ -1,4 +1,4 @@
-package grain.entity;
+package grain.config.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,14 +7,18 @@ import lombok.experimental.Accessors;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 /**
- * @author laowu
- * @version 6/5/2019 3:04 PM
+ * @author grain
  */
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Accessors(chain = true)
 @EntityScan
-public class BeanExample {
-    private String testBeanValue;
+public class CustomerError extends Error {
+
+    private Long code;
+    private String message;
+    private String url;
+    private String serverName;
+
 }

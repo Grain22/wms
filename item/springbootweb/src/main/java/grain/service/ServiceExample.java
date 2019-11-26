@@ -1,7 +1,7 @@
-package grain.serv.service;
+package grain.service;
 
 
-import grain.dao.UserInfoMapper;
+import grain.dao.UserInfoDao;
 import grain.entity.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,15 +16,15 @@ import grain.entity.BeanExample;
 public class ServiceExample {
 
     @Autowired
-    private UserInfoMapper userInfoMapper;
+    private UserInfoDao userInfoDao;
 
     public String getVal(){
         BeanExample beanExample = new BeanExample().setTestBeanValue("test");
         return beanExample.getTestBeanValue();
     }
 
-    public Iterable<UserInfo> getAll(){
-        return userInfoMapper.findAll();
+    public UserInfo getAll(){
+        return userInfoDao.findById(1).get();
     }
 
 }

@@ -1,7 +1,9 @@
 package tools.bean;
 
 import lombok.NonNull;
+import tools.bean.DateUtils;
 
+import javax.print.DocFlavor;
 import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -14,13 +16,18 @@ import java.util.stream.Collectors;
  */
 @SuppressWarnings("unused")
 public final class StringUtils {
+
+    public static void main(String[] args) {
+        String s = "\u5FC3\u8DF3\u914D\u7F6E";
+    }
+
     /**
      * translate chinese to unicode encoding
      *
      * @param chinese chinese code string
      * @return 编码转换结果
      */
-    public String getUnicode(final String chinese) {
+    public static String getUnicode(final String chinese) {
         char[] utfBytes = chinese.toCharArray();
         StringBuilder unicodeBytes = new StringBuilder();
         for (char utfByte : utfBytes) {

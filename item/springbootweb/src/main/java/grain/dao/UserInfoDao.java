@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
  * @author wulifu
  */
 @Repository
-public interface UserInfoMapper extends JpaRepository<UserInfo,Integer> {
+public interface UserInfoDao extends JpaRepository<UserInfo,Integer> {
     /**
      * find all by id
      * @param begin primary key

@@ -1,10 +1,10 @@
-package grain.cont.controller;
+package grain.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import grain.serv.service.ServiceExample;
+import grain.service.ServiceExample;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("test")
 public class ControllerExample {
-    /*@Controller need @ResponseBody*/
-    /*@RestController do not need @ResponseBody*/
-
     @Autowired
     private ServiceExample serviceExample;
 
@@ -25,6 +22,7 @@ public class ControllerExample {
         return serviceExample.getVal();
     }
 
+    /*@Transactional(isolation = Isolation.READ_UNCOMMITTED)*/
     @RequestMapping("getData")
     public String getData(){
         return serviceExample.getAll().toString();
