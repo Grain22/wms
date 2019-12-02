@@ -21,8 +21,31 @@ public class ImageUtils {
 
     public static void main(String[] args) throws IOException {
         BufferedImage a = cleanFormat(getImg(pic));
-        BufferedImage b = sub(a, 350,60,700,580);
-        writePng(b, tem);
+        writePng(addWord(a,"rewqrewqreqwrewq",new Font("宋体",Font.PLAIN,40),600,600), tem);
+    }
+
+    /**
+     * 简单文字添加
+     * @param bufferedImage
+     * @param s
+     * @param font
+     * @param x
+     * @param y
+     * @return
+     */
+    private static BufferedImage addWord(BufferedImage bufferedImage, String s, Font font,int x,int y) {
+        Graphics2D graphics = bufferedImage.createGraphics();
+        graphics.setColor(Color.BLACK);
+        graphics.setFont(font);
+        graphics.drawString(s,x,y);
+        return bufferedImage;
+    }
+
+    private static BufferedImage addPic(BufferedImage base, BufferedImage add, int x, int y) {
+        Graphics2D graphics = base.createGraphics();
+        graphics.drawImage(add, x, y, null);
+        graphics.dispose();
+        return base;
     }
 
     /**
