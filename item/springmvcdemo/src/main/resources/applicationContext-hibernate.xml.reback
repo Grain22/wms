@@ -9,23 +9,23 @@
     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
 
 
-	<bean id="baseDao" class="com.ebupt.dao.hibernate.BaseDaoHibernate">
+	<bean id="baseDao" class="grain.dao.dao.hibernate.BaseDaoHibernate">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-	<bean id="openInterfaceDao" class="com.ebupt.vrbt.OpenInterface.dao.OpenInterfaceDaoImpl" parent="baseDao" />
+	<bean id="openInterfaceDao" class="grain.dao.vrbt.OpenInterface.dao.OpenInterfaceDaoImpl" parent="baseDao" />
 	
-	<bean id="sysAppInfoDao" class="com.ebupt.vrbt.OpenInterface.dao.SysAppInfoDaoImpl" parent="baseDao" />
+	<bean id="sysAppInfoDao" class="grain.dao.vrbt.OpenInterface.dao.SysAppInfoDaoImpl" parent="baseDao" />
 	
 	<bean id="trimInterceptor"
-		class="com.ebupt.util.hibernate.StringTrimInterceptor" />
+		class="grain.dao.util.hibernate.StringTrimInterceptor" />
 
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="packagesToScan">
 			<list>
-				<value>com.ebupt.vrbt.OpenInterface.pojotest</value>
+				<value>grain.dao.vrbt.OpenInterface.pojotest</value>
 			</list>
 		</property>
 
@@ -51,7 +51,7 @@
 	</bean>
 
 	<bean id="dataSourceTarget"
-		class="com.ebupt.util.informix.InformixDataSource"
+		class="grain.dao.util.informix.InformixDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="${jdbc.driverClassName}" />
 		<property name="primaryUrl" value="${jdbc.primaryurl}" />
