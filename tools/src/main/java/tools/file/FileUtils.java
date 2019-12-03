@@ -158,4 +158,12 @@ public class FileUtils {
     public static InputStream getResource(String path){
         return FileUtils.class.getClassLoader().getResourceAsStream(path);
     }
+
+    public static String getSuffix(String path) {
+        String[] split = path.split("\\.");
+        if (split.length > 0) {
+            return split[split.length-1];
+        }
+        return "";
+    }
 }
