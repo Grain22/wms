@@ -1,8 +1,14 @@
 package tools.thread;
 
+import lombok.Data;
+
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicLong;
 
+/**
+ * @author Grain
+ * @apiNote 自定义线程池创建规则
+ */
 public class CustomThreadFactoryBuilder {
     private String namePrefix = null;
     private boolean daemon = false;

@@ -109,7 +109,6 @@ public class ImageUtils {
         Rectangle rectangle = CalcRotatedSize(new Rectangle(new Dimension(width, height)), angle);
         BufferedImage image = new BufferedImage(rectangle.width, rectangle.height, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics = image.createGraphics();
-//        image = graphics.getDeviceConfiguration().createCompatibleImage(rectangle.width, rectangle.height, Transparency.TRANSLUCENT);
         image = getTranslucent(rectangle.width, rectangle.height);
         graphics.dispose();
         graphics = image.createGraphics();

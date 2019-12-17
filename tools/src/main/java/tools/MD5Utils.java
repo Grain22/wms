@@ -46,7 +46,7 @@ public class MD5Utils {
     public static void main(String[] args)
     {
 
-        String data = "189022881112011111118:09sz0000123456789987654321";
+        String data = "GD20190813000120191209163200";
         System.out.println(MD5Encode(data));
     }
 }
