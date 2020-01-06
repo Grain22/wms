@@ -21,7 +21,7 @@ public class Client {
 
     private Client() {
         try {
-            int port = 8888;
+            int port = 9999;
             socket = new Socket("127.0.0.1", port);
             Constants.socket_client.submit(new ClientSender());
             BufferedReader br = new BufferedReader(

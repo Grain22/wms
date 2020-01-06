@@ -20,7 +20,6 @@
         <module>redisDemo</module>
         <module>zookeeperdemo</module>
         <module>dubbodemo</module>
-        <module>springmvcdemo</module>
     </modules>
     <dependencies>
         <dependency>

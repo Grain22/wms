@@ -41,7 +41,7 @@ public class Server {
     }
 
     private void init() throws IOException {
-        port = 8888;
+        port = 9999;
         clients = new ArrayList<>();
         server = new ServerSocket(port);
     }
@@ -78,6 +78,7 @@ public class Server {
                 br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 msg = socket.getInetAddress() + " " + clients.size();
                 sendMsg();
+                byte[] byteData = new byte[99];
                 while ((msg = br.readLine()) != null) {
                     msg = socket.getInetAddress() + " " + msg;
                     sendMsg();

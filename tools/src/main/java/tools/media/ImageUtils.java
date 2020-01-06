@@ -1,9 +1,17 @@
 package tools.media;
 
+import com.jhlabs.image.BoxBlurFilter;
+import com.jhlabs.image.GammaFilter;
+import com.jhlabs.image.PointFilter;
+import com.jhlabs.image.TransferFilter;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
+
 import javax.imageio.ImageIO;
 import javax.print.Doc;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
 import java.io.File;
 import java.io.IOException;
 
@@ -15,17 +23,22 @@ public class ImageUtils {
     public static final String jpg = "jpg";
     public static final String png = "png";
 
-    private static final String pic = "F:\\interesting\\987852-164246395.png";
-    private static final String tem = "F:\\interesting\\save.png";
-    private static final String tems = "F:\\interesting\\";
+    private static final String pic = "C:\\Users\\wulifu\\Desktop\\20191220142914_4_ykBDMbZoCenVIhCS9dEjkjPR4UoBVcxMruKRGcmzkeq8QVRPFw.png";
+    private static final String tem = "C:\\Users\\wulifu\\Desktop\\res.png";
 
     public static void main(String[] args) throws IOException {
         BufferedImage a = cleanFormat(getImg(pic));
-        writePng(addWord(a,"rewqrewqreqwrewq",new Font("宋体",Font.PLAIN,40),600,600), tem);
+        BufferedImage b = new BufferedImage(a.getWidth(), a.getHeight(), a.getType());
+        BoxBlurFilter filter = new BoxBlurFilter(12.0f,22.0f,10);
+//        filter = new GammaFilter();
+//        filter.setGamma(0.09f);
+        filter.filter(a, b);
+        writePng(b, tem);
     }
 
     /**
      * 简单文字添加
+     *
      * @param bufferedImage
      * @param s
      * @param font
@@ -33,11 +46,11 @@ public class ImageUtils {
      * @param y
      * @return
      */
-    private static BufferedImage addWord(BufferedImage bufferedImage, String s, Font font,int x,int y) {
+    private static BufferedImage addWord(BufferedImage bufferedImage, String s, Font font, int x, int y) {
         Graphics2D graphics = bufferedImage.createGraphics();
         graphics.setColor(Color.BLACK);
         graphics.setFont(font);
-        graphics.drawString(s,x,y);
+        graphics.drawString(s, x, y);
         return bufferedImage;
     }
 
@@ -50,25 +63,29 @@ public class ImageUtils {
 
     /**
      * 裁剪
-     * @param bufferedImage
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @return
      */
-    private static BufferedImage sub(BufferedImage bufferedImage, int x, int y, int width, int height) {
-        return bufferedImage.getSubimage(x, y, width, height);
+    private static BufferedImage sub(BufferedImage image, int x, int y, int width, int height) {
+        if (x >= image.getWidth() || y >= image.getHeight()) {
+            throw new RuntimeException("选取范围有误");
+        }
+        if (image.getWidth() < x + width) {
+            width = image.getWidth() - x;
+        }
+        if (image.getHeight() < y + height) {
+            height = image.getHeight() - y;
+        }
+        return image.getSubimage(x, y, width, height);
     }
 
     /**
      * 缩放图片
+     *
      * @param bufferedImage
-     * @param width 缩放后宽度
-     * @param height 缩放后高度
+     * @param width         缩放后宽度
+     * @param height        缩放后高度
      * @return
      */
-    public static BufferedImage resize(BufferedImage bufferedImage,  int width, int height){
+    public static BufferedImage resize(BufferedImage bufferedImage, int width, int height) {
         BufferedImage image = getTranslucent(width, height);
         Graphics graphics = image.getGraphics();
         graphics.drawImage(bufferedImage, 0, 0, width, height, null);
@@ -79,6 +96,7 @@ public class ImageUtils {
 
     /**
      * 有损旋转
+     *
      * @param bufferedImage
      * @param angle
      * @return
@@ -99,6 +117,7 @@ public class ImageUtils {
 
     /**
      * 无损旋转
+     *
      * @param bufferedImage
      * @param angle
      * @return
@@ -120,12 +139,13 @@ public class ImageUtils {
 
     /**
      * 获取蒙版
+     *
      * @param width
      * @param height
      * @return
      */
-    public static BufferedImage getTranslucent(int width,int height) {
-        return new BufferedImage(1,1,BufferedImage.TYPE_3BYTE_BGR).createGraphics().getDeviceConfiguration().createCompatibleImage(width,height,Transparency.TRANSLUCENT);
+    public static BufferedImage getTranslucent(int width, int height) {
+        return new BufferedImage(1, 1, BufferedImage.TYPE_3BYTE_BGR).createGraphics().getDeviceConfiguration().createCompatibleImage(width, height, Transparency.TRANSLUCENT);
     }
 
     public static Rectangle CalcRotatedSize(Rectangle src, int angel) {
@@ -140,18 +160,15 @@ public class ImageUtils {
         }
 
         double r = Math.sqrt(src.height * src.height + src.width * src.width) / 2;
-        double len = 2 * Math.sin(Math.toRadians(angel) / 2) * r;
-        double angel_alpha = (Math.PI - Math.toRadians(angel)) / 2;
-        double angel_dalta_width = Math.atan((double) src.height / src.width);
-        double angel_dalta_height = Math.atan((double) src.width / src.height);
-
-        int len_dalta_width = (int) (len * Math.cos(Math.PI - angel_alpha
-                - angel_dalta_width));
-        int len_dalta_height = (int) (len * Math.cos(Math.PI - angel_alpha
-                - angel_dalta_height));
-        int des_width = src.width + len_dalta_width * 2;
-        int des_height = src.height + len_dalta_height * 2;
-        return new Rectangle(new Dimension(des_width, des_height));
+        double length = 2 * Math.sin(Math.toRadians(angel) / 2) * r;
+        double angelAlpha = (Math.PI - Math.toRadians(angel)) / 2;
+        double angelDeltaWidth = Math.atan((double) src.height / src.width);
+        double angelDeltaHeight = Math.atan((double) src.width / src.height);
+        int lenDeltaWidth = (int) (length * Math.cos(Math.PI - angelAlpha - angelDeltaWidth));
+        int lenDeltaHeight = (int) (length * Math.cos(Math.PI - angelAlpha - angelDeltaHeight));
+        int desWidth = src.width + lenDeltaWidth * 2;
+        int desHeight = src.height + lenDeltaHeight * 2;
+        return new Rectangle(new Dimension(desWidth, desHeight));
     }
 
     public static BufferedImage getImg(String string) throws IOException {
@@ -164,6 +181,7 @@ public class ImageUtils {
 
     /**
      * 清理格式信息
+     *
      * @param bufferedImage
      * @return
      */
