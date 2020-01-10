@@ -1,10 +1,9 @@
 package net.socket.client;
 
 import net.socket.constants.Constants;
+import net.utils.DataUtils;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 
 /**
@@ -15,14 +14,18 @@ public class Client {
 
     private Socket socket = null;
 
+    int port = 9999;
+
+    String host = "127.0.0.1";
+
     public static void main(String[] args) {
         new Client();
     }
 
+
     private Client() {
         try {
-            int port = 9999;
-            socket = new Socket("127.0.0.1", port);
+            socket = new Socket(host, port);
             Constants.socket_client.submit(new ClientSender());
             BufferedReader br = new BufferedReader(
                     new InputStreamReader(
@@ -36,6 +39,27 @@ public class Client {
     }
 
     class ClientSender implements Runnable {
+        @Override
+        public void run() {
+            try {
+                DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
+                //Msg msg = Msg.temMsg();
+                //dataOutputStream.write(msg.getMsg());
+                DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
+                byte[] bytes = new byte[10];
+                dataInputStream.read(bytes);
+                String ipId = DataUtils.getString(DataUtils.getData(bytes, 0, 3));
+                Integer messageId = DataUtils.getInt(DataUtils.getData(bytes, 3, 4));
+                String cmd = DataUtils.getString(DataUtils.getData(bytes,7,1));
+                String result = DataUtils.getString(DataUtils.getData(bytes, 8, 1));
+                String endFlag = DataUtils.getString(DataUtils.getData(bytes, 9, 1));
+                socket.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    class ClientSenderForChat implements Runnable {
         @Override
         public void run() {
             try {

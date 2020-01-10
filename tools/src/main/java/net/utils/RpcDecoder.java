@@ -6,14 +6,11 @@ import io.netty.handler.codec.ByteToMessageDecoder;
 
 import java.util.List;
 
+
+/**
+ * @author wulifu
+ */
 public class RpcDecoder extends ByteToMessageDecoder {
-
-    //目标对象类型进行解码
-    private Class<?> target;
-
-    public RpcDecoder(Class target) {
-        this.target = target;
-    }
 
     @Override
     protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> list) throws Exception {

@@ -75,12 +75,12 @@ public class FileUtils {
      * @param pathWithName path name
      * @return string list
      */
-    private static List<String> readFromFile(String pathWithName) {
+    public static List<String> readFromFile(String pathWithName) {
         String encoding = "utf8";
         return readFromFile(pathWithName, encoding);
     }
 
-    private static List<String> readFromFile(String pathWithName, String encoding) {
+    public static List<String> readFromFile(String pathWithName, String encoding) {
         File file = new File(pathWithName);
         if (file.isFile() && file.exists()) {
             List<String> list = new ArrayList<>();
@@ -121,6 +121,22 @@ public class FileUtils {
         return dir.delete();
     }
 
+    public static ArrayList<String> getAllFilePaths(File filePath,ArrayList<String> filePaths) {
+        File[] files = filePath.listFiles();
+        if (files == null) {
+            return filePaths;
+        }
+        for (File f : files) {
+            if (f.isDirectory()) {
+                filePaths.add(f.getPath());
+                getAllFilePaths(f, filePaths);
+            } else {
+                filePaths.add(f.getPath());
+            }
+        }
+        return filePaths;
+    }
+
     public static File getFile(String s) {
         try {
             File file;
@@ -155,14 +171,14 @@ public class FileUtils {
         return file.getName();
     }
 
-    public static InputStream getResource(String path){
+    public static InputStream getResource(String path) {
         return FileUtils.class.getClassLoader().getResourceAsStream(path);
     }
 
     public static String getSuffix(String path) {
         String[] split = path.split("\\.");
         if (split.length > 0) {
-            return split[split.length-1];
+            return split[split.length - 1];
         }
         return "";
     }

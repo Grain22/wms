@@ -37,7 +37,7 @@ public class CustomerLogger {
     }
 
     public final String log(Object str) {
-        return log(str.toString(), (Object) null);
+        return log(str.toString(),  null);
     }
 
     public String log(String str, Object... strList) {

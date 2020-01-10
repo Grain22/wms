@@ -9,11 +9,17 @@ import java.util.concurrent.*;
 public class CustomThreadPool {
 
 
-    private static boolean isDaemon = false;
+    public static boolean is_daemon = false;
+    public static int maximum_pool_size = 20;
+    public static int core_pool_size = 5;
+    public static long keep_alive_time = 0L;
 
+    public static void main(String[] args) {
+        System.out.println(System.currentTimeMillis());
+    }
 
     public static ExecutorService createThreadPool(String namePrefix) {
-        return createThreadPool(namePrefix, isDaemon, Thread.MAX_PRIORITY);
+        return createThreadPool(namePrefix, is_daemon, Thread.NORM_PRIORITY);
     }
 
     public static ExecutorService createThreadPool(String namePrefix, boolean isDaemon, int priority) {
@@ -23,15 +29,14 @@ public class CustomThreadPool {
                 .setPriority(priority)
                 .build();
 
-        ExecutorService executorService = new ThreadPoolExecutor(
-                5,
-                200,
-                0L,
+        return new ThreadPoolExecutor(
+                core_pool_size,
+                maximum_pool_size,
+                keep_alive_time,
                 TimeUnit.MILLISECONDS,
-                new LinkedBlockingQueue<Runnable>(1024),
+                new LinkedBlockingQueue<>(1024),
                 threadFactory,
                 new ThreadPoolExecutor.AbortPolicy());
-        return executorService;
     }
 
 }

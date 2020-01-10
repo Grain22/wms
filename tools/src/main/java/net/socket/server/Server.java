@@ -1,11 +1,10 @@
 package net.socket.server;
 
+import net.Msg;
+import net.utils.DataUtils;
 import tools.thread.CustomThreadPool;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -18,25 +17,12 @@ import java.util.concurrent.ExecutorService;
  */
 public class Server {
 
-    /**
-     * 5/13/2019 端口
-     */
     int port;
-    /**
-     * 5/13/2019 clients
-     */
     List<Socket> clients;
-    /**
-     * 5/13/2019 server
-     */
     ServerSocket server;
-    /**
-     * 5/13/2019 clients thread pool
-     */
     ExecutorService socketTest = CustomThreadPool.createThreadPool("socketTest");
 
     public static void main(String[] args) {
-        /** 5/13/2019 启动服务 */
         new Server();
     }
 
@@ -64,11 +50,35 @@ public class Server {
 
     class ConnectionHandle implements Runnable {
         Socket socket;
+        public Msg msg = new Msg();
+
+        public ConnectionHandle(Socket s) {
+            socket = s;
+        }
+
+        @Override
+        public void run() {
+            try {
+                DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
+                byte[] bytes = new byte[99];
+                dataInputStream.read(bytes);
+                msg.setData(0, 99, bytes);
+                System.out.println(DataUtils.getInt(msg.getData(3, 4)));
+                System.out.println(DataUtils.getString(msg.getData(81, 17)).trim());
+                System.out.println(DataUtils.getString(msg.getData(28, 20)).trim());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    class ConnectionHandleForChat implements Runnable {
+        Socket socket;
         private BufferedReader br;
         private PrintWriter pw;
         public String msg;
 
-        public ConnectionHandle(Socket s) {
+        public ConnectionHandleForChat(Socket s) {
             socket = s;
         }
 
