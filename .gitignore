@@ -2,6 +2,7 @@
 .project
 .classpath
 .factorypath
+.log
 .idea
 target/
 .svn/
