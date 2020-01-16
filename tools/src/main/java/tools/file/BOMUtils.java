@@ -2,14 +2,11 @@ package tools.file;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * @author wulifu
  */
 public class BOMUtils {
-
-    static String examplefilepath ="D:/code/idea/ebupt/ebupt/liantong/vrbt-openinterface/1.3.1/src/main/java/com/ebupt/vrbt/OpenInterface/pojo/UserDepot.java";
 
     public static void removeBom(String filepath){
         try {
@@ -29,12 +26,5 @@ public class BOMUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        String parent = "D:/code/idea/ebupt/ebupt/liantong/vrbt-openinterface";
-        ArrayList<String> allFilePaths = FileUtils.getAllFilePaths(new File(parent), new ArrayList<>());
-        System.out.println(allFilePaths);
-        allFilePaths.forEach(a->removeBom(a));
     }
 }
