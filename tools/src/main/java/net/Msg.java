@@ -13,6 +13,17 @@ public class Msg {
     @Setter
     private byte[] msg = new byte[data_size];
 
+    public static void main(String[] args) {
+        byte[] bytes = new byte[99];
+        for (int i = 0 ; i< 99  ; i++){
+            bytes[i] = padding;
+        }
+        bytes[98] = '#';
+        for (byte aByte : bytes) {
+            System.out.println(aByte);
+        }
+        System.out.println(padding);
+    }
 
     public void setData(int begin, int length, byte[] data) {
         for (int i = 0; i < length; i++) {

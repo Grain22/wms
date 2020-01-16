@@ -1,6 +1,9 @@
 package tools.thread;
 
-import java.util.concurrent.*;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author laowu
@@ -18,25 +21,32 @@ public class CustomThreadPool {
         System.out.println(System.currentTimeMillis());
     }
 
-    public static ExecutorService createThreadPool(String namePrefix) {
+    public static ThreadPoolExecutor createThreadPool(String namePrefix) {
         return createThreadPool(namePrefix, is_daemon, Thread.NORM_PRIORITY);
     }
 
-    public static ExecutorService createThreadPool(String namePrefix, boolean isDaemon, int priority) {
+    public static ThreadPoolExecutor createThreadPool(String namePrefix, boolean isDaemon, int priority) {
+        return createThreadPool(namePrefix,
+                isDaemon,
+                priority,
+                core_pool_size,
+                maximum_pool_size,
+                keep_alive_time);
+    }
+
+    public static ThreadPoolExecutor createThreadPool(String namePrefix, boolean isDaemon, int priority, int corePoolSize, int maximumPoolSize, long keepAliveTime) {
         ThreadFactory threadFactory = new CustomThreadFactoryBuilder()
                 .setNamePrefix(namePrefix)
                 .setDaemon(isDaemon)
                 .setPriority(priority)
                 .build();
-
         return new ThreadPoolExecutor(
-                core_pool_size,
-                maximum_pool_size,
-                keep_alive_time,
+                corePoolSize,
+                maximumPoolSize,
+                keepAliveTime,
                 TimeUnit.MILLISECONDS,
-                new LinkedBlockingQueue<>(1024),
+                new LinkedBlockingQueue<>(102400),
                 threadFactory,
                 new ThreadPoolExecutor.AbortPolicy());
     }
-
 }

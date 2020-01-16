@@ -45,7 +45,7 @@ public class FileUtils {
         writeToFile(strings, filePath + separator + fileName);
     }
 
-    private static void writeToFile(List<String> strings, String pathWithName) {
+    public static void writeToFile(List<String> strings, String pathWithName) {
         try {
             File file;
             if (Objects.isNull(pathWithName)) {
