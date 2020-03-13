@@ -136,7 +136,7 @@ public class DateUtils {
     }
 
     /**
-     * delete under hour
+     * delete elements after hour
      *
      * @param calendar date
      * @return hour = 0 ...

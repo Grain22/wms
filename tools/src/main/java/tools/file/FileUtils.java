@@ -108,11 +108,10 @@ public class FileUtils {
             return false;
         }
         if (dir.isDirectory()) {
-            String[] childs = dir.list();
-            if (childs != null) {
-                for (String child : childs) {
-                    boolean success = deleteDir(new File(dir, child));
-                    if (!success) {
+            String[] childes = dir.list();
+            if (childes != null) {
+                for (String child : childes) {
+                    if (!deleteDir(new File(dir, child))) {
                         return false;
                     }
                 }
@@ -121,7 +120,7 @@ public class FileUtils {
         return dir.delete();
     }
 
-    public static ArrayList<String> getAllFilePaths(File filePath,ArrayList<String> filePaths) {
+    public static ArrayList<String> getAllFilePaths(File filePath, ArrayList<String> filePaths) {
         File[] files = filePath.listFiles();
         if (files == null) {
             return filePaths;
