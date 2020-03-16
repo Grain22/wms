@@ -28,7 +28,7 @@ public class Client {
     private Client() {
         try {
             socket = new Socket(host, port);
-            Constants.socket_client.submit(new ClientSender());
+            Constants.socket_client.submit(new ClientSenderForData());
             BufferedReader br = new BufferedReader(
                     new InputStreamReader(
                             socket.getInputStream()));
@@ -40,13 +40,11 @@ public class Client {
         }
     }
 
-    class ClientSender implements Runnable {
+    class ClientSenderForData implements Runnable {
         @Override
         public void run() {
             try {
                 DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
-                //Msg msg = Msg.temMsg();
-                //dataOutputStream.write(msg.getMsg());
                 DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
                 byte[] bytes = new byte[10];
                 dataInputStream.read(bytes);

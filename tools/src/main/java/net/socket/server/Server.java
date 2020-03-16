@@ -36,7 +36,7 @@ public class Server {
         while (true) {
             Socket socket = server.accept();
             clients.add(socket);
-            socketTest.submit(new ConnectionHandle(socket));
+            socketTest.submit(new ConnectionHandleForHeart(socket));
         }
     }
 
@@ -48,24 +48,31 @@ public class Server {
         }
     }
 
-    class ConnectionHandle implements Runnable {
+    class ConnectionHandleForHeart implements Runnable {
         Socket socket;
-        public Msg msg = new Msg();
+        Msg receive = new Msg();
+        Msg send = new Msg();
 
-        public ConnectionHandle(Socket s) {
+        public ConnectionHandleForHeart(Socket s) {
             socket = s;
         }
 
         @Override
         public void run() {
             try {
-                DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-                byte[] bytes = new byte[99];
-                dataInputStream.read(bytes);
-                msg.setData(0, 99, bytes);
-                System.out.println(DataUtils.getInt(msg.getData(3, 4)));
-                System.out.println(DataUtils.getString(msg.getData(81, 17)).trim());
-                System.out.println(DataUtils.getString(msg.getData(28, 20)).trim());
+                while (true) {
+                    InputStream inputStream = socket.getInputStream();
+                    byte[] bytes = new byte[99];
+                    inputStream.read(bytes);
+                    receive.setData(0, 99, bytes);
+                    byte[] sendData = new byte[10];
+                    send.setData(0, 3, DataUtils.getData(bytes, 0, 3));
+                    send.setData(3, 4, DataUtils.getData(bytes, 3, 4));
+                    send.setData(7, 1, DataUtils.getData(bytes, 7, 1));
+                    send.setData(8, 1, DataUtils.getData(bytes, 8, 1));
+                    send.setData(9, 1, DataUtils.getData(bytes, 9, 1));
+                    socket.getOutputStream().write(send.getData(0, 10));
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
