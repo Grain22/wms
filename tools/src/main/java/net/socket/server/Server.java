@@ -2,6 +2,7 @@ package net.socket.server;
 
 import net.Msg;
 import net.utils.DataUtils;
+import org.codehaus.plexus.util.StringInputStream;
 import tools.thread.CustomThreadPool;
 
 import java.io.*;
@@ -51,7 +52,6 @@ public class Server {
     class ConnectionHandleForHeart implements Runnable {
         Socket socket;
         Msg receive = new Msg();
-        Msg send = new Msg();
 
         public ConnectionHandleForHeart(Socket s) {
             socket = s;
@@ -62,16 +62,10 @@ public class Server {
             try {
                 while (true) {
                     InputStream inputStream = socket.getInputStream();
-                    byte[] bytes = new byte[99];
+                    byte[] bytes = new byte[20];
                     inputStream.read(bytes);
-                    receive.setData(0, 99, bytes);
-                    byte[] sendData = new byte[10];
-                    send.setData(0, 3, DataUtils.getData(bytes, 0, 3));
-                    send.setData(3, 4, DataUtils.getData(bytes, 3, 4));
-                    send.setData(7, 1, DataUtils.getData(bytes, 7, 1));
-                    send.setData(8, 1, DataUtils.getData(bytes, 8, 1));
-                    send.setData(9, 1, DataUtils.getData(bytes, 9, 1));
-                    socket.getOutputStream().write(send.getData(0, 10));
+                    receive.setData(0, 20, bytes);
+                    socket.getOutputStream().write(receive.getData(0, 5));
                 }
             } catch (IOException e) {
                 e.printStackTrace();
