@@ -29,7 +29,7 @@ public class BootStrap {
         try {
             HttpRequestUtils.HttpRequestInfo init = init();
             ExecutorService threadPool = CustomThreadPool.createThreadPool("并发连接测试", false, Thread.NORM_PRIORITY, 5000, 5000, 500);
-            long l = System.currentTimeMillis() + 50000;
+            long l = System.currentTimeMillis() + 5000;
             logger.log("begin time " + l);
             for (int i = 0; i < 5000; i++) {
                 threadPool.submit(new HttpRequestSend(l, init));
