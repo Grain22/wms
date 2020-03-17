@@ -28,7 +28,7 @@ public class Client {
     private Client() {
         try {
             socket = new Socket(host, port);
-            Constants.socket_client.submit(new ClientSender());
+            Constants.socket_client.submit(new ClientSenderForChat());
             BufferedReader br = new BufferedReader(
                     new InputStreamReader(
                             socket.getInputStream()));

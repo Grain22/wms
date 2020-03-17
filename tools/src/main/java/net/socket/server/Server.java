@@ -27,7 +27,7 @@ public class Server {
     }
 
     private void init() throws IOException {
-        port = 9999;
+        port = 9998;
         clients = new ArrayList<>();
         server = new ServerSocket(port);
     }
@@ -60,12 +60,23 @@ public class Server {
         public void run() {
             try {
                 DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-                byte[] bytes = new byte[99];
-                dataInputStream.read(bytes);
-                msg.setData(0, 99, bytes);
-                System.out.println(DataUtils.getInt(msg.getData(3, 4)));
-                System.out.println(DataUtils.getString(msg.getData(81, 17)).trim());
-                System.out.println(DataUtils.getString(msg.getData(28, 20)).trim());
+                DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
+                while (true) {
+                    byte[] bytes = new byte[99];
+                    dataInputStream.read(bytes);
+                    msg.setData(0, 99, bytes);
+                    System.out.println(DataUtils.getInt(msg.getData(3, 4)));
+                    System.out.println(DataUtils.getString(msg.getData(81, 17)).trim());
+                    System.out.println(DataUtils.getString(msg.getData(28, 20)).trim());
+                    Msg back = new Msg();
+                    back.setData(0, 3, msg.getData(0, 3));
+                    back.setData(3, 4, msg.getData(3, 4));
+                    back.setData(7, 1, msg.getData(7, 1));
+                    back.setData(8, 1, DataUtils.getBytes("0"));
+                    back.setData(9, 1, msg.getData(98, 1));
+                    dataOutputStream.write(back.getMsg());
+                    dataOutputStream.flush();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -89,6 +100,7 @@ public class Server {
                 msg = socket.getInetAddress() + " " + clients.size();
                 sendMsg();
                 byte[] byteData = new byte[99];
+                int read = socket.getInputStream().read(byteData);
                 while ((msg = br.readLine()) != null) {
                     msg = socket.getInetAddress() + " " + msg;
                     sendMsg();
