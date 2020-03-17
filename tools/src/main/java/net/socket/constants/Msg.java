@@ -1,4 +1,4 @@
-package net;
+package net.socket.constants;
 
 import lombok.Getter;
 import lombok.Setter;

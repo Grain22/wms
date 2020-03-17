@@ -4,13 +4,18 @@ import tools.thread.CustomThreadPool;
 
 import java.util.concurrent.ExecutorService;
 
+/**
+ * @author laowu
+ */
 public class Constants {
     public static final String END = "end";
     public static int POINT = 10000;
     public static String command = "///";
-    public static ExecutorService socket_client;
+    public static int port = 9999;
+    public static String host = "127.0.0.1";
+    public static ExecutorService clients;
 
     static {
-        socket_client = CustomThreadPool.createThreadPool("socket_client");
+        clients = CustomThreadPool.createThreadPool("socket_clients");
     }
 }
