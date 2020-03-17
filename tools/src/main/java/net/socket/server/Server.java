@@ -2,6 +2,7 @@ package net.socket.server;
 
 import net.Msg;
 import net.utils.DataUtils;
+import org.codehaus.plexus.util.StringInputStream;
 import tools.thread.CustomThreadPool;
 
 import java.io.*;
@@ -27,7 +28,7 @@ public class Server {
     }
 
     private void init() throws IOException {
-        port = 9998;
+        port = 9999;
         clients = new ArrayList<>();
         server = new ServerSocket(port);
     }
@@ -36,7 +37,7 @@ public class Server {
         while (true) {
             Socket socket = server.accept();
             clients.add(socket);
-            socketTest.submit(new ConnectionHandle(socket));
+            socketTest.submit(new ConnectionHandleForHeart(socket));
         }
     }
 
@@ -48,34 +49,23 @@ public class Server {
         }
     }
 
-    class ConnectionHandle implements Runnable {
+    class ConnectionHandleForHeart implements Runnable {
         Socket socket;
-        public Msg msg = new Msg();
+        Msg receive = new Msg();
 
-        public ConnectionHandle(Socket s) {
+        public ConnectionHandleForHeart(Socket s) {
             socket = s;
         }
 
         @Override
         public void run() {
             try {
-                DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-                DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
                 while (true) {
-                    byte[] bytes = new byte[99];
-                    dataInputStream.read(bytes);
-                    msg.setData(0, 99, bytes);
-                    System.out.println(DataUtils.getInt(msg.getData(3, 4)));
-                    System.out.println(DataUtils.getString(msg.getData(81, 17)).trim());
-                    System.out.println(DataUtils.getString(msg.getData(28, 20)).trim());
-                    Msg back = new Msg();
-                    back.setData(0, 3, msg.getData(0, 3));
-                    back.setData(3, 4, msg.getData(3, 4));
-                    back.setData(7, 1, msg.getData(7, 1));
-                    back.setData(8, 1, DataUtils.getBytes("0"));
-                    back.setData(9, 1, msg.getData(98, 1));
-                    dataOutputStream.write(back.getMsg());
-                    dataOutputStream.flush();
+                    InputStream inputStream = socket.getInputStream();
+                    byte[] bytes = new byte[20];
+                    inputStream.read(bytes);
+                    receive.setData(0, 20, bytes);
+                    socket.getOutputStream().write(receive.getData(0, 5));
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -100,7 +90,6 @@ public class Server {
                 msg = socket.getInetAddress() + " " + clients.size();
                 sendMsg();
                 byte[] byteData = new byte[99];
-                int read = socket.getInputStream().read(byteData);
                 while ((msg = br.readLine()) != null) {
                     msg = socket.getInetAddress() + " " + msg;
                     sendMsg();
