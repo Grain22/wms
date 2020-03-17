@@ -3,8 +3,9 @@
 .classpath
 .factorypath
 .log
-out
+/out/
 .idea
 target/
 .svn/
 .settings/
+/logs/
