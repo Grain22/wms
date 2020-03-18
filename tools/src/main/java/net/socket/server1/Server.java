@@ -1,16 +1,13 @@
-package net.socket.server;
+package net.socket.server1;
 
 import net.socket.constants.Constants;
-import net.socket.server.handler.BytesServerHandler;
-import net.socket.server.handler.ChatServerHandler;
-import tools.thread.CustomThreadPool;
+import net.socket.server1.handler.BytesServerHandler;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
 
 /**
  * @author laowu
@@ -21,13 +18,12 @@ public class Server {
     ServerSocket server;
     public static List<Socket> clients = new ArrayList<>();
 
-
     public static void main(String[] args) {
         new Server();
     }
 
     private void init() throws IOException {
-        server = new ServerSocket(Constants.port);
+        server = new ServerSocket(9998);
     }
 
     private void listen() throws IOException {
@@ -44,7 +40,6 @@ public class Server {
             init();
             listen();
         } catch (Exception ex) {
-            ex.printStackTrace();
         }
     }
 

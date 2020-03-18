@@ -1,9 +1,8 @@
-package net.socket.server.handler;
+package net.socket.server1.handler;
 
 import net.socket.constants.Msg;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.Socket;
 
 /**
@@ -23,10 +22,20 @@ public class BytesServerHandler implements Runnable {
             while (true) {
                 byte[] bytes = new byte[99];
                 socket.getInputStream().read(bytes);
+                for (int i = 0; i < bytes.length; i++) {
+                    System.out.print(bytes[i]);
+                }
                 receive.setData(0, 99, bytes);
-                socket.getOutputStream().write(receive.getData(0, 10));
+                byte[] data = receive.getData(0, 10);
+                System.out.println("");
+                for (int i = 0; i < data.length; i++) {
+                    System.out.print(data[i]);
+                }
+                System.out.println("");
+                socket.getOutputStream().write(data);
+                socket.getOutputStream().flush();
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
