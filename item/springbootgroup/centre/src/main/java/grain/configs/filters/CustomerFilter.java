@@ -37,10 +37,10 @@ public class CustomerFilter implements Filter {
             log.info("cors return");
             return;
         }
-        if (!specialMethodFilter(request, response)) {
+      /*  if (!specialMethodFilter(request, response)) {
             log.info("special method return");
             return;
-        }
+        }*/
         if (!authentication(request, response)) {
             log.info("authentication return");
             return;

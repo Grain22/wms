@@ -9,7 +9,6 @@ public class Test extends AbstractOperators {
     @Override
     public void then() {
         System.out.println("begin");
-
     }
 
     @Override

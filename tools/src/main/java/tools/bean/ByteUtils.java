@@ -3,6 +3,7 @@ package tools.bean;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author wulifu
@@ -18,7 +19,7 @@ public class ByteUtils {
     }
 
     public static byte[] getBytes(char[] chars) {
-        Charset cs = Charset.forName("UTF-8");
+        Charset cs = StandardCharsets.UTF_8;
         CharBuffer cb = CharBuffer.allocate(chars.length);
         cb.put(chars);
         cb.flip();
@@ -28,15 +29,15 @@ public class ByteUtils {
 
     public static int getInt(byte[] src) {
         int value;
-        value = (int) ((src[0] & 0xFF)
+        value = (src[0] & 0xFF)
                 | ((src[1] & 0xFF) << 8)
                 | ((src[2] & 0xFF) << 16)
-                | ((src[3] & 0xFF) << 24));
+                | ((src[3] & 0xFF) << 24);
         return value;
     }
 
     public static char[] getChars(byte[] bytes) {
-        Charset cs = Charset.forName("UTF-8");
+        Charset cs = StandardCharsets.UTF_8;
         ByteBuffer bb = ByteBuffer.allocate(bytes.length);
         bb.put(bytes);
         bb.flip();

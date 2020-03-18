@@ -3,12 +3,9 @@
 .classpath
 .factorypath
 .log
-.jar
+/out/
 .idea
 target/
 .svn/
 .settings/
-out/
-logs/
-/out/
-/temporary/
+/logs/

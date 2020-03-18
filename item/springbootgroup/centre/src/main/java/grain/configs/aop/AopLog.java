@@ -1,11 +1,7 @@
 package grain.configs.aop;
 
-import io.netty.handler.codec.http.HttpResponseStatus;
 import lombok.extern.slf4j.Slf4j;
-import net.Msg;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
@@ -16,8 +12,6 @@ import tools.net.AddressUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
-
-import static grain.constants.Strings.REGISTER;
 
 /**
  * @author wulifu
