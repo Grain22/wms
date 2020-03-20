@@ -10,11 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "self.properties")
 @Data
-public class GlobalYmlConfigParams {
-
-    private String tem;
-    private String rootPath;
-
-    private String nodePort;
-
+public class GlobalParams {
+    private String hostAddress;
+    private String hostPort;
 }

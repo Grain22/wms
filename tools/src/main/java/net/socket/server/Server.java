@@ -27,7 +27,7 @@ public class Server {
     }
 
     private void init() throws IOException {
-        server = new ServerSocket(Constants.port);
+        server = new ServerSocket(9998);
     }
 
     private void listen() throws IOException {

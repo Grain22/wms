@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 public class CustomThreadPool {
 
 
-    public static boolean is_daemon = false;
+    public static boolean is_daemon_false = false;
     public static int maximum_pool_size = 20;
     public static int core_pool_size = 5;
     public static long keep_alive_time = 0L;
@@ -22,7 +22,16 @@ public class CustomThreadPool {
     }
 
     public static ThreadPoolExecutor createThreadPool(String namePrefix) {
-        return createThreadPool(namePrefix, is_daemon, Thread.NORM_PRIORITY);
+        return createThreadPool(namePrefix, is_daemon_false, Thread.NORM_PRIORITY);
+    }
+
+    public static ThreadPoolExecutor createThreadPool(String namePrefix, int core, int max) {
+        return createThreadPool(namePrefix,
+                is_daemon_false,
+                Thread.NORM_PRIORITY,
+                core,
+                max,
+                keep_alive_time);
     }
 
     public static ThreadPoolExecutor createThreadPool(String namePrefix, boolean isDaemon, int priority) {

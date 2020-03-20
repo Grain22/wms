@@ -65,7 +65,6 @@ public class CustomerFilter implements Filter {
 
     private void characterEncoding(ServletRequest request, ServletResponse response) {
         try {
-            log.info("set character encoding");
             request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
         } catch (Exception e) {
@@ -105,7 +104,6 @@ public class CustomerFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
         String method = req.getMethod();
-        log.info("检查是否为远程跨域验证请求, 远程请求方式为 {}", method);
         if (method.equals(OPTIONS.name())) {
             log.info("请求预检,直接返回成功结果");
             resp.setStatus(HttpStatus.SC_OK);
@@ -120,7 +118,6 @@ public class CustomerFilter implements Filter {
     private boolean authentication(ServletRequest request, ServletResponse response) throws IOException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
-        log.info("正常执行");
         return true;
     }
 

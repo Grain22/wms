@@ -28,3 +28,4 @@ self:
   properties:
     tem : tem
     root-path:
+    node-port: 19952
