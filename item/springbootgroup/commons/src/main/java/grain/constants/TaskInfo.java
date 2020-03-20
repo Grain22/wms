@@ -13,5 +13,6 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class TaskInfo {
+    private int id;
     private int i ;
 }

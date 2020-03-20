@@ -16,6 +16,7 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NodeInfo {
+    String nodeHost;
     Map<Integer, TaskInfo> runningMap = new HashMap<>();
     Map<Integer, TaskInfo> completeMap = new HashMap<>();
     Map<Integer, TaskInfo> waitMap = new HashMap<>();

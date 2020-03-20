@@ -11,8 +11,9 @@ import org.springframework.util.MultiValueMap;
  */
 public class NodeCommand {
 
-    public static void addTask(String host, String port, String taskInfo) {
+    public static void addTask(String host, String port, String taskId, String taskInfo) {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.set("taskId", taskId);
         map.set("info", taskInfo);
         RequestUtils.sendPost(new StringBuilder(RequestUtils.HTTP_PREFIX).append(host).append(":").append(port).append("/api/node").append(Strings.addTask).toString(), map);
     }
@@ -29,7 +30,7 @@ public class NodeCommand {
         RequestUtils.sendPost(new StringBuilder(RequestUtils.HTTP_PREFIX).append(host).append(":").append(port).append("/api/node").append(Strings.dropTask).toString(), map);
     }
 
-    public static boolean checkNodeAvailable(String host, String port,String distributeNodeHost) {
+    public static boolean checkNodeAvailable(String host, String port, String distributeNodeHost) {
         String s = RequestUtils.sendPost(new StringBuilder(RequestUtils.HTTP_PREFIX).append(host).append(":").append(port).append("/api/node").append(Strings.dropTask).toString(), null);
         return true;
     }
