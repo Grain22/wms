@@ -14,4 +14,5 @@ public class Strings {
     public static final String addTask = "addTask";
     public static final String cancelTask = "cancelTask";
     public static final String dropTask = "dropTask";
+    public static final String available = "available";
 }

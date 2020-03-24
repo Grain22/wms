@@ -14,7 +14,7 @@ import java.util.GregorianCalendar;
  */
 public class DateUtils {
 
-    static final String DATA_PATTERN = "yyyy-MM-dd";
+    static final String DATA_PATTERN = "yyyyMMdd";
 
     public static int getYear(Date date) {
         return getCalender(date).get(Calendar.YEAR);
@@ -65,30 +65,30 @@ public class DateUtils {
     /**
      * get NOW time string
      *
-     * @return yyyy-MM-dd
+     * @return yyyyMMdd
      */
     public static String getTimeString() {
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat format = new SimpleDateFormat("yyyyMMdd");
         return format.format(new GregorianCalendar().getTime());
     }
 
     /**
      * get NOW time string
      *
-     * @return yyyy-MM-dd-HH-mm-ss
+     * @return yyyyMMddHHmmss
      */
     public static String getTimeStringFull() {
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        DateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
         return format.format(new GregorianCalendar().getTime());
     }
 
     /**
      * get NOW time string
      *
-     * @return yyyy-MM-dd-HH-mm-ss-SSS
+     * @return yyyyMMddHHmmssSSS
      */
     public static String getTimeStringLong() {
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS");
+        DateFormat format = new SimpleDateFormat("yyyyMMddHHmmssSSS");
         return format.format(new GregorianCalendar().getTime());
     }
 
@@ -181,7 +181,7 @@ public class DateUtils {
     /**
      * string to date
      *
-     * @param dateStr yyyy-MM-dd
+     * @param dateStr yyyyMMdd
      * @return date
      */
     public static Date parseDate(String dateStr) {
@@ -283,17 +283,17 @@ public class DateUtils {
      * format date
      *
      * @param date date
-     * @return yyyy-MM-dd HH:mm:ss
+     * @return yyyyMMdd HHmmss
      */
     public static String formateDate(Date date) {
-        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date).toString();
+        return new SimpleDateFormat("yyyyMMdd HHmmss").format(date).toString();
     }
 
     /**
      * format date
      *
      * @param date date
-     * @param format like "yyyy-MM-dd HH:mm:ss"
+     * @param format like "yyyyMMdd HHmmss"
      * @return string
      */
     public static String formatDate(Date date, String format) {

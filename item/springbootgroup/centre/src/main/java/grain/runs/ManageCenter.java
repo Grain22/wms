@@ -1,22 +1,20 @@
 package grain.runs;
 
 import com.alibaba.fastjson.JSON;
+import grain.bean.TaskStatus;
+import grain.bean.TaskStatusTable;
 import grain.configs.GlobalYmlConfigParams;
 import grain.constants.NodeInfo;
 import grain.constants.TaskInfo;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.util.PropertySource;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.util.comparator.Comparators;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
 
 /**
@@ -27,7 +25,7 @@ import java.util.stream.Collectors;
 @EnableAsync
 @EnableScheduling
 public class ManageCenter {
-    public static final int min = 1000 * 60;
+    public static final int MIN = 1000 * 60;
 
     private static int cont = 0;
 
@@ -35,9 +33,8 @@ public class ManageCenter {
         return cont++;
     }
 
-    private static Queue<TaskInfo> waitTaskList = new ConcurrentLinkedQueue<>();
-    private static List<TaskStatus> taskStatus = new ArrayList<>();
     private static Map<String, NodeInfo> nodes = new ConcurrentHashMap<>(5);
+
     protected final GlobalYmlConfigParams params;
 
     public ManageCenter(GlobalYmlConfigParams params) {
@@ -54,8 +51,17 @@ public class ManageCenter {
             log.info("节点已存在 {}", nodeAddress);
             return;
         }
-        nodes.put(nodeAddress, new NodeInfo());
+        nodes.put(nodeAddress, new NodeInfo().setNodeHost(nodeAddress));
         log.info("节点已注册 {} 当前节点数量 {} 节点表 {}", nodeAddress, nodes.size(), nodes.keySet().stream().collect(Collectors.joining("|")));
+    }
+
+    public static void complete(String taskId, String host) {
+        TaskStatus taskStatus = TaskStatusTable.find(taskId);
+        if (taskStatus != null && taskStatus.getRenderNode().equals(host)) {
+            TaskStatusTable.completeTask(Integer.valueOf(taskId));
+            nodes.get(host).getRunningMap().remove(taskId);
+            nodes.get(host).getCompleteMap().put(Integer.valueOf(taskId), JSON.parseObject(taskStatus.getTaskInfo(), TaskInfo.class));
+        }
     }
 
     /**
@@ -64,52 +70,88 @@ public class ManageCenter {
     @Async
     @Scheduled(fixedDelay = 1000 * 60)
     public void taskCollection() {
+        /**
+         * 节点可用检测
+         */
+        Set<String> hosts = nodes.keySet();
+        for (String host : hosts) {
+            try {
+                NodeCommand.checkNodeAvailable(host, params.getNodePort());
+            } catch (Exception e) {
+                nodes.remove(host);
+                TaskStatusTable.disableNode(host);
+            }
+        }
         int cont = new Random().nextInt(50);
         for (int i = 0; i < cont; i++) {
-            waitTaskList.add(new TaskInfo(getCont(), new Random().nextInt(60) * 1000));
+            TaskInfo taskInfo = new TaskInfo(getCont(), new Random().nextInt(60) * 1000);
+            TaskStatusTable.addTask(taskInfo.getId(), JSON.toJSONString(taskInfo));
+        }
+        if (!TaskStatusTable.isEmpty() && nodes.isEmpty()) {
+            log.info("无节点,等待下次检查 当前任务数量 {}", TaskStatusTable.waitList().size());
+            return;
         }
         /**
-         * 任务在规定时间内未处理完
+         * 处理超时任务
          */
-        List<TaskStatus> taskStatuses = oldTaskHandle(min * 30);
+        retryList(TaskStatusTable.outTime(MIN * 1));
         /**
-         * todo 节点处理和重分派
+         * 处理新增加任务
          */
-      /*  for (TaskStatus status : taskStatuses) {
-            String distributeNodeHost = status.getDistributeNodeHost();
-            boolean nodeAvailable = NodeCommand.checkNodeAvailable(distributeNodeHost, params.getNodePort(), distributeNodeHost);
-            try {
-            } catch (Exception e) {
-                nodes.remove(distributeNodeHost);
+        distributeList(TaskStatusTable.waitList());
+    }
+
+    private List<NodeInfo> nodeOrderByTaskNumber() {
+        if (nodes.isEmpty()) {
+            throw new RuntimeException("节点数量为空");
+        }
+        List<NodeInfo> list = nodes.values().stream().sorted(Comparator.comparingInt(o -> (o.getWaitMap().size() + o.getRunningMap().size()))).collect(Collectors.toList());
+        return list;
+    }
+
+    private void retryList(List<TaskStatus> outTime) {
+        outTime.stream().forEach(a -> {
+            retry(a);
+        });
+    }
+
+    private void retry(TaskStatus a) {
+        Integer taskId = a.getTaskId();
+        String taskInfo = a.getTaskInfo();
+        String oldHost = a.getRenderNode();
+        List<NodeInfo> nodeInfos = nodeOrderByTaskNumber();
+        String newHost = nodeInfos.get(0).getNodeHost();
+        if (oldHost.equals(newHost)) {
+            if (nodeInfos.size() > 1) {
+                newHost = nodeInfos.get(1).getNodeHost();
+            } else {
+                log.info("当前无其他节点 {} 超时 {}", a.getTaskId(),System.currentTimeMillis() - a.getSendTime());
+                return;
             }
-        }*/
-        distribute();
-        if (!waitTaskList.isEmpty() && nodes.isEmpty()) {
-            log.info("无节点,等待下次检查");
+        }
+        nodes.get(oldHost).getWaitMap().remove(taskId);
+        NodeCommand.dropTask(oldHost, params.getNodePort(), String.valueOf(taskId));
+        boolean retry = TaskStatusTable.retry(taskId, newHost);
+        if (retry) {
+            log.info("重试成功");
+            nodes.get(newHost).getWaitMap().put(taskId, JSON.parseObject(taskInfo, TaskInfo.class));
+            NodeCommand.addTask(newHost, params.getNodePort(), String.valueOf(taskId), taskInfo);
+        } else {
+            log.info("二次重试失败");
         }
     }
 
-    private List<TaskStatus> oldTaskHandle(int time) {
-        return taskStatus.stream().filter(a -> (System.currentTimeMillis() - a.getDistributeTime()) > time).collect(Collectors.toList());
+    private void distributeList(List<TaskStatus> taskStatuses) {
+        taskStatuses.stream().forEach(a -> {
+            distribute(a);
+        });
     }
 
-    private void distribute() {
-        while (nodes.size() > 0 && !waitTaskList.isEmpty()) {
-            List<NodeInfo> list = nodes.values().stream().collect(Collectors.toList());
-            list.sort((o1, o2) -> (o1.getWaitMap().size() + o1.getRunningMap().size()) - (o2.getRunningMap().size() + o2.getWaitMap().size()));
-            String nodeHost = list.get(0).getNodeHost();
-            TaskInfo poll = waitTaskList.poll();
-            NodeCommand.addTask(nodeHost, params.getNodePort(), String.valueOf(poll.getId()), JSON.toJSONString(poll));
-            nodes.get(nodeHost).getWaitMap().put(poll.getId(), poll);
-        }
+    private void distribute(TaskStatus a) {
+        String nodeHost = nodeOrderByTaskNumber().get(0).getNodeHost();
+        TaskStatusTable.sendTask(a.getTaskId(), nodeHost);
+        NodeCommand.addTask(nodeHost, params.getNodePort(), String.valueOf(a.getTaskId()), a.getTaskInfo());
     }
 
-    @Data
-    static class TaskStatus {
-        Integer taskId;
-        long distributeTime;
-        String distributeNodeHost;
-        Integer status;
-    }
 }
 

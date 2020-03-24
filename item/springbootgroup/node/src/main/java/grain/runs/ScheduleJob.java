@@ -27,6 +27,5 @@ public class ScheduleJob {
 
     @Scheduled(fixedDelay = 1000*60)
     public void nodeInfoCommit() {
-        System.out.println(".....................");
     }
 }
