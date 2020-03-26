@@ -2,6 +2,7 @@ package grain.constants;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.util.Objects;
@@ -10,6 +11,7 @@ import java.util.Objects;
  * @author wulifu
  */
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class Msg {
     @NonNull
