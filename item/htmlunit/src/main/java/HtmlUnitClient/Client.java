@@ -29,21 +29,6 @@ public class Client {
                     options.setActiveXNative(false);
                     options.setThrowExceptionOnScriptError(false);
                     options.setThrowExceptionOnFailingStatusCode(false);
-                    /** 5/13/2019   webClient.setWebConnection(
-                     new WebConnectionWrapper(webClient) {
-                    @Override public WebResponse getResponse(WebRequest request) throws IOException {
-                    WebResponse response = super.getResponse(request);
-                    if (request.getUrl().toExternalForm().contains("GBK")) {
-                    String content = response.getContentAsString(Charset.forName("GBK"));
-                    WebResponseData data = new WebResponseData(content.getBytes("UTF-8"),
-                    response.getStatusCode(), response.getStatusMessage(), response.getResponseHeaders());
-                    response = new WebResponse(data, request, response.getLoadTime());
-                    }
-                    return response;
-                    }
-                    }
-                     );*/
-
                 }
             }
         }

@@ -13,13 +13,12 @@
     <packaging>pom</packaging>
     <modules>
         <module>htmlunit</module>
-        <module>database</module>
         <module>gservletweb</module>
         <module>springclouddemo</module>
         <module>redisDemo</module>
         <module>zookeeperdemo</module>
-        <module>dubbodemo</module>
         <module>springbootgroup</module>
+        <module>taskgroup</module>
     </modules>
     <dependencies>
         <dependency>

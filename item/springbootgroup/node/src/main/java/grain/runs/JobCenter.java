@@ -3,6 +3,7 @@ package grain.runs;
 import grain.bean.ServerInfo;
 import grain.configs.GlobalParams;
 import grain.constants.TaskInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import tools.thread.CustomThreadPool;
 
@@ -13,6 +14,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * @author wulifu
  */
+@Slf4j
 @Component
 public class JobCenter {
 
@@ -24,7 +26,6 @@ public class JobCenter {
 
     public JobCenter(GlobalParams params) {
         this.params = params;
-
     }
 
     public static synchronized ServerInfo getServerInfo() {
@@ -53,6 +54,7 @@ public class JobCenter {
         @Override
         public void run() {
             try {
+                log.info("job {} {}", taskInfo.getId(), taskInfo.getI());
                 Thread.sleep(taskInfo.getI());
                 JobCenter.completeTask(params.getHostAddress(), params.getHostPort(), taskInfo.getId());
             } catch (Exception e) {
