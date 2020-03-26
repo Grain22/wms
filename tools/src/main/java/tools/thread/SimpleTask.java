@@ -1,5 +1,8 @@
 package tools.thread;
 
+/**
+ * @author wulifu
+ */
 public class SimpleTask implements Runnable {
     private long sleepTime;
 

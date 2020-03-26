@@ -16,7 +16,7 @@ public class VideoUtils {
     private static String video_result = "C:\\Users\\wulifu\\Desktop\\result.mp4";
     private static final String pic = "C:\\Users\\wulifu\\Desktop\\20191220142914_4_ykBDMbZoCenVIhCS9dEjkjPR4UoBVcxMruKRGcmzkeq8QVRPFw.png";
 
-    public static void main(String[] args) {
+    public static void doRenderExample() {
         FFmpegFrameGrabber grabber = null;
         FFmpegFrameRecorder recorder = null;
         try {
@@ -52,13 +52,15 @@ public class VideoUtils {
             e.printStackTrace();
         } finally {
             try {
-                recorder.close();
-            } catch (FrameRecorder.Exception e) {
+                Objects.requireNonNull(recorder).close();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             try {
-                grabber.close();
-            } catch (FrameGrabber.Exception e) {
+                if (grabber != null) {
+                    grabber.close();
+                }
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

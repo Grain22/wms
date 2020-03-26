@@ -9,20 +9,6 @@ import java.util.Map;
  * @author wulifu
  */
 public class EncoderUtils {
-  /*  private static String getMediaFormat(File mediaFile) {
-        try {
-            Encoder encoder = new Encoder();
-
-            MultimediaInfo multimediaInfo = encoder.getInfo(mediaFile);
-            AudioInfo audioInfo = multimediaInfo.getAudio();
-            VideoInfo videoInfo = multimediaInfo.getVideo();
-            return multimediaInfo.getFormat()
-                    + "/" + (audioInfo == null ? "NONE" : audioInfo.getDecoder())
-                    + "/" + (videoInfo == null ? "NONE" : videoInfo.getDecoder());
-        } catch (Exception e) {
-        }
-        return "NONE";
-    }*/
 
     public final static Map<String, String> FILE_TYPE_MAP = new HashMap<String, String>();
 
@@ -91,11 +77,6 @@ public class EncoderUtils {
         FILE_TYPE_MAP.put("E3828596", "pwl"); // Windows Password (pwl)
         FILE_TYPE_MAP.put("2E7261FD", "ram"); // Real Audio (ram)
 
-    }
-    public static void main(String[] args) {
-        System.out.println("fdfdsaa".split("\\.").length);
-        System.out.println("fdfdsaa.".split("\\.").length);
-        System.out.println("fdfdsaa.ewq".split("\\.").length);
     }
 
     public static byte[] getFileBytes(File file) {

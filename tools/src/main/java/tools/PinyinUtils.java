@@ -87,10 +87,4 @@ public class PinyinUtils {
         return stringBuffer.toString();
     }
 
-    public static void main(String[] args) {
-        String cnStr = "中国";
-        System.out.println(getPingYin(cnStr));
-        System.out.println(getPinYinHeadChar(cnStr));
-    }
-
-}
+  }

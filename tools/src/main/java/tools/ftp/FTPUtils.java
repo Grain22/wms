@@ -18,15 +18,9 @@ import java.util.stream.Stream;
  * @author grain
  */
 public class FTPUtils {
-    private static String HOST = "10.1.63.26";
-    private static String PORT = "19222";
-    private static String NAME = "sichuan";
-    private static String PWD = "1qaz@WSX";
 
-    private static FtpClient ftpClient = null;
-
-    public static FtpClient getFTPClient() throws IOException, FtpProtocolException {
-        ftpClient = DefaultFtpClientProvider.provider().createFtpClient();
+    public static FtpClient getFTPClient(String HOST, String PORT, String NAME, String PWD) throws IOException, FtpProtocolException {
+        FtpClient ftpClient = DefaultFtpClientProvider.provider().createFtpClient();
 
         SocketAddress socketAddress = new InetSocketAddress(HOST, Integer.parseInt(PORT));
         ftpClient.connect(socketAddress);
@@ -45,22 +39,4 @@ public class FTPUtils {
         return ftpClient;
     }
 
-    public static void main(String[] args) throws IOException, FtpProtocolException {
-        getFTPClient();
-        try {
-            Stream.of(ftpClient.listFiles("/")).forEach(System.out::println);
-        } catch (FtpProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (ftpClient.isConnected()) {
-                try {
-                    ftpClient.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
 }

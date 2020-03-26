@@ -58,11 +58,4 @@ public class ByteUtils {
         char c = (char) (((b[0] & 0xFF) << 8) | (b[1] & 0xFF));
         return c;
     }
-
-    public static void main(String[] args) {
-        int i = getInt(getBytes(298499));
-        System.out.println(i);
-        String s = "发发大水";
-        System.out.println(getChars(getBytes(s.toCharArray())));
-    }
 }

@@ -17,9 +17,6 @@ public class CustomThreadPool {
     public static int core_pool_size = 5;
     public static long keep_alive_time = 0L;
 
-    public static void main(String[] args) {
-        System.out.println(System.currentTimeMillis());
-    }
 
     public static ThreadPoolExecutor createThreadPool(String namePrefix) {
         return createThreadPool(namePrefix, is_daemon_false, Thread.NORM_PRIORITY);

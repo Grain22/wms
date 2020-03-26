@@ -8,9 +8,11 @@ import java.io.IOException;
  */
 public class BOMUtils {
 
+    public static final String java = "java";
+
     public static void removeBom(String filepath){
         try {
-            if (!filepath.contains("java")) {
+            if (!filepath.contains(java)) {
                 return;
             }
             File file = new File(filepath);

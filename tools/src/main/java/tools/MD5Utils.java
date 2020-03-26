@@ -44,10 +44,4 @@ public class MD5Utils {
         }catch (Exception ex){}
         return resultString;
     }
-    public static void main(String[] args)
-    {
-
-        String data = "GD20190813000120191209163200";
-        System.out.println(MD5Encode(data));
-    }
 }

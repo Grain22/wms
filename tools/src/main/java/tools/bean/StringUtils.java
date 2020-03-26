@@ -1,25 +1,18 @@
 package tools.bean;
 
 import lombok.NonNull;
-import tools.bean.DateUtils;
 
-import javax.print.DocFlavor;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * @author laowu
  * @version 4/12/2019 10:40 AM
  */
-@SuppressWarnings("unused")
 public final class StringUtils {
-
-    public static void main(String[] args) {
-        String s = "\u5FC3\u8DF3\u914D\u7F6E";
-    }
 
     /**
      * translate chinese to unicode encoding
@@ -54,13 +47,13 @@ public final class StringUtils {
             end = unicodeStr.indexOf("\\u", start + 2);
             String charStr;
             if (end == -1) {
-                charStr = unicodeStr.substring(start + 2, unicodeStr.length());
+                charStr = unicodeStr.substring(start + 2);
             } else {
                 charStr = unicodeStr.substring(start + 2, end);
             }
             /* 16进制parse整形字符串。*/
             char letter = (char) Integer.parseInt(charStr, 16);
-            buffer.append(Character.toString(letter));
+            buffer.append(letter);
             start = end;
         }
         return buffer.toString();
@@ -86,7 +79,7 @@ public final class StringUtils {
      * @return string after join
      */
     public static String join(List<String> list, String separator) {
-        return list.stream().collect(Collectors.joining(separator));
+        return String.join(separator, list);
     }
 
     /**
@@ -96,7 +89,7 @@ public final class StringUtils {
      */
     public static String getRandomString() {
         Random r = new Random();
-        return (DateUtils.getTimeStringLong() + String.valueOf(r.nextLong())).replaceAll("-", "");
+        return (DateUtils.getTimeStringLong() + r.nextLong()).replaceAll("-", "");
     }
 
     /**
@@ -183,41 +176,37 @@ public final class StringUtils {
         String encode = "GB2312";
         try {
             if (str.equals(new String(str.getBytes(encode), encode))) {
-                String s = encode;
-                return s;
+                return encode;
             }
-        } catch (Exception exception) {
+        } catch (Exception ignored) {
         }
         encode = "ISO-8859-1";
         try {
             if (str.equals(new String(str.getBytes(encode), encode))) {
-                String s1 = encode;
-                return s1;
+                return encode;
             }
-        } catch (Exception exception1) {
+        } catch (Exception ignored) {
         }
         encode = "UTF-8";
         try {
             if (str.equals(new String(str.getBytes(encode), encode))) {
-                String s2 = encode;
-                return s2;
+                return encode;
             }
-        } catch (Exception exception2) {
+        } catch (Exception ignored) {
         }
         encode = "GBK";
         try {
             if (str.equals(new String(str.getBytes(encode), encode))) {
-                String s3 = encode;
-                return s3;
+                return encode;
             }
-        } catch (Exception exception3) {
+        } catch (Exception ignored) {
         }
         return "";
     }
 
     public static String parseBytes(byte[] bytes, String encode) {
         try {
-            return new String(bytes, "UTF-8");
+            return new String(bytes, StandardCharsets.UTF_8);
         } catch (Exception e) {
             e.printStackTrace();
             return "";

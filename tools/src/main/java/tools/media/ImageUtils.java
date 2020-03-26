@@ -26,17 +26,7 @@ public class ImageUtils {
     private static final String pic = "C:\\Users\\wulifu\\Desktop\\20191220142914_4_ykBDMbZoCenVIhCS9dEjkjPR4UoBVcxMruKRGcmzkeq8QVRPFw.png";
     private static final String tem = "C:\\Users\\wulifu\\Desktop\\res.png";
 
-    public static void main(String[] args) throws IOException {
-        BufferedImage a = cleanFormat(getImg(pic));
-        BufferedImage b = new BufferedImage(a.getWidth(), a.getHeight(), a.getType());
-        BoxBlurFilter filter = new BoxBlurFilter(12.0f,22.0f,10);
-//        filter = new GammaFilter();
-//        filter.setGamma(0.09f);
-        filter.filter(a, b);
-        writePng(b, tem);
-    }
-
-    /**
+      /**
      * 简单文字添加
      *
      * @param bufferedImage

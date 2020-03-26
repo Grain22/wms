@@ -3,16 +3,10 @@ package tools.thread;
 import tools.MD5Utils;
 
 public class URLUtils {
-    public static void main(String[] args) {
-        String url = "http://www.baidu.com";
-        for (String string : ShortText(url)) {
-            System.out.println(string);
-        }
-    }
 
     public static String[] ShortText(String string) {
-        String key = "Geek";                 //自定义生成MD5加密字符串前的混合KEY
-        String[] chars = new String[]{          //要使用生成URL的字符
+        String key = "Geek";
+        String[] chars = new String[]{
                 "a", "b", "c", "d", "e", "f", "g", "h",
                 "i", "j", "k", "l", "m", "n", "o", "p",
                 "q", "r", "s", "t", "u", "v", "w", "x",

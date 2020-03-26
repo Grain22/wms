@@ -7,6 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * 容器管理类
+ * @author wulifu
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

@@ -7,6 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * 指定需要注入的属性
+ * @author wulifu
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
