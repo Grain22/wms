@@ -10,7 +10,6 @@ import java.util.Objects;
  * @version demo
  * 2019/6/26 16:09
  */
-@SuppressWarnings("unused")
 @Data
 public class JedisUtils {
     private String host = "localhost";
