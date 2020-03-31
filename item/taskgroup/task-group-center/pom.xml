@@ -11,4 +11,11 @@
 
     <artifactId>task-group-center</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>grain</groupId>
+            <artifactId>task-group-common</artifactId>
+            <version>20190411</version>
+        </dependency>
+    </dependencies>
 </project>

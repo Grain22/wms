@@ -1,6 +1,6 @@
 package tools.thread;
 
-import tools.MD5Utils;
+import tools.DigestUtil;
 
 public class URLUtils {
 
@@ -17,7 +17,7 @@ public class URLUtils {
                 "U", "V", "W", "X", "Y", "Z"
         };
 
-        String hex = MD5Utils.MD5Encode(key + string);
+        String hex = DigestUtil.md5Digests(key + string);
         int hexLen = hex.length();
         int subHexLen = hexLen / 8;
         String[] ShortStr = new String[4];
