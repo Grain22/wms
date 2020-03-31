@@ -67,9 +67,6 @@ public class NodeManager {
          * 任务排序
          */
         taskInfos = TaskTable.sortPriorityDate(taskInfos);
-
-        DistributedManager
-
     }
 
 
