@@ -17,42 +17,26 @@ public class CustomThreadPool {
     public static int core_pool_size = 5;
     public static long keep_alive_time = 0L;
 
-
-    public static ThreadPoolExecutor createThreadPool(String namePrefix) {
-        return createThreadPool(namePrefix, is_daemon_false, Thread.NORM_PRIORITY);
-    }
-
-    public static ThreadPoolExecutor createThreadPool(String namePrefix, int core, int max) {
-        return createThreadPool(namePrefix,
-                is_daemon_false,
-                Thread.NORM_PRIORITY,
-                core,
-                max,
-                keep_alive_time);
-    }
-
-    public static ThreadPoolExecutor createThreadPool(String namePrefix, boolean isDaemon, int priority) {
-        return createThreadPool(namePrefix,
-                isDaemon,
-                priority,
-                core_pool_size,
-                maximum_pool_size,
-                keep_alive_time);
-    }
-
-    public static ThreadPoolExecutor createThreadPool(String namePrefix, boolean isDaemon, int priority, int corePoolSize, int maximumPoolSize, long keepAliveTime) {
-        ThreadFactory threadFactory = new CustomThreadFactoryBuilder()
+    public static ThreadFactory createThreadFactory(String namePrefix, boolean isDaemon, int priority) {
+        return new CustomThreadFactoryBuilder()
                 .setNamePrefix(namePrefix)
                 .setDaemon(isDaemon)
                 .setPriority(priority)
                 .build();
+    }
+
+    public static ThreadPoolExecutor createThreadPool(String namePrefix) {
+        return createThreadPool(namePrefix,core_pool_size,maximum_pool_size, is_daemon_false, Thread.NORM_PRIORITY);
+    }
+
+    public static ThreadPoolExecutor createThreadPool(String namePrefix, int corePoolSize, int maximumPoolSize,boolean isDaemon, long keepAliveTime) {
         return new ThreadPoolExecutor(
                 corePoolSize,
                 maximumPoolSize,
                 keepAliveTime,
                 TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>(102400),
-                threadFactory,
+                createThreadFactory(namePrefix, isDaemon, Thread.NORM_PRIORITY),
                 new ThreadPoolExecutor.AbortPolicy());
     }
 }

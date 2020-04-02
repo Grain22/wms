@@ -25,8 +25,5 @@ public class ScheduleConfig implements SchedulingConfigurer {
 
     @Override
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
-        //设定一个长度为10的定时任务线程池
-        ThreadPoolExecutor schedule_pool = CustomThreadPool.createThreadPool("schedule_pool",4,8);
-        taskRegistrar.setScheduler(schedule_pool);
     }
 }
