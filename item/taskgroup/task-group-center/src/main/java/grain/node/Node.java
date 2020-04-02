@@ -16,7 +16,7 @@ public class Node {
     String nodeHost;
     String nodePort;
     String nodeRegisterDateTime;
-    String nodeLastCheckDateTime;
+    long nodeLastCheckDateTime;
     int nodeRetryTimes = 0;
     int nodePriority = 5;
     boolean nodeAvailable = true;
@@ -42,9 +42,27 @@ public class Node {
             this.nodePriority++;
         }
     }
-    public void decreasePriority(){
+
+    public void decreasePriority() {
         if (this.nodePriority > priority_bottom) {
             this.nodePriority--;
         }
+    }
+
+    public void nodeWait() {
+        this.nodePriority = priority_bottom;
+        this.nodeRetryTimes++;
+    }
+
+    public void unBelieve() {
+        this.nodeAvailable = false;
+        this.nodePriority = priority_bottom;
+        this.setNodeRetryTimes(Integer.MAX_VALUE);
+    }
+
+    public void refreshCheckDate() {
+        this.nodeAvailable = true;
+        this.nodeLastCheckDateTime = System.currentTimeMillis();
+        this.setNodeRetryTimes(0);
     }
 }

@@ -1,5 +1,6 @@
 package grain.task;
 
+import grain.node.Node;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,8 @@ public class TaskInfo {
     private String nodeId;
     private Task task;
     private int status;
+    private long statusDate;
+    private long sendDate;
     int retryTimes;
 
     public static final int waiting = 1;
@@ -25,4 +28,37 @@ public class TaskInfo {
     public static final int completed = 4;
     public static final int canceled = 5;
     public static final int error = 6;
+
+    public void sendSuccess(Node node) {
+        this.nodeId = node.getNodeId();
+        this.status = sent;
+        this.sendDate = System.currentTimeMillis();
+        this.statusDate = System.currentTimeMillis();
+    }
+
+    public void retry(Node node) {
+        retry(2, node);
+    }
+
+    public void retry(int maxTimeDefaultTwo, Node node) {
+        this.nodeId = node.getNodeId();
+        if (this.retryTimes > maxTimeDefaultTwo) {
+            this.fail();
+        } else {
+            this.retryTimes++;
+            this.statusDate = System.currentTimeMillis();
+        }
+    }
+
+    public void fail() {
+        this.status = error;
+        this.statusDate = System.currentTimeMillis();
+    }
+
+    public void reFresh() {
+        this.nodeId = null;
+        this.statusDate = waiting;
+        this.statusDate = System.currentTimeMillis();
+        this.retryTimes = 0;
+    }
 }

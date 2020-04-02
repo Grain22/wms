@@ -22,8 +22,14 @@ public class Task {
     public static final int priority_top = 9;
     public static final int priority_bottom = 0;
 
-    public void increasePriorityToTop() {
-        this.priority = priority_top;
+    public void changePriority(int to) {
+        if (to > priority_top) {
+            this.priority = priority_top;
+        } else if (to < priority_bottom) {
+            this.priority = priority_bottom;
+        } else {
+            this.priority = to;
+        }
     }
 
     public void increasePriority() {
