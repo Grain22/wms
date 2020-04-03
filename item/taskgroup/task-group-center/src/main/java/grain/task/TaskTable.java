@@ -73,19 +73,27 @@ public class TaskTable {
 
     public static Map<String, List<TaskInfo>> collectByNode() {
         Map<String, List<TaskInfo>> map = new HashMap<>(2);
-        TASK_INFOS.stream()
-                .filter(a -> a.getStatus() == TaskInfo.sent)
-                .forEach(a ->
-                        map.merge(a.getNodeId(), Arrays.asList(a),
-                                (ov, nv) -> {
-                                    ov.addAll(nv);
-                                    return ov;
-                                }));
+        for (TaskInfo a : TASK_INFOS) {
+            if (a.getStatus() == TaskInfo.sent) {
+                if (map.containsKey(a.getNodeId())) {
+                    List<TaskInfo> taskInfos = map.get(a.getNodeId());
+                    taskInfos.add(a);
+                    map.put(a.getNodeId(), taskInfos);
+                } else {
+                    List<TaskInfo> taskInfos = new ArrayList<>();
+                    taskInfos.add(a);
+                    map.put(a.getNodeId(), taskInfos);
+                }
+            }
+        }
         return map;
     }
 
     public static int nodeAverage() {
         Map<String, List<TaskInfo>> map = collectByNode();
+        if (map.isEmpty()) {
+            return 0;
+        }
         int taskSize = map.values().stream().map(List::size).reduce(0, Integer::sum);
         int nodeSize = map.keySet().size();
         return taskSize / nodeSize;
@@ -95,5 +103,23 @@ public class TaskTable {
         List<TaskInfo> taskInfos = inQueue();
         List<TaskInfo> outTimeTasks = taskInfos.stream().filter(a -> a.getSendDate() + timeOut < System.currentTimeMillis()).collect(Collectors.toList());
         return outTimeTasks;
+    }
+
+    public static void cleanOld(long old) {
+        TASK_INFOS.removeIf(a -> a.getStatus() == TaskInfo.completed && (a.getStatusDate() + old) < System.currentTimeMillis());
+    }
+
+    public static boolean complete(String taskId, String nodeId) {
+        for (TaskInfo taskInfo : TASK_INFOS) {
+            if (taskInfo.getTaskId() == Integer.parseInt(taskId)) {
+                if (nodeId.equals(taskInfo.getNodeId())) {
+                    taskInfo.setStatus(TaskInfo.completed)
+                            .setStatusDate(System.currentTimeMillis());
+                    return true;
+                }
+                break;
+            }
+        }
+        return false;
     }
 }

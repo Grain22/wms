@@ -15,31 +15,31 @@ import lombok.experimental.Accessors;
 public class Task {
     Integer taskId;
     Object info;
-    int priority = 3;
+    int priority = 5;
     String addedDate;
     Integer taskLong;
 
-    public static final int priority_top = 9;
-    public static final int priority_bottom = 0;
+    public static final int PRIORITY_TOP = 9;
+    public static final int PRIORITY_BOTTOM = 1;
 
     public void changePriority(int to) {
-        if (to > priority_top) {
-            this.priority = priority_top;
-        } else if (to < priority_bottom) {
-            this.priority = priority_bottom;
+        if (to > PRIORITY_TOP) {
+            this.priority = PRIORITY_TOP;
+        } else if (to < PRIORITY_BOTTOM) {
+            this.priority = PRIORITY_BOTTOM;
         } else {
             this.priority = to;
         }
     }
 
     public void increasePriority() {
-        if (this.priority < priority_top) {
+        if (this.priority < PRIORITY_TOP) {
             this.priority++;
         }
     }
 
     public void decreasePriority() {
-        if (this.priority > priority_bottom) {
+        if (this.priority > PRIORITY_BOTTOM) {
             this.priority--;
         }
     }

@@ -57,7 +57,7 @@ public class TaskInfo {
 
     public void reFresh() {
         this.nodeId = null;
-        this.statusDate = waiting;
+        this.status = waiting;
         this.statusDate = System.currentTimeMillis();
         this.retryTimes = 0;
     }

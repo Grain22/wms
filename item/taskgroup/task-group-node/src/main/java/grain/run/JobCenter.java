@@ -1,66 +1,86 @@
 package grain.run;
 
+import grain.configs.GlobalParams;
 import grain.task.Task;
-import tools.bean.DateUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import tools.thread.CustomThreadPool;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
-import java.util.PriorityQueue;
 import java.util.concurrent.*;
+
 
 /**
  * @author wulifu
  */
+@Component
+@Slf4j
 public class JobCenter {
 
-    public static void main(String[] args) throws InterruptedException {
-        PriorityBlockingQueue<Job> jobs = new PriorityBlockingQueue<Job>();
-        jobs.add(new Job(new Task().setAddedDate(DateUtils.getTimeStringLong()).setPriority(2).setTaskId(1)));
-        jobs.add(new Job(new Task().setAddedDate(DateUtils.getTimeStringLong()).setPriority(1).setTaskId(2)));
-        jobs.add(new Job(new Task().setAddedDate(DateUtils.getTimeStringLong()).setPriority(3).setTaskId(3)));
-        jobs.add(new Job(new Task().setAddedDate(DateUtils.getTimeStringLong()).setPriority(2).setTaskId(4)));
-        jobs.add(new Job(new Task().setAddedDate(DateUtils.getTimeStringLong()).setPriority(3).setTaskId(5)));
-        jobs.add(new Job(new Task().setAddedDate(DateUtils.getTimeStringLong()).setPriority(1).setTaskId(6)));
-        jobs.add(new Job(new Task().setAddedDate(DateUtils.getTimeStringLong()).setPriority(2).setTaskId(7)));
-        Job take = jobs.take();
-        Job take1 = jobs.take();
-        Job take2 = jobs.take();
-        Job take3 = jobs.take();
-        Job take4 = jobs.take();
-        Job take5 = jobs.take();
-        Job take6 = jobs.take();
+    protected final GlobalParams params;
+
+    protected static ThreadFactory threadFactory = CustomThreadPool.createThreadFactory("task pool", false, Thread.NORM_PRIORITY);
+    protected static ThreadPoolExecutor task_pool = null;
+    protected static BlockingQueue<Runnable> jobs = new PriorityBlockingQueue<>(10240);
+
+    public JobCenter(GlobalParams params) {
+        this.params = params;
     }
 
-    protected static ThreadPoolExecutor task_pool = null;
-    private static Map<Integer, Future> task_future = new HashMap<>();
-
-    public static void init() {
+    public void init() {
         task_pool = new ThreadPoolExecutor(
                 4,
                 8,
                 0,
                 TimeUnit.MILLISECONDS,
-                new PriorityBlockingQueue<>(10240),
-                CustomThreadPool.createThreadFactory("task pool", false, Thread.NORM_PRIORITY),
+                jobs,
+                threadFactory,
                 new ThreadPoolExecutor.AbortPolicy());
     }
 
-    public static Executor getExecutor() {
+    public ThreadPoolExecutor getExecutor() {
         if (Objects.isNull(task_pool)) {
             init();
         }
         return task_pool;
     }
 
-    public static boolean addTask(Task task) {
-        BlockingQueue<Runnable> queue = task_pool.getQueue();
-        queue.forEach(a -> {
-            ((Job) a).increasePriority();
-        });
-        task_pool.submit(new Job(task));
+    public boolean addTask(Task task) {
+        getExecutor().execute(new Job(task, params.getNodeId(), params.getHostAddress(), params.getHostPort()));
         return true;
+    }
+
+    public void updateJob(int id, int priority) {
+        Job next;
+        Task task = null;
+        Runnable remove = null;
+        for (Runnable job : jobs) {
+            next = (Job) job;
+            if (next.getTask().getTaskId() == id) {
+                remove = job;
+                task = next.getTask();
+                break;
+            }
+        }
+        if (!Objects.isNull(remove) && !Objects.isNull(task)) {
+            getExecutor().remove(remove);
+            getExecutor().execute(new Job(task.setPriority(priority), params.getNodeId(), params.getHostAddress(), params.getHostPort()));
+        }
+    }
+
+    public void cancelJob(int id) {
+        Job next;
+        Runnable remove = null;
+        for (Runnable job : jobs) {
+            next = (Job) job;
+            if (next.getTask().getTaskId() == id) {
+                remove = job;
+                break;
+            }
+        }
+        if (!Objects.isNull(remove)) {
+            getExecutor().remove(remove);
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package grain;
 
+import com.alibaba.fastjson.JSON;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,5 +32,9 @@ public class Msg {
 
     public static Msg error(int code, String message) {
         return new Msg(code, message, null);
+    }
+
+    public static Msg parse(String s) {
+        return JSON.parseObject(s, Msg.class);
     }
 }

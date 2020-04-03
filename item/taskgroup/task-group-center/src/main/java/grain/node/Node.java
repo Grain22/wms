@@ -1,12 +1,18 @@
 package grain.node;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import tools.DigestUtil;
 
 /**
  * @author wulifu
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Accessors(chain = true)
 public class Node {
 
     /**

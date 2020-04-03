@@ -33,6 +33,7 @@ public class ManagerController {
             //file.transferTo(new File("localFilePath"));
             String ipAddress = AddressUtils.getIPAddress(request);
             ManageCenter.complete(taskId, ipAddress);
+
             log.info("task success {}", taskId);
             return Msg.success();
         } catch (Exception e) {

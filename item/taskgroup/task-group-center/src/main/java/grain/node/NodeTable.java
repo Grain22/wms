@@ -2,6 +2,7 @@ package grain.node;
 
 import grain.task.TaskTable;
 import lombok.Data;
+import tools.bean.DateUtils;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -59,5 +60,21 @@ public class NodeTable {
             NODES.removeIf(next -> collect.contains(next.getNodeId()));
         }
         return collect;
+    }
+
+    public static String register(String ipAddress, String port) {
+        String timeStringLong = DateUtils.getTimeStringLong();
+        Node node = new Node(Node.getIdByMd5(ipAddress, port, timeStringLong), ipAddress, port, timeStringLong, System.currentTimeMillis(), 0, 5, true);
+        NODES.add(node);
+        return node.getNodeId();
+    }
+
+    public static Node find(String nodeId) {
+        for (Node node : NODES) {
+            if (node.getNodeId().equals(nodeId)) {
+                return node;
+            }
+        }
+        return null;
     }
 }

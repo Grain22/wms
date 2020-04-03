@@ -1,10 +1,9 @@
-package grain.configs.autoRun;
+package grain.configs.auto;
 
 import grain.configs.GlobalParams;
 import grain.constants.Strings;
 import grain.utils.RequestUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.ApplicationArguments;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
