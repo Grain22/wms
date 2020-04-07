@@ -3,11 +3,20 @@ package grain.configs.auto;
 import grain.Msg;
 import grain.command.Command;
 import grain.configs.GlobalParams;
+import grain.utils.RequestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.*;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author wulifu
@@ -31,9 +40,17 @@ public class AutoRun {
             String register = Command.register(params.getHostAddress(), params.getHostPort(), port);
             params.setNodeId((String) Msg.parse(register).getData());
             log.info("节点注册 {}", register);
+
+            String url = "http://localhost:19951/api/file/upload";
+            String file = "C:\\Users\\wulifu\\Desktop\\task.sh";
+            MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+            map.add("id", "fdafdsafdasfdsa");
+            RequestUtils.postUploadFile(url, map, new File(file));
+            throw new RuntimeException();
         } catch (Exception e) {
             log.info("主服务器未找到");
             throw new RuntimeException("主服务器未找到");
         }
     }
+
 }

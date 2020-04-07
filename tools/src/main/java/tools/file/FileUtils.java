@@ -4,11 +4,16 @@ import tools.CustomerLogger;
 import tools.bean.DateUtils;
 
 import java.io.*;
+import java.net.JarURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
+import java.security.CodeSource;
+import java.security.ProtectionDomain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.jar.JarFile;
 
 import static java.io.File.separator;
 
@@ -17,6 +22,51 @@ import static java.io.File.separator;
  */
 @SuppressWarnings("unused")
 public class FileUtils {
+
+    private static boolean isUnitTest() {
+        try {
+            StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+
+            for(int i = stackTrace.length - 1; i >= 0; --i) {
+                if (stackTrace[i].getClassName().startsWith("org.junit.")) {
+                    return true;
+                }
+            }
+        } catch (Exception var3) {
+        }
+        return false;
+    }
+
+    private static File getRootJarFile(JarFile jarFile) {
+        String name = jarFile.getName();
+        int separator = name.indexOf("!/");
+        if (separator > 0) {
+            name = name.substring(0, separator);
+        }
+
+        return new File(name);
+    }
+
+    public static File findSource(URL location) throws IOException {
+        URLConnection connection = location.openConnection();
+        return connection instanceof JarURLConnection ? getRootJarFile(((JarURLConnection)connection).getJarFile()) : new File(location.getPath());
+    }
+
+    private static File findSource(Class<?> sourceClass) {
+        try {
+            ProtectionDomain domain = sourceClass != null ? sourceClass.getProtectionDomain() : null;
+            CodeSource codeSource = domain != null ? domain.getCodeSource() : null;
+            URL location = codeSource != null ? codeSource.getLocation() : null;
+            File source = location != null ? findSource(location) : null;
+            return source != null && source.exists() && !isUnitTest() ? source.getAbsoluteFile() : null;
+        } catch (Exception var6) {
+            return null;
+        }
+    }
+
+    static {
+        findSource(FileUtils.class);
+    }
 
     private static CustomerLogger logger = CustomerLogger.getLogger(FileUtils.class);
 

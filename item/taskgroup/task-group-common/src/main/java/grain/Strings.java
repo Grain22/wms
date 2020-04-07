@@ -15,4 +15,5 @@ public class Strings {
     public static final String CANCEL_TASK = "cancelTask";
     public static final String DROP_TASK = "dropTask";
     public static final String AVAILABLE = "available";
+    public static final String _JAR = ".jar";
 }
