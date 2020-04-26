@@ -11,11 +11,11 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
 public class Server {
-    public static void main(String[] args) {
+    public static void run(String[] args) {
         try {
             Handler handler = new Himpl();
             LocateRegistry.createRegistry(Constants.port);
-            Naming.bind("rmi://localhost:"+Constants.port+"/handler",handler);
+            Naming.bind("rmi://localhost:" + Constants.port + "/handler", handler);
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {

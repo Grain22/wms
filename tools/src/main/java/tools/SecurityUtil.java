@@ -9,6 +9,7 @@ import java.security.NoSuchAlgorithmException;
 public class SecurityUtil {
     /**
      * MD5
+     *
      * @param input
      * @return
      */

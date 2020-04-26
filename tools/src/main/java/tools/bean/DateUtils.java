@@ -39,18 +39,23 @@ public class DateUtils {
     public static int getCurrentDay() {
         return new GregorianCalendar().get(Calendar.DAY_OF_MONTH);
     }
+
     public static int getCurrentHour() {
         return new GregorianCalendar().get(Calendar.HOUR_OF_DAY);
     }
+
     public static int getCurrentMinute() {
         return new GregorianCalendar().get(Calendar.MINUTE);
     }
+
     public static int getCurrentSecond() {
         return new GregorianCalendar().get(Calendar.SECOND);
     }
+
     public static int getCurrentMillisecond() {
         return new GregorianCalendar().get(Calendar.MILLISECOND);
     }
+
     /**
      * get year month string length 6
      *
@@ -292,7 +297,7 @@ public class DateUtils {
     /**
      * format date
      *
-     * @param date date
+     * @param date   date
      * @param format like "yyyyMMdd HHmmss"
      * @return string
      */

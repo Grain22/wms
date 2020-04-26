@@ -2,8 +2,6 @@ package net.socket.server.handler;
 
 import net.socket.constants.Msg;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.Socket;
 
 /**

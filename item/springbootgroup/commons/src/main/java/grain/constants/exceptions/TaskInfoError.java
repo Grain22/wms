@@ -1,7 +1,5 @@
 package grain.constants.exceptions;
 
-import org.springframework.util.StopWatch;
-
 /**
  * @author wulifu
  */

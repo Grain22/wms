@@ -30,6 +30,7 @@ public class HttpRequestUtils {
         client.executeMethod(method);
         return method.getResponseBodyAsString();
     }
+
     @Data
     public static class HttpRequestInfo {
         String url;

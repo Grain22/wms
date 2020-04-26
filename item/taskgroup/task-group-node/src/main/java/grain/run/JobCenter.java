@@ -17,11 +17,10 @@ import java.util.concurrent.*;
 @Slf4j
 public class JobCenter {
 
-    protected final GlobalParams params;
-
     protected static ThreadFactory threadFactory = CustomThreadPool.createThreadFactory("task pool", false, Thread.NORM_PRIORITY);
     protected static ThreadPoolExecutor task_pool = null;
     protected static BlockingQueue<Runnable> jobs = new PriorityBlockingQueue<>(10240);
+    protected final GlobalParams params;
 
     public JobCenter(GlobalParams params) {
         this.params = params;

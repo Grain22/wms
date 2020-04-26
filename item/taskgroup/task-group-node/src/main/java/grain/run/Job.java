@@ -1,6 +1,5 @@
 package grain.run;
 
-import com.alibaba.fastjson.JSON;
 import grain.command.Command;
 import grain.task.Task;
 import lombok.Data;
@@ -33,8 +32,7 @@ public class Job implements Runnable, Comparable<Job> {
     }
 
     @Override
-    public int compareTo(Job o)
-    {
+    public int compareTo(Job o) {
         if (this.task.getPriority() == o.task.getPriority()) {
             return task.getAddedDate().compareTo(o.task.getAddedDate());
         }

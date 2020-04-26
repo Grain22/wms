@@ -12,12 +12,14 @@ import java.lang.annotation.*;
 public @interface RequestLimit {
     /**
      * 最大访问次数
+     *
      * @return
      */
     int count() default Integer.MAX_VALUE;
 
     /**
      * 访问周期
+     *
      * @return
      */
     long time() default 60000 * 24;

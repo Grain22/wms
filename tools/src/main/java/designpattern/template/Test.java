@@ -1,6 +1,11 @@
 package designpattern.template;
 
 public class Test extends AbstractOperators {
+    public static void run(String[] args) {
+        AbstractOperators t = new Test();
+        t.go();
+    }
+
     @Override
     public void begin() {
         System.out.println("begin");
@@ -14,10 +19,5 @@ public class Test extends AbstractOperators {
     @Override
     public void end() {
         System.out.println("begin");
-    }
-
-    public static void main(String[] args) {
-        AbstractOperators t = new Test();
-        t.go();
     }
 }

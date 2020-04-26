@@ -18,7 +18,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 public class UserInfoArgumentAutoComplete implements HandlerMethodArgumentResolver {
     private final GlobalYmlConfigParams params;
 
-    public UserInfoArgumentAutoComplete( GlobalYmlConfigParams params) {
+    public UserInfoArgumentAutoComplete(GlobalYmlConfigParams params) {
         this.params = params;
     }
 

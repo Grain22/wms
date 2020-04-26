@@ -1,4 +1,4 @@
-package tools.bean;
+package tools.bean.math;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -26,7 +26,7 @@ public class BigDecimalUtils {
         if (zero instanceof BigDecimal) {
             return (BigDecimal) zero;
         } else if (zero instanceof String) {
-            if("".equals(zero)){
+            if ("".equals(zero)) {
                 return BigDecimal.ZERO;
             }
             return new BigDecimal((String) zero);

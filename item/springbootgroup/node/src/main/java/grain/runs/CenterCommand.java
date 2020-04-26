@@ -27,7 +27,7 @@ public class CenterCommand {
         return true;
     }
 
-    public static void completeTask(String host,String port,String taskId) {
+    public static void completeTask(String host, String port, String taskId) {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.set("taskId", taskId);
         RequestUtils.sendPost(new StringBuilder(RequestUtils.HTTP_PREFIX).append(host).append(":").append(port).append("/api/center/").append(Strings.taskComplete).toString(), map);

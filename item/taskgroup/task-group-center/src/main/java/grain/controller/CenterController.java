@@ -36,7 +36,7 @@ public class CenterController {
     }
 
     @PostMapping(Strings.TASK_ERROR)
-    public Msg taskError(String nodeId,String taskId) {
+    public Msg taskError(String nodeId, String taskId) {
         return Msg.success();
     }
 

@@ -10,10 +10,6 @@ import net.sf.cglib.proxy.NoOp;
  * @version 5/6/2019 12:13 PM
  */
 public class TestCglib {
-    public static void main(String[] args) {
-      /*  surroundMethod();*/
-        callbackFilter();
-    }
 
     private static void callbackFilter() {
         Enhancer enhancer = new Enhancer();

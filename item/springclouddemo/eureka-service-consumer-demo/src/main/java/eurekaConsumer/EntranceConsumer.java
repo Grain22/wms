@@ -8,6 +8,9 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * @author wulifu
+ */
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableHystrix
@@ -18,7 +21,7 @@ public class EntranceConsumer {
 
     @Bean
     @LoadBalanced
-    public RestTemplate restTemplate(){
+    public RestTemplate restTemplate() {
         return new RestTemplate();
     }
 }

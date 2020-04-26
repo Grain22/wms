@@ -13,7 +13,7 @@ import java.rmi.RemoteException;
  * @date 2019/6/21 18:48
  */
 public class Client {
-    public static void main(String[] args) {
+    public static void run(String[] args) {
         try {
             Handler handler = (Handler) Naming.lookup("rmi://localhost:" + Constants.port + "/handler");
             System.out.println(handler.getMsg(2));

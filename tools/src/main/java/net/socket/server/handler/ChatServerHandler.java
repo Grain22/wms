@@ -15,6 +15,7 @@ public class ChatServerHandler implements Runnable {
     private BufferedReader br;
     private PrintWriter pw;
     private String msg;
+
     public ChatServerHandler(Socket s) {
         socket = s;
     }

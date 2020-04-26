@@ -1,10 +1,7 @@
-package net.netty.chat.client;
+package net.netty.client;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 
 /**
  * @author laowu

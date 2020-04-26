@@ -14,6 +14,9 @@ import java.util.regex.Pattern;
  */
 public final class StringUtils {
 
+    private static final String PHONE = "^(1(([34578][0-9])))\\d{8}$";
+    private static final String DOC = "(/\\*([^*]|[\\r\\n]|(\\*+([^*/]|[\\r\\n])))*\\*+/|[ \\t]*//.*)";
+
     /**
      * translate chinese to unicode encoding
      *
@@ -58,8 +61,6 @@ public final class StringUtils {
         }
         return buffer.toString();
     }
-
-    private static final String PHONE = "^(1(([34578][0-9])))\\d{8}$";
 
     /**
      * check if PHONE
@@ -145,8 +146,6 @@ public final class StringUtils {
             return name;
         }
     }
-
-    private static final String DOC = "(/\\*([^*]|[\\r\\n]|(\\*+([^*/]|[\\r\\n])))*\\*+/|[ \\t]*//.*)";
 
     public static String removeDoc(String string) {
         return string.replaceAll(DOC, "");

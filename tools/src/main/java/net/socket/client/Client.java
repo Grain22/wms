@@ -14,9 +14,6 @@ import java.net.Socket;
 public class Client {
     private Socket socket = null;
 
-    public static void main(String[] args) {
-        new Client();
-    }
     private Client() {
         try {
             socket = new Socket(Constants.host, Constants.port);
@@ -30,5 +27,9 @@ public class Client {
             }
         } catch (Exception ignored) {
         }
+    }
+
+    public static void run(String[] args) {
+        new Client();
     }
 }

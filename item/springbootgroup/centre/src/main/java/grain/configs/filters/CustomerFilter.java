@@ -22,6 +22,7 @@ import static org.springframework.http.HttpMethod.OPTIONS;
 @Configuration
 public class CustomerFilter implements Filter {
 
+    private static String NULL = "null";
     private final GlobalYmlConfigParams params;
 
     public CustomerFilter(GlobalYmlConfigParams params) {
@@ -52,7 +53,7 @@ public class CustomerFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
         String method = req.getServletPath();
-        if (method.equals("/"+Strings.REGISTER)) {
+        if (method.equals("/" + Strings.REGISTER)) {
             log.info("节点注册请求");
             ManageCenter.addNode(AddressUtils.getIPAddress(req));
             resp.setStatus(HttpStatus.SC_OK);
@@ -112,8 +113,6 @@ public class CustomerFilter implements Filter {
         }
         return true;
     }
-
-    private static String NULL = "null";
 
     private boolean authentication(ServletRequest request, ServletResponse response) throws IOException {
         HttpServletRequest req = (HttpServletRequest) request;

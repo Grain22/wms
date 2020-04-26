@@ -1,17 +1,8 @@
 package tools.media;
 
-import com.jhlabs.image.BoxBlurFilter;
-import com.jhlabs.image.GammaFilter;
-import com.jhlabs.image.PointFilter;
-import com.jhlabs.image.TransferFilter;
-import lombok.extern.log4j.Log4j;
-import lombok.extern.slf4j.Slf4j;
-
 import javax.imageio.ImageIO;
-import javax.print.Doc;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageOp;
 import java.io.File;
 import java.io.IOException;
 
@@ -26,7 +17,7 @@ public class ImageUtils {
     private static final String pic = "C:\\Users\\wulifu\\Desktop\\20191220142914_4_ykBDMbZoCenVIhCS9dEjkjPR4UoBVcxMruKRGcmzkeq8QVRPFw.png";
     private static final String tem = "C:\\Users\\wulifu\\Desktop\\res.png";
 
-      /**
+    /**
      * 简单文字添加
      *
      * @param bufferedImage

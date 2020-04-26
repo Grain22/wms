@@ -1,4 +1,4 @@
-package net.netty.chat.client;
+package net.netty.client;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -8,33 +8,32 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.regex.PatternSyntaxException;
 
 /**
  * @author laowu
  */
 public class ChatClient {
-    public static void main(String[] args) {
-        new ChatClient("localhost", 9000).run();
-    }
     private String host;
     private int port;
-
     public ChatClient(String host, int port) {
         this.host = host;
         this.port = port;
     }
 
-    public void run(){
+    public static void run(String[] args) {
+        new ChatClient("localhost", 9000).run();
+    }
+
+    public void run() {
         EventLoopGroup group = new NioEventLoopGroup();
         try {
             Bootstrap b = new Bootstrap();
             b.group(group)
                     .channel(NioSocketChannel.class)
                     .handler(new ChatClientInitializer());
-            Channel channel = b.connect(host,port).sync().channel();
+            Channel channel = b.connect(host, port).sync().channel();
             BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-            while (true){
+            while (true) {
                 String s = input.readLine();
                 channel.writeAndFlush(s + "\n");
             }

@@ -30,22 +30,33 @@ import java.util.stream.Collectors;
 @EnableScheduling
 public class NodeManager {
 
+    private static final long OLD = 1000L * 60 * 60 * 24 * 30;
     private static int id = 0;
+    private static long timeOut = 1000L * 60 * 30;
 
     private static synchronized int getId() {
         return id++;
     }
 
+    public static void increaseTimeOutLimit() {
+        timeOut *= 1.05;
+        log.info("超时时间变更为 {}", timeOut);
+    }
+
+    public static String register(String ipAddress, String port) {
+        return NodeTable.register(ipAddress, port);
+    }
+
     @Async
     @Scheduled(fixedDelay = 1000 * 60)
-    public void tasks(){
+    public void tasks() {
         nodes();
         taskCollect();
         taskDistribute();
         taskOutTimeCheck();
     }
 
-    public void nodes(){
+    public void nodes() {
         nodeAvailableCheck();
         nodePriorityCheck();
     }
@@ -123,7 +134,7 @@ public class NodeManager {
             }
             /*超时任务重分配*/
             for (TaskInfo outTimeTask : outTimeTasks) {
-                NodeCommand.cancel(NodeTable.find(outTimeTask.getNodeId()),outTimeTask);
+                NodeCommand.cancel(NodeTable.find(outTimeTask.getNodeId()), outTimeTask);
                 distributeTask(outTimeTask);
             }
         }
@@ -164,7 +175,6 @@ public class NodeManager {
         }
     }
 
-
     /**
      * 节点检查
      */
@@ -175,17 +185,6 @@ public class NodeManager {
         if (!disable.isEmpty()) {
             TaskTable.disableNodeTask(disable);
         }
-    }
-
-    private static long timeOut = 1000L * 60 * 30;
-
-    public static void increaseTimeOutLimit() {
-        timeOut *= 1.05;
-        log.info("超时时间变更为 {}", timeOut);
-    }
-
-    public static String register(String ipAddress, String port) {
-        return NodeTable.register(ipAddress, port);
     }
 
     private void distributeTasks(List<TaskInfo> taskInfos) {
@@ -205,10 +204,10 @@ public class NodeManager {
             log.info("任务 {} 发送到 {} 成功", taskInfo.getTaskId(), firstOne.getNodeHost() + " " + firstOne.getNodeId());
             taskInfo.sendSuccess(firstOne);
         } else if (firstOne.getNodeId().equals(secondOne.getNodeId())) {
-            log.info("任务 {} 节点唯一 再次尝试 {}",taskInfo.getTaskId(), firstOne.getNodeHost() + " " + firstOne.getNodeId());
+            log.info("任务 {} 节点唯一 再次尝试 {}", taskInfo.getTaskId(), firstOne.getNodeHost() + " " + firstOne.getNodeId());
             reDistributeTask(taskInfo, firstOne);
         } else {
-            log.info("任务 {} 尝试顺位节点 {}",taskInfo.getTaskId(), JSON.toJSONString(secondOne));
+            log.info("任务 {} 尝试顺位节点 {}", taskInfo.getTaskId(), JSON.toJSONString(secondOne));
             reDistributeTask(taskInfo, secondOne);
             /*节点下调置信度*/
             firstOne.decreasePriority();
@@ -225,8 +224,6 @@ public class NodeManager {
             taskInfo.fail();
         }
     }
-
-    private static final long OLD = 1000L * 60 * 60 * 24 * 30;
 
     private void checkNodeCanReach(Node node) {
         int trustTryTimes = 2;

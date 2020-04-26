@@ -1,12 +1,9 @@
 package tools;
 
-import tools.bean.ByteUtils;
-
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
-import static tools.bean.ByteUtils.byteArrayToHexString;
+import static tools.bean.ByteUtils.bytesToHexString;
 
 /**
  * @author laowu
@@ -22,7 +19,7 @@ public class DigestUtil {
         String resultString = null;
         try {
             MessageDigest md = MessageDigest.getInstance(SHA1);
-            resultString = byteArrayToHexString(md.digest(stringByte(input)));
+            resultString = bytesToHexString(md.digest(stringByte(input)));
         } catch (Exception ignore) {
         }
         return resultString;
@@ -32,7 +29,7 @@ public class DigestUtil {
         String resultString = null;
         try {
             MessageDigest md = MessageDigest.getInstance(SHA256);
-            resultString = byteArrayToHexString(md.digest(stringByte(input)));
+            resultString = bytesToHexString(md.digest(stringByte(input)));
         } catch (Exception ignore) {
         }
         return resultString;
@@ -42,11 +39,12 @@ public class DigestUtil {
         String resultString = null;
         try {
             MessageDigest md = MessageDigest.getInstance(MD5);
-            resultString = byteArrayToHexString(md.digest(stringByte(input)));
+            resultString = bytesToHexString(md.digest(stringByte(input)));
         } catch (Exception ignore) {
         }
         return resultString;
     }
+
     private static byte[] stringByte(String input) {
         return input.trim().getBytes(StandardCharsets.UTF_8);
     }

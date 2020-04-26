@@ -13,14 +13,13 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @Accessors(chain = true)
 public class Task {
+    public static final int PRIORITY_TOP = 9;
+    public static final int PRIORITY_BOTTOM = 1;
     Integer taskId;
     Object info;
     int priority = 5;
     String addedDate;
     Integer taskLong;
-
-    public static final int PRIORITY_TOP = 9;
-    public static final int PRIORITY_BOTTOM = 1;
 
     public void changePriority(int to) {
         if (to > PRIORITY_TOP) {

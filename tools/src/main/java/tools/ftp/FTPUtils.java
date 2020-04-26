@@ -1,18 +1,12 @@
 package tools.ftp;
 
-import org.omg.CORBA.PRIVATE_MEMBER;
 import sun.net.ftp.FtpClient;
-import sun.net.ftp.FtpClientProvider;
 import sun.net.ftp.FtpProtocolException;
-import sun.net.ftp.FtpReplyCode;
 import sun.net.ftp.impl.DefaultFtpClientProvider;
-import uav.flightrouteana.Point;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
-import java.net.SocketException;
-import java.util.stream.Stream;
 
 /**
  * @author grain

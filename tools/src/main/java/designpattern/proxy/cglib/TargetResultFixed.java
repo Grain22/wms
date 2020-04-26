@@ -3,10 +3,9 @@ package designpattern.proxy.cglib;
 import net.sf.cglib.proxy.FixedValue;
 
 /**
- *  @author     laowu
- *  @version    5/6/2019 12:23 PM
- *
-*/
+ * @author laowu
+ * @version 5/6/2019 12:23 PM
+ */
 public class TargetResultFixed implements FixedValue {
 
     /**

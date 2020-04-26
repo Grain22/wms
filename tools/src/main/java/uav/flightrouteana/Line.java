@@ -293,7 +293,7 @@ public class Line extends Graphic {
             if (c.isOnSegment(this)) {
                 Line lv = lb.getVertical(c.o);
                 double offset = lv.getOffset(c.radiusWithSafe);
-                
+
 
             }
         }

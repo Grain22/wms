@@ -12,14 +12,13 @@ import java.util.stream.Stream;
  * @author laowu
  * @version 5/7/2019 12:22 PM
  */
-@SuppressWarnings("unused")
 public class ObjectUtils {
     public static boolean isNull(Object o) {
         return o == null;
     }
 
     public static Stream<Long> range(final long start, long length, int step) {
-        Supplier<Long> seed = new Supplier<Long>() {
+        return Stream.generate(new Supplier<Long>() {
             private long next = start;
 
             @Override
@@ -28,8 +27,7 @@ public class ObjectUtils {
                 next += step;
                 return nextTem;
             }
-        };
-        return Stream.generate(seed).limit(length);
+        }).limit(length);
     }
 
     public static <T> T deepClone(T t) {

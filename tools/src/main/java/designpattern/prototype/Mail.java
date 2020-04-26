@@ -4,10 +4,9 @@ import lombok.Data;
 import tools.bean.ObjectUtils;
 
 /**
- *  @author     laowu
- *  @version    5/7/2019 12:08 PM
- *
-*/
+ * @author laowu
+ * @version 5/7/2019 12:08 PM
+ */
 @Data
 public class Mail implements Cloneable {
     private String receiver;
@@ -22,7 +21,7 @@ public class Mail implements Cloneable {
     }
 
     @Override
-    public Mail clone(){
+    public Mail clone() {
         Mail mail = null;
         try {
             mail = (Mail) super.clone();
@@ -32,7 +31,7 @@ public class Mail implements Cloneable {
         return mail;
     }
 
-    public Mail deepClone(){
+    public Mail deepClone() {
         return ObjectUtils.deepClone(this);
     }
 }

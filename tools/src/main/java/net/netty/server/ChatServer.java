@@ -1,4 +1,4 @@
-package net.netty.chat.server;
+package net.netty.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -10,13 +10,14 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  * @author laowu
  */
 public class ChatServer {
-    public static void main(String[] args) {
-        new ChatServer(9000).run();
-    }
     private int port;
 
     public ChatServer(int port) {
         this.port = port;
+    }
+
+    public static void run(String[] args) {
+        new ChatServer(9000).run();
     }
 
     public void run() {

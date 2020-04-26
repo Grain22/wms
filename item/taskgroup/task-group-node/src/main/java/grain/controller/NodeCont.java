@@ -20,6 +20,7 @@ public class NodeCont {
 
     protected final JobCenter jobCenter;
     protected final GlobalParams params;
+
     @Lazy
     public NodeCont(JobCenter jobCenter, GlobalParams params) {
         this.jobCenter = jobCenter;
@@ -42,6 +43,7 @@ public class NodeCont {
         jobCenter.cancelJob(Integer.parseInt(json));
         return Msg.success();
     }
+
     @PostMapping(Strings.AVAILABLE)
     public Msg available() {
         return Msg.success(params.getNodeId());

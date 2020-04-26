@@ -27,13 +27,10 @@ public class GDispatcherServlet extends HttpServlet {
     private static final int BUFFER_SIZE = 1024;
 
     private static final String LOCATION = "contextConfigLocation";
-
+    private static String EndWithHTML = ".html";
     private Properties properties = new Properties();
-
     private List<String> classes = new ArrayList<>();
-
     private Map<String, Object> ioc = new HashMap<>();
-
     private Map<String, Method> handlerMapping = new HashMap<>();
 
     public GDispatcherServlet() {
@@ -189,8 +186,6 @@ public class GDispatcherServlet extends HttpServlet {
             resp.getWriter().write("..." + Arrays.toString(e.getStackTrace()).replaceAll("\\[|\\}]", "").replaceAll(",\\s", "\r\n"));
         }
     }
-
-    private static String EndWithHTML = ".html";
 
     private void doDispatch(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         if (EndWithHTML.endsWith(req.getRequestURI())) {

@@ -11,6 +11,7 @@ public class BytesHandler implements Runnable {
     public BytesHandler(Socket socket) {
         this.socket = socket;
     }
+
     @Override
     public void run() {
         try {

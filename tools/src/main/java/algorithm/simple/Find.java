@@ -3,6 +3,7 @@ package algorithm.simple;
 public class Find {
     /**
      * 二分查找 log n
+     *
      * @return
      */
     public static boolean halfHalf(int[] ints, int begin, int end, int find) {

@@ -21,7 +21,7 @@ public class RequestUtils {
         return HTTP_PREFIX + host + ":" + port + "/" + target;
     }
 
-    public static String sendPost(String url, MultiValueMap<String,? extends Object> keyValues) {
+    public static String sendPost(String url, MultiValueMap<String, ? extends Object> keyValues) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().set(1, new StringHttpMessageConverter(StandardCharsets.UTF_8));
         HttpHeaders httpHeaders = new HttpHeaders();

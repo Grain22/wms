@@ -20,25 +20,29 @@ public class Point extends Graphic {
     Double y;
     boolean work = false;
 
-    public Point() {        super();
+    public Point() {
+        super();
 
     }
 
-    public Point(Double x, Double y) {        super();
+    public Point(Double x, Double y) {
+        super();
 
         this.id = 0;
         this.x = x;
         this.y = y;
     }
 
-    public Point(int id, double x, double y) {        super();
+    public Point(int id, double x, double y) {
+        super();
 
         this.id = id;
         this.x = x;
         this.y = y;
     }
 
-    public Point(int id, double x, double y, boolean work) {        super();
+    public Point(int id, double x, double y, boolean work) {
+        super();
 
         this.id = id;
         this.x = x;
@@ -46,21 +50,24 @@ public class Point extends Graphic {
         this.work = work;
     }
 
-    public Point(String x, String y) {        super();
+    public Point(String x, String y) {
+        super();
 
         this.id = 0;
         this.x = Double.parseDouble(x);
         this.y = Double.parseDouble(y);
     }
 
-    public Point(Point point, int i) {        super();
+    public Point(Point point, int i) {
+        super();
 
         this.id = i;
         this.x = point.x;
         this.y = point.y;
     }
 
-    public Point(Point point, boolean b) {        super();
+    public Point(Point point, boolean b) {
+        super();
 
         this.id = point.id;
         this.x = point.x;

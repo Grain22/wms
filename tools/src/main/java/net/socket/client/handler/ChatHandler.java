@@ -12,9 +12,11 @@ import java.net.Socket;
  */
 public class ChatHandler {
     private Socket socket;
+
     public ChatHandler(Socket socket) {
         this.socket = socket;
     }
+
     public void run() {
         try {
             BufferedReader re = new BufferedReader(new InputStreamReader(System.in));

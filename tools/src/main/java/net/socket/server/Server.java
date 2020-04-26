@@ -2,15 +2,12 @@ package net.socket.server;
 
 import net.socket.constants.Constants;
 import net.socket.server.handler.BytesServerHandler;
-import net.socket.server.handler.ChatServerHandler;
-import tools.thread.CustomThreadPool;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
 
 /**
  * @author laowu
@@ -18,11 +15,20 @@ import java.util.concurrent.ExecutorService;
  */
 public class Server {
 
-    ServerSocket server;
     public static List<Socket> clients = new ArrayList<>();
+    ServerSocket server;
 
 
-    public static void main(String[] args) {
+    public Server() {
+        try {
+            init();
+            listen();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void run(String[] args) {
         new Server();
     }
 
@@ -36,15 +42,6 @@ public class Server {
             clients.add(socket);
             //Constants.clients.submit(new ChatServerHandler(socket));
             Constants.clients.submit(new BytesServerHandler(socket));
-        }
-    }
-
-    public Server() {
-        try {
-            init();
-            listen();
-        } catch (Exception ex) {
-            ex.printStackTrace();
         }
     }
 

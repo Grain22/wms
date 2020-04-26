@@ -15,6 +15,12 @@ import tools.DigestUtil;
 @Accessors(chain = true)
 public class Node {
 
+    public static final int normal = 0;
+    public static final int wait = 2;
+    public static final int drop = 3;
+    public static final int uncheck = -1;
+    public static final int priority_top = 9;
+    public static final int priority_bottom = 0;
     /**
      * 节点标签
      */
@@ -27,20 +33,12 @@ public class Node {
     int nodePriority = 5;
     boolean nodeAvailable = true;
 
-    public static final int normal = 0;
-    public static final int wait = 2;
-    public static final int drop = 3;
-    public static final int uncheck = -1;
-
-    public static final int priority_top = 9;
-    public static final int priority_bottom = 0;
+    public static String getIdByMd5(String nodeHost, String nodePort, String nodeRegisterDateTime) {
+        return DigestUtil.md5Digests(nodeHost + nodePort + nodeRegisterDateTime);
+    }
 
     public void setNodeId() {
         this.nodeId = DigestUtil.md5Digests(nodeHost + nodePort + nodeRegisterDateTime);
-    }
-
-    public static String getIdByMd5(String nodeHost, String nodePort, String nodeRegisterDateTime) {
-        return DigestUtil.md5Digests(nodeHost + nodePort + nodeRegisterDateTime);
     }
 
     public void increasePriority() {

@@ -1,31 +1,36 @@
 package eurekaConsumer;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * @author wulifu
+ */
 @RestController
 public class Cont {
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
+
+    public Cont(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     @RequestMapping("/test")
     @HystrixCommand(fallbackMethod = "errorHandler")
-    public String test(){
+    public String test() {
         String url = "http://provider/test";
         return restTemplate.getForObject(url, String.class);
     }
 
     @RequestMapping("/testError")
     @HystrixCommand(fallbackMethod = "errorHandler")
-    public String testError(){
+    public String testError() {
         String url = "http://provider/test1";
         return restTemplate.getForObject(url, String.class);
     }
 
-    public String errorHandler(){
+    public String errorHandler() {
         return "something wrong";
     }
 }

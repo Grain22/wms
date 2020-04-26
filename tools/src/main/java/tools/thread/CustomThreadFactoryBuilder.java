@@ -1,7 +1,5 @@
 package tools.thread;
 
-import lombok.Data;
-
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -13,6 +11,25 @@ public class CustomThreadFactoryBuilder {
     private String namePrefix = null;
     private boolean daemon = false;
     private int priority = Thread.NORM_PRIORITY;
+
+    private static ThreadFactory build(CustomThreadFactoryBuilder builder) {
+        final String namePrefix = builder.namePrefix;
+        final Boolean daemon = builder.daemon;
+        final Integer priority = builder.priority;
+        final AtomicLong count = new AtomicLong(0);
+        //jdk8中还是优先使用lamb表达式
+        return (Runnable runnable) -> {
+            Thread thread = new Thread(runnable);
+            if (namePrefix != null) {
+                thread.setName(namePrefix + "-" + count.getAndIncrement());
+            }
+            if (daemon != null) {
+                thread.setDaemon(daemon);
+            }
+            thread.setPriority(priority);
+            return thread;
+        };
+    }
 
     public CustomThreadFactoryBuilder setNamePrefix(String namePrefix) {
         if (namePrefix == null) {
@@ -44,25 +61,6 @@ public class CustomThreadFactoryBuilder {
 
     public ThreadFactory build() {
         return build(this);
-    }
-
-    private static ThreadFactory build(CustomThreadFactoryBuilder builder) {
-        final String namePrefix = builder.namePrefix;
-        final Boolean daemon = builder.daemon;
-        final Integer priority = builder.priority;
-        final AtomicLong count = new AtomicLong(0);
-        //jdk8中还是优先使用lamb表达式
-        return (Runnable runnable) -> {
-            Thread thread = new Thread(runnable);
-            if (namePrefix != null) {
-                thread.setName(namePrefix + "-" + count.getAndIncrement());
-            }
-            if (daemon != null) {
-                thread.setDaemon(daemon);
-            }
-            thread.setPriority(priority);
-            return thread;
-        };
     }
 }
 

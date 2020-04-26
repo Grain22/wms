@@ -1,6 +1,5 @@
 package algorithm.simple;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,6 +8,8 @@ import java.util.stream.Collectors;
  * @apiNote 常用算法记录
  */
 public class SortUtils {
+
+    final static int two = 2;
 
     /**
      * 冒泡 n2
@@ -29,9 +30,6 @@ public class SortUtils {
         }
         return list;
     }
-
-
-    final static int two = 2;
 
     /**
      * 快速排序 n log n

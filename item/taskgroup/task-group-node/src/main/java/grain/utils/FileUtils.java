@@ -4,17 +4,14 @@ import grain.Strings;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.system.ApplicationHome;
 import org.springframework.stereotype.Component;
-import tools.bean.DateUtils;
 
 import java.awt.*;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
-import java.util.*;
+import java.util.Map;
+import java.util.Stack;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.IntStream;
 
 /**
  * @author wulifu
@@ -23,24 +20,18 @@ import java.util.stream.IntStream;
 @Slf4j
 public class FileUtils {
 
+    public static final Map<Integer, List<String>> TEMPORARY_FILE_CACHE_POOL = new HashMap<Integer, List<String>>();
+    public static final Map<Integer, Font> FONT_CACHE_POOL = new HashMap<>();
+    public static final int CACHE_POOL_NUMBER = 100;
+    public static final String BASE_RESOURCE = "files/";
+    private static final Map<Integer, Map<Integer, String>> MATERIAL_CACHE_POOL;
+    private static final Stack<Integer> MATERIAL_USE_STACK;
+    private static final Font DEFAULT_FONT = new Font(Font.SERIF, Font.PLAIN, 30);
     public static String APP_ROOT_DIRECTORY;
     public static String APP_FONT_DIRECTORY;
     public static String APP_MATERIAL_DIRECTORY;
     public static String APP_TEMPORARY_DIRECTORY;
     public static String APP_CLASSIC_CASE_DIRECTORY;
-
-    private static final Map<Integer, Map<Integer, String>> MATERIAL_CACHE_POOL;
-    private static final Stack<Integer> MATERIAL_USE_STACK;
-
-    public static final Map<Integer, List<String>> TEMPORARY_FILE_CACHE_POOL = new HashMap<Integer, List<String>>();
-
-    public static final Map<Integer, Font> FONT_CACHE_POOL = new HashMap<>();
-
-    public static final int CACHE_POOL_NUMBER = 100;
-
-    private static final Font DEFAULT_FONT = new Font(Font.SERIF, Font.PLAIN, 30);
-
-    public static final String BASE_RESOURCE = "files/";
 
     static {
         MATERIAL_CACHE_POOL = new ConcurrentHashMap<>(CACHE_POOL_NUMBER);

@@ -5,10 +5,11 @@ import java.math.RoundingMode;
 
 /**
  * 数字转换为汉语中人民币的大写
+ *
  * @author laowu
  */
 public class NumberToCN {
-    private  static final int TEN = 10;
+    private static final int TEN = 10;
     /**
      * 汉语中数字大写
      */

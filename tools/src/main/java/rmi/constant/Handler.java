@@ -11,6 +11,7 @@ import java.rmi.RemoteException;
 public interface Handler extends Remote {
     /**
      * rmi 测试
+     *
      * @param id id
      * @return string
      * @throws RemoteException

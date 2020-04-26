@@ -8,7 +8,7 @@ import spring.framework.annotation.GService;
  */
 @GService
 public class DemoService {
-    public String getInfo(String name){
+    public String getInfo(String name) {
         return "fdsafdasfdsa";
     }
 }

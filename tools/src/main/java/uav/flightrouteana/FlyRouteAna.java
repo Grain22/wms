@@ -14,7 +14,7 @@ import static uav.flightrouteana.LatLngUtil.getDistance;
 @SuppressWarnings("unused")
 public class FlyRouteAna {
     private static final double UAV_WIDTH = 0.5;
-
+    CustomerLogger c = CustomerLogger.getLogger(this.getClass());
     private List<Point> points;
     private Line lineBase;
     private Line lineLeft;
@@ -35,7 +35,7 @@ public class FlyRouteAna {
     private boolean rightCanBeEnd = false;
     private double safe;
     private int lineNumber = 0;
-    CustomerLogger c = CustomerLogger.getLogger(this.getClass());
+
     public FlyRouteAna(String pointStr, String upStr, String widthStr, String safeStr, String obstacleStr) {
         /**
          *  @date 2/27/2019 2:44 PM
@@ -304,7 +304,7 @@ public class FlyRouteAna {
                                         boolean ss = lvs.getPoint(lvvs).isOnArea(area, center);
                                         lvu = lvap.getDistance(center) < lvsp.getDistance(center) ? lva : lvs;
                                         if (aa && as && sa && ss) {
-                                        } else if(aa&&sa) {
+                                        } else if (aa && sa) {
                                             lvvu = lvva;
                                         } else {
                                             lvvu = lvvs;
@@ -317,7 +317,7 @@ public class FlyRouteAna {
                                             result.add(lva.getDistance(a) < lvs.getDistance(a) ? lva.getPoint(l) : lvs.getPoint(l));
                                             if (aa && as && sa && ss) {
 
-                                            } else if(aa&&sa) {
+                                            } else if (aa && sa) {
                                                 lvvu = lvva;
                                             } else {
                                                 lvvu = lvvs;

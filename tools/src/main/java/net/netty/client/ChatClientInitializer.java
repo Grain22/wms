@@ -1,4 +1,4 @@
-package net.netty.chat.server;
+package net.netty.client;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -12,14 +12,13 @@ import io.netty.util.CharsetUtil;
 /**
  * @author laowu
  */
-public class ChatServerInitializer extends ChannelInitializer<SocketChannel> {
+public class ChatClientInitializer extends ChannelInitializer<SocketChannel> {
     @Override
-    protected void initChannel(SocketChannel ch) throws Exception {
-        System.out.println("connect " + ch.remoteAddress());
-        ChannelPipeline pipeline = ch.pipeline();
-        pipeline.addLast(new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
+    protected void initChannel(SocketChannel socketChannel) throws Exception {
+        ChannelPipeline pipeline = socketChannel.pipeline();
+        pipeline.addLast(new DelimiterBasedFrameDecoder(4096, Delimiters.lineDelimiter()));
         pipeline.addLast(new StringDecoder(CharsetUtil.UTF_8));
         pipeline.addLast(new StringEncoder(CharsetUtil.UTF_8));
-        pipeline.addLast(new ChatServerHandler());
+        pipeline.addLast(new ChatClientHandler());
     }
 }

@@ -12,9 +12,9 @@ import java.util.Objects;
  */
 public class VideoUtils {
 
+    private static final String pic = "C:\\Users\\wulifu\\Desktop\\20191220142914_4_ykBDMbZoCenVIhCS9dEjkjPR4UoBVcxMruKRGcmzkeq8QVRPFw.png";
     private static String video_url = "C:\\Users\\wulifu\\Desktop\\StarLight.mp4";
     private static String video_result = "C:\\Users\\wulifu\\Desktop\\result.mp4";
-    private static final String pic = "C:\\Users\\wulifu\\Desktop\\20191220142914_4_ykBDMbZoCenVIhCS9dEjkjPR4UoBVcxMruKRGcmzkeq8QVRPFw.png";
 
     public static void doRenderExample() {
         FFmpegFrameGrabber grabber = null;

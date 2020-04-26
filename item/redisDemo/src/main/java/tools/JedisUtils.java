@@ -16,7 +16,7 @@ public class JedisUtils {
     private int port = 6379;
     private Jedis jedis;
 
-    private JedisUtils(){
+    private JedisUtils() {
         if (Objects.isNull(jedis)) {
             this.jedis = new Jedis(this.host, this.port);
         }

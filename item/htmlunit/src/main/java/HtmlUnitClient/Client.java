@@ -17,7 +17,7 @@ public class Client {
 
     public static WebClient getClient() {
         if (Objects.isNull(webClient)) {
-            synchronized (webClient) {
+            synchronized (Client.class) {
                 if (Objects.isNull(webClient)) {
                     webClient = new WebClient(BrowserVersion.CHROME);
                     webClient.setAjaxController(new NicelyResynchronizingAjaxController());

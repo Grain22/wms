@@ -3,12 +3,6 @@ package designpattern.abstractfactory;
 interface food {
 }
 
-class A implements food {
-}
-
-class B implements food {
-}
-
 interface produce {
     /**
      * get food
@@ -16,6 +10,12 @@ interface produce {
      * @return
      */
     food get();
+}
+
+class A implements food {
+}
+
+class B implements food {
 }
 
 class FactoryForA implements produce {

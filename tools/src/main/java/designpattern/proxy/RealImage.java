@@ -1,15 +1,14 @@
 package designpattern.proxy;
 
 /**
- *  @author     laowu
- *  @version    5/6/2019 11:58 AM
- *
-*/
+ * @author laowu
+ * @version 5/6/2019 11:58 AM
+ */
 public class RealImage implements Image {
 
     private String fileName;
 
-    RealImage(String fileName){
+    RealImage(String fileName) {
         this.fileName = fileName;
         loadFromDisk(fileName);
     }
@@ -19,7 +18,7 @@ public class RealImage implements Image {
         System.out.println("Displaying " + fileName);
     }
 
-    private void loadFromDisk(String fileName){
+    private void loadFromDisk(String fileName) {
         System.out.println("Loading " + fileName);
     }
 }

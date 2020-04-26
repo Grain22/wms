@@ -17,11 +17,10 @@ import static java.util.regex.Pattern.compile;
  * @date 11/13/2018 6:09 PM
  */
 public class CustomerLogger {
+    public static final String WORK_SPACE = "." + separator + "temporary" + separator + "write";
     String filepath;
     String filename;
     private Class<?> clazz;
-
-    public static final String WORK_SPACE = "." + separator + "temporary" + separator + "write";
 
     private CustomerLogger(Class<?> cla) {
         this.clazz = cla;
@@ -37,7 +36,7 @@ public class CustomerLogger {
     }
 
     public final String log(Object str) {
-        return log(str.toString(),  null);
+        return log(str.toString(), null);
     }
 
     public String log(String str, Object... strList) {

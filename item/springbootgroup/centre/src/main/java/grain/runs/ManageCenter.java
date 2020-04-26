@@ -28,17 +28,15 @@ public class ManageCenter {
     public static final int MIN = 1000 * 60;
 
     private static int cont = 0;
-
-    private synchronized static int getCont() {
-        return cont++;
-    }
-
     private static Map<String, NodeInfo> nodes = new ConcurrentHashMap<>(5);
-
     protected final GlobalYmlConfigParams params;
 
     public ManageCenter(GlobalYmlConfigParams params) {
         this.params = params;
+    }
+
+    private synchronized static int getCont() {
+        return cont++;
     }
 
     /**
@@ -125,7 +123,7 @@ public class ManageCenter {
             if (nodeInfos.size() > 1) {
                 newHost = nodeInfos.get(1).getNodeHost();
             } else {
-                log.info("当前无其他节点 {} 超时 {}", a.getTaskId(),System.currentTimeMillis() - a.getSendTime());
+                log.info("当前无其他节点 {} 超时 {}", a.getTaskId(), System.currentTimeMillis() - a.getSendTime());
                 return;
             }
         }

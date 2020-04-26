@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-import java.util.Objects;
-
 /**
  * @author wulifu
  */
@@ -14,14 +12,14 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Msg {
-    @NonNull
-    private int code;
-    private String message;
-    private Object data;
     public static final int code_success = 200;
     public static final int code_unhandled_error = 500;
     public static final int code_file_transfer_error = 501;
     public static final int code_task_info_error = 502;
+    @NonNull
+    private int code;
+    private String message;
+    private Object data;
 
     public static Msg success() {
         return new Msg(code_success, "success", null);

@@ -20,6 +20,10 @@ public class MailUtils {
     static String alias = "wulifu";
     static String subject = "测试";
     static String content = "测试消息";
+    static String MAIL_TRANSPORT_PROTOCOL = "smtp";
+    static String MAIL_SMTP_HOST = "smtp.exmail.qq.com";
+    static String MAIL_SMTP_PORT = "465";
+    static String MAIL_SMTP_AUTH = "true";
 
     public static void sendMailDemo() throws Exception {
         Session session = Session.getDefaultInstance(setTencentExEmail(),
@@ -47,12 +51,6 @@ public class MailUtils {
         //发送
         Transport.send(mimeMessage);
     }
-
-
-    static String MAIL_TRANSPORT_PROTOCOL = "smtp";
-    static String MAIL_SMTP_HOST = "smtp.exmail.qq.com";
-    static String MAIL_SMTP_PORT = "465";
-    static String MAIL_SMTP_AUTH = "true";
 
     public static Properties setTencentExEmail() {
         Properties prop = new Properties();

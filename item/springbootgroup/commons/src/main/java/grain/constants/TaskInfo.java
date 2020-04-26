@@ -14,5 +14,5 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class TaskInfo {
     private int id;
-    private int i ;
+    private int i;
 }

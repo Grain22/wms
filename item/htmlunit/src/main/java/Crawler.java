@@ -3,8 +3,6 @@ import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebClient;
 
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * @author laowu
@@ -12,9 +10,8 @@ import java.util.List;
  * the web crawler
  */
 public class Crawler {
-    private static List<String> task = new LinkedList<>();
 
-    public static void main(String[] args) throws IOException {
+    public static void run(String[] args) throws IOException {
         WebClient client = Client.getClient();
         Page page = client.getPage("https://www.baidu.com");
         System.out.println(page);

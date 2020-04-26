@@ -24,23 +24,27 @@ public class Circle extends Graphic {
     double radiusWithSafe;
     double distance;
 
-    public Circle() {        super();
+    public Circle() {
+        super();
 
     }
 
-    public Circle(Point point, String radiusStr) {        super();
+    public Circle(Point point, String radiusStr) {
+        super();
 
         this.o = point;
         this.radius = Double.valueOf(radiusStr);
     }
 
-    public Circle(Point point, double radius) {        super();
+    public Circle(Point point, double radius) {
+        super();
 
         this.o = point;
         this.radius = radius;
     }
 
-    public Circle(Point point, double radius, double safe) {        super();
+    public Circle(Point point, double radius, double safe) {
+        super();
 
         this.o = point;
         this.radius = radius;
@@ -83,7 +87,7 @@ public class Circle extends Graphic {
         return res;
     }
 
-    public List<Point> getPoints(Line l ) {
+    public List<Point> getPoints(Line l) {
         double m = this.o.x;
         double n = this.o.y;
         double r = this.radiusWithSafe;

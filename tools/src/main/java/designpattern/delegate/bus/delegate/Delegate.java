@@ -17,7 +17,7 @@ public class Delegate {
         this.serType = serType;
     }
 
-    public void  doTask(){
+    public void doTask() {
         businessService = query.getService(serType);
         businessService.doProcessing();
     }

@@ -19,7 +19,7 @@ public class Msg {
         }
     }
 
-    public byte[] getData(int begin,int length){
+    public byte[] getData(int begin, int length) {
         byte[] result = new byte[length];
         for (int i = 0; i < length; i++) {
             result[i] = this.getMsg()[begin + i];

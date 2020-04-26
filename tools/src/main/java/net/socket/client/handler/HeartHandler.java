@@ -8,9 +8,11 @@ import java.util.Random;
  */
 public class HeartHandler implements Runnable {
     private Socket socket;
+
     public HeartHandler(Socket socket) {
         this.socket = socket;
     }
+
     @Override
     public void run() {
         try {

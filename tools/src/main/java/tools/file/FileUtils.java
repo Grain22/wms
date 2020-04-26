@@ -23,11 +23,17 @@ import static java.io.File.separator;
 @SuppressWarnings("unused")
 public class FileUtils {
 
+    private static final String DEF_PATH = separator + "temporary";
+    private static final String DEF_FILE_NAME = DateUtils.getTimeString() + ".log";
+    private static final String DEF_FILE = DEF_PATH + separator + DEF_FILE_NAME;
+    private static CustomerLogger logger = CustomerLogger.getLogger(FileUtils.class);
+    private static boolean append = true;
+
     private static boolean isUnitTest() {
         try {
             StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 
-            for(int i = stackTrace.length - 1; i >= 0; --i) {
+            for (int i = stackTrace.length - 1; i >= 0; --i) {
                 if (stackTrace[i].getClassName().startsWith("org.junit.")) {
                     return true;
                 }
@@ -49,7 +55,7 @@ public class FileUtils {
 
     public static File findSource(URL location) throws IOException {
         URLConnection connection = location.openConnection();
-        return connection instanceof JarURLConnection ? getRootJarFile(((JarURLConnection)connection).getJarFile()) : new File(location.getPath());
+        return connection instanceof JarURLConnection ? getRootJarFile(((JarURLConnection) connection).getJarFile()) : new File(location.getPath());
     }
 
     private static File findSource(Class<?> sourceClass) {
@@ -63,18 +69,6 @@ public class FileUtils {
             return null;
         }
     }
-
-    static {
-        findSource(FileUtils.class);
-    }
-
-    private static CustomerLogger logger = CustomerLogger.getLogger(FileUtils.class);
-
-    private static boolean append = true;
-
-    private static final String DEF_PATH = separator + "temporary";
-    private static final String DEF_FILE_NAME = DateUtils.getTimeString() + ".log";
-    private static final String DEF_FILE = DEF_PATH + separator + DEF_FILE_NAME;
 
     public static void writeToFile(String string) {
         writeToFile(Collections.singletonList(string));

@@ -1,12 +1,15 @@
 package tools.net;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author laowu
@@ -33,9 +36,10 @@ public class AddressUtils {
 
     /**
      * 获取本机
+     *
      * @return
      */
-    public static List<String> getAddresses(){
+    public static List<String> getAddresses() {
         List<String> res = new ArrayList<>();
         try {
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
@@ -86,5 +90,11 @@ public class AddressUtils {
             ip = request.getRemoteAddr();
         }
         return "0:0:0:0:0:0:0:1".equals(ip) ? "127.0.0.1" : ip;
+    }
+
+    public static String ipToBinary(String ip) {
+        return Arrays.stream(ip.split("\\."))
+                .map(s -> String.format("%8s", new BigInteger(s).toString(2)).replaceAll(" ", "0"))
+                .collect(Collectors.joining());
     }
 }
