@@ -3,7 +3,7 @@ package tools;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
-import static tools.bean.ByteUtils.bytesToHexString;
+import static tools.data.ByteUtils.bytesToHexString;
 
 /**
  * @author laowu

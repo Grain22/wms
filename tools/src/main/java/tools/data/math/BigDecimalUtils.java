@@ -1,4 +1,4 @@
-package tools.bean.math;
+package tools.data.math;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

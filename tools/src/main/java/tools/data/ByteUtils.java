@@ -1,5 +1,6 @@
-package tools.bean;
+package tools.data;
 
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
@@ -12,35 +13,53 @@ public class ByteUtils {
 
     public static byte[] longToBytes(long num) {
         byte[] src = new byte[8];
-        src[0] = (byte) (num & 0xFF);
-        src[1] = (byte) ((num >> 8) & 0xFF);
-        src[2] = (byte) ((num >> 16) & 0xFF);
-        src[3] = (byte) ((num >> 24) & 0xFF);
+        src[7] = (byte) (num & 0xFF);
+        src[6] = (byte) ((num >> 8) & 0xFF);
+        src[5] = (byte) ((num >> 16) & 0xFF);
+        src[4] = (byte) ((num >> 24) & 0xFF);
         src[3] = (byte) ((num >> 32) & 0xFF);
-        src[3] = (byte) ((num >> 40) & 0xFF);
-        src[3] = (byte) ((num >> 48) & 0xFF);
-        src[3] = (byte) ((num >> 56) & 0xFF);
+        src[2] = (byte) ((num >> 40) & 0xFF);
+        src[1] = (byte) ((num >> 48) & 0xFF);
+        src[0] = (byte) ((num >> 56) & 0xFF);
         return src;
     }
 
     public static long bytesToLong(byte[] src) {
-        return (src[0] & 0xFF)
-                | ((src[1] & 0xFF) << 8)
-                | ((src[2] & 0xFF) << 16)
-                | ((src[3] & 0xFF) << 24)
+        return (src[8] & 0xFF)
+                | ((src[7] & 0xFF) << 8)
+                | ((src[6] & 0xFF) << 16)
+                | ((src[5] & 0xFF) << 24)
                 | ((src[4] & 0xFF) << 32)
-                | ((src[5] & 0xFF) << 40)
-                | ((src[6] & 0xFF) << 48)
-                | ((src[7] & 0xFF) << 56);
+                | ((src[3] & 0xFF) << 40)
+                | ((src[2] & 0xFF) << 48)
+                | ((src[1] & 0xFF) << 56);
     }
 
     public static byte[] intToBytes(int value) {
         byte[] src = new byte[4];
-        src[0] = (byte) (value & 0xFF);
-        src[1] = (byte) ((value >> 8) & 0xFF);
-        src[2] = (byte) ((value >> 16) & 0xFF);
-        src[3] = (byte) ((value >> 24) & 0xFF);
+        src[3] = (byte) (value & 0xFF);
+        src[2] = (byte) ((value >> 8) & 0xFF);
+        src[1] = (byte) ((value >> 16) & 0xFF);
+        src[0] = (byte) ((value >> 24) & 0xFF);
         return src;
+    }
+
+
+    public static String byteToBinary(byte b) {
+        StringBuilder s = new StringBuilder();
+        for (int i = Byte.SIZE; i > 0; i--) {
+            s.insert(0, b & 1);
+            b = (byte) (b >> 1);
+        }
+        return s.toString();
+    }
+
+    public static String bytesToBinary(byte[] bytes) {
+        String s = "";
+        for (byte b : bytes) {
+            s += byteToBinary(b);
+        }
+        return s;
     }
 
     public static byte[] charsToBytes(char[] chars) {
@@ -53,10 +72,7 @@ public class ByteUtils {
     }
 
     public static int bytesToInt(byte[] src) {
-        return (src[0] & 0xFF)
-                | ((src[1] & 0xFF) << 8)
-                | ((src[2] & 0xFF) << 16)
-                | ((src[3] & 0xFF) << 24);
+        return (src[3] & 0xFF) | ((src[2] & 0xFF) << 8) | ((src[1] & 0xFF) << 16) | ((src[0] & 0xFF) << 24);
     }
 
     public static char[] bytesToChars(byte[] bytes) {

@@ -1,8 +1,7 @@
 package grain.configs.filters;
 
+import grain.Strings;
 import grain.configs.GlobalYmlConfigParams;
-import grain.constants.Strings;
-import grain.runs.ManageCenter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.httpclient.HttpStatus;
 import org.springframework.context.annotation.Configuration;
@@ -47,21 +46,6 @@ public class CustomerFilter implements Filter {
             return;
         }
         chain.doFilter(request, response);
-    }
-
-    private boolean specialMethodFilter(ServletRequest request, ServletResponse response) throws IOException {
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse resp = (HttpServletResponse) response;
-        String method = req.getServletPath();
-        if (method.equals("/" + Strings.REGISTER)) {
-            log.info("节点注册请求");
-            ManageCenter.addNode(AddressUtils.getIPAddress(req));
-            resp.setStatus(HttpStatus.SC_OK);
-            resp.getWriter().write("OPTIONS returns OK");
-            return false;
-        }
-        log.info("非特殊方法,正常执行");
-        return true;
     }
 
     private void characterEncoding(ServletRequest request, ServletResponse response) {

@@ -1,4 +1,4 @@
-package tools.bean;
+package tools.data;
 
 import lombok.NonNull;
 

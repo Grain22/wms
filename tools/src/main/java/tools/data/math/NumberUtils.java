@@ -1,4 +1,4 @@
-package tools.bean.math;
+package tools.data.math;
 
 import java.math.BigInteger;
 import java.util.Stack;

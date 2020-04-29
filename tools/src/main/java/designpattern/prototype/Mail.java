@@ -1,7 +1,7 @@
 package designpattern.prototype;
 
 import lombok.Data;
-import tools.bean.ObjectUtils;
+import tools.data.ObjectUtils;
 
 /**
  * @author laowu
