@@ -1,5 +1,7 @@
 package grain.configs.exceptions;
 
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
 /**
  * @author laowu
  */

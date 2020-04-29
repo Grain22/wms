@@ -2,6 +2,7 @@ package grain.configs.aop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,7 @@ public class AopLog {
     public void aopCut() {
     }
 
-    // @Around("aopCut()")
+    @Around("aopCut()")
     public Object around(ProceedingJoinPoint jp) throws Throwable {
         boolean throwError = false;
         String name = jp.getTarget().getClass().getName();

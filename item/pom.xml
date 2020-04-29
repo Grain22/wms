@@ -16,7 +16,6 @@
         <module>gservletweb</module>
         <module>springclouddemo</module>
         <module>redisDemo</module>
-        <module>springbootgroup</module>
         <module>taskgroup</module>
     </modules>
     <dependencies>
