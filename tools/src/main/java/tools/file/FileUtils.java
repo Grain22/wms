@@ -126,7 +126,7 @@ public class FileUtils {
 
     public static List<String> readFromFile(String pathWithName, String encoding) {
         File file = new File(pathWithName);
-        if (file.isFile() && file.exists()) {
+        if (file.exists() && file.isFile()) {
             List<String> list = new ArrayList<>();
             try (InputStreamReader read = new InputStreamReader(
                     new FileInputStream(file), encoding)) {
