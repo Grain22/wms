@@ -149,5 +149,12 @@
             <artifactId>antlr</artifactId>
             <version>2.7.7</version>
         </dependency>
+
+        <!--sftp-->
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>0.1.55</version>
+        </dependency>
     </dependencies>
 </project>

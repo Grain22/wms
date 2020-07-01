@@ -1,0 +1,32 @@
+spring7777:
+  application:
+    name: playing-platform
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    show-sql: false
+  http:
+    encoding:
+      charset: utf-8
+      enabled: true
+      force: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+server:
+  port: 8084
+  servlet:
+    context-path: /
+  tomcat:
+    uri-encoding: UTF-8
+  ssl:
+    key-store: classpath:key.keystore
+    key-alias: tomcathttps
+    key-store-password: grain9522
+logging:
+  config: classpath:logback-spring.xml

@@ -17,6 +17,7 @@
         <module>springclouddemo</module>
         <module>redisDemo</module>
         <module>taskgroup</module>
+        <module>springbootconfig</module>
     </modules>
     <dependencies>
         <dependency>

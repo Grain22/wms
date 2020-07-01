@@ -1,4 +1,4 @@
-package tools;
+package tools.net;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -81,8 +81,7 @@ public class HttpRequest {
             // 设置通用的请求属性
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
-            conn.setRequestProperty("user-agent",
-                    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            conn.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
             // 发送POST请求必须设置如下两行
             conn.setDoOutput(true);
             conn.setDoInput(true);
@@ -133,8 +132,7 @@ public class HttpRequest {
             conn.setRequestProperty("user-agent",
                     "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)");
             conn.setRequestProperty("Charsert", "UTF-8");
-            conn.setRequestProperty("Content-Type",
-                    "multipart/form-data; boundary=" + boundary);
+            conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
             OutputStream out = new DataOutputStream(conn.getOutputStream());
             /*定义最后数据分隔线*/
             byte[] endData = ("\r\n--" + boundary + "--\r\n").getBytes();

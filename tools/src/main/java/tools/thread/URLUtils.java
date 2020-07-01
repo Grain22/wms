@@ -1,6 +1,6 @@
 package tools.thread;
 
-import tools.DigestUtil;
+import tools.data.DigestUtil;
 
 public class URLUtils {
 
