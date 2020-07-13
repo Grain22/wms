@@ -13,9 +13,9 @@ public class CustomThreadPool {
 
 
     public static boolean is_daemon_false = false;
-    public static int maximum_pool_size = 20;
-    public static int core_pool_size = 5;
-    public static long keep_alive_time = 0L;
+    public static int maximum_pool_size = 128;
+    public static int core_pool_size = 8;
+    public static long keep_alive_time = 3600L;
 
     public static ThreadFactory createThreadFactory(String namePrefix, boolean isDaemon, int priority) {
         return new CustomThreadFactoryBuilder()

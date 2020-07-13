@@ -10,7 +10,6 @@ import org.springframework.context.annotation.AnnotationBeanNameGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.lang.NonNull;
-import org.springframework.lang.NonNullApi;
 import org.springframework.util.Assert;
 
 /**
@@ -25,12 +24,12 @@ public class Application {
     @Bean
     public ServletWebServerFactory servletContainer() {
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
-        tomcat.addAdditionalTomcatConnectors(createStandardConnector());
+        tomcat.addAdditionalTomcatConnectors(createStandardConnector(),createStandardConnector());
         return tomcat;
     }
 
     private Connector createStandardConnector() {
-        Connector connector = new Connector(org.apache.coyote.http11.Http11NioProtocol.class.getName());
+        Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
         connector.setPort(8080);
         return connector;
     }
