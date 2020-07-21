@@ -1,13 +1,13 @@
 eureka:
   server:
-    renewal-percent-threshold: 0.4
+    renewal-percent-threshold: 0.85
   instance:
     hostname: localhost
   client:
-    register-with-eureka: false
-    fetch-registry: false
     service-url:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+    register-with-eureka: true
+    fetch-registry: true
 server:
   port: 8000
 spring:

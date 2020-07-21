@@ -28,6 +28,7 @@ public class SftpSession {
         this.username = username;
         getSession();
     }
+
     public static synchronized void getLock(ChannelSftp sftp, String s) {
         try {
             String prefixWithRegex = s.substring(0, s.lastIndexOf("_") + 1) + "*";
@@ -45,7 +46,7 @@ public class SftpSession {
                         break;
                     } else {
                         ChannelSftp.LsEntry lsEntry = (ChannelSftp.LsEntry) sftp.ls(prefixWithRegex).get(0);
-                        long l = Long.parseLong(lsEntry.getFilename().substring(lsEntry.getFilename().lastIndexOf("_")+1));
+                        long l = Long.parseLong(lsEntry.getFilename().substring(lsEntry.getFilename().lastIndexOf("_") + 1));
                         if (System.currentTimeMillis() - l > out_time) {
                             log.error("加锁时间超过五分钟,检查相关流程或者sftp网络环境");
                             sftp.rm(lsEntry.getFilename());
@@ -93,18 +94,19 @@ public class SftpSession {
 
     public static final String LINUX_SEPARATOR = "/";
     public static final String LINUX_NOW = ".";
+    public static final String LINUX_HOME = "~";
 
     public static boolean moveToDir(ChannelSftp sftp, String dir, boolean antCreate) {
         try {
             if (dir.startsWith(LINUX_SEPARATOR)) {
                 sftp.cd(LINUX_SEPARATOR);
             }
-            if (dir.startsWith(LINUX_NOW)) {
+            if (dir.startsWith(LINUX_NOW) || dir.startsWith(LINUX_HOME)) {
                 sftp.cd(sftp.getHome());
             }
             String[] split = dir.split(LINUX_SEPARATOR);
             for (String s : split) {
-                if (s.isEmpty() || LINUX_NOW.equals(s)) {
+                if (s.isEmpty() || LINUX_NOW.equals(s) || LINUX_HOME.equals(s)) {
                     continue;
                 }
                 try {

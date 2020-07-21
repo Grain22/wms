@@ -116,4 +116,13 @@ public class ByteUtils {
         }
         return resultSb.toString();
     }
+
+    public static byte[] getData(byte[] bytes, int begin, int length) {
+        byte[] result = new byte[length];
+        for (int i = 0; i < length; i++) {
+            result[i] = bytes[begin + i];
+        }
+        return result;
+    }
+
 }

@@ -33,7 +33,7 @@ public class Server {
     }
 
     private void init() throws IOException {
-        server = new ServerSocket(9998);
+        server = new ServerSocket(9999);
     }
 
     private void listen() throws IOException {

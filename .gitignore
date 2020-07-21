@@ -3,6 +3,7 @@
 .classpath
 .factorypath
 .log
+*.MF
 /out/
 .idea
 target/
