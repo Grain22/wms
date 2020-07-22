@@ -34,7 +34,7 @@ public class GlobalIdGenerator {
     private static int sequenceBits = 12;
 
     /**
-     * 数据标识id向左移
+     * 数据标识id向左移3
      */
     private static int dataCenterIdShift = sequenceBits + workerIdBits;
 

@@ -1,7 +1,7 @@
 package net.socket.server;
 
 import net.socket.constants.Constants;
-import net.socket.server.handler.BytesServerHandler;
+import net.socket.server.handler.ByteTemHandler;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -34,14 +34,16 @@ public class Server {
 
     private void init() throws IOException {
         server = new ServerSocket(9999);
+//        server.setSoTimeout(1000);
     }
 
     private void listen() throws IOException {
         while (true) {
             Socket socket = server.accept();
+            socket.setSoTimeout(1000);
             clients.add(socket);
             //Constants.clients.submit(new ChatServerHandler(socket));
-            Constants.clients.submit(new BytesServerHandler(socket));
+            Constants.clients.submit(new ByteTemHandler(socket));
         }
     }
 
