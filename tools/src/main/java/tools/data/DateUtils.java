@@ -100,7 +100,7 @@ public class DateUtils {
     /**
      * get gregorian calender
      *
-     * @param date
+     * @param date date need to trans to calender
      * @return GregorianCalendar
      */
     public static Calendar getCalender(Date date) {
@@ -113,7 +113,7 @@ public class DateUtils {
      * if before NOW
      * check min limit : all
      *
-     * @param date
+     * @param date date need to compare
      * @return true/false
      */
     public static boolean ifBeforeNow(Date date) {

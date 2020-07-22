@@ -2,6 +2,7 @@ package rmi.client;
 
 import rmi.constant.Constants;
 import rmi.constant.Handler;
+import tools.thread.GlobalIdGenerator;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -16,7 +17,16 @@ public class Client {
     public static void run(String[] args) {
         try {
             Handler handler = (Handler) Naming.lookup("rmi://localhost:" + Constants.port + "/handler");
-            System.out.println(handler.getMsg(2));
+            for (int i = 0; i < 1000; i++) {
+                int finalI = i;
+                new Thread(() -> {
+                    try {
+                        System.out.println(GlobalIdGenerator.analyzeId(Long.parseLong(handler.getMsg(finalI, finalI))));;
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
+            }
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (NotBoundException e) {

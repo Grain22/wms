@@ -18,8 +18,8 @@ public class PinyinUtils {
     /**
      * get pinyin
      *
-     * @param chinese
-     * @return
+     * @param chinese 中文内容
+     * @return 转换结果
      */
     public static String getPingYin(String chinese) {
         if (chinese.isEmpty()) {
@@ -54,8 +54,8 @@ public class PinyinUtils {
     /**
      * 得到中文首字母
      *
-     * @param str
-     * @return
+     * @param str 中文内容
+     * @return 转换结果
      */
     public static String getPinYinHeadChar(String str) {
 
@@ -75,8 +75,8 @@ public class PinyinUtils {
     /**
      * 将字符串转移为ASCII码
      *
-     * @param chinese
-     * @return
+     * @param chinese 中文内容
+     * @return 转换结果
      */
     public static String getCnASCII(String chinese) {
         StringBuffer stringBuffer = new StringBuffer();

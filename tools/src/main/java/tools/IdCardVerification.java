@@ -70,8 +70,6 @@ public class IdCardVerification {
 
     /**
      * 检验身份证号码是否符合规范
-     *
-     * @return 错误信息或成功信息
      */
     public static String idCardValidate(String idStr) {
         // 记录错误信息

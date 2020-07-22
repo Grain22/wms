@@ -1,10 +1,13 @@
 package bootstrap;
 
 import com.jcraft.jsch.JSchException;
-import net.socket.server.Server;
+import rmi.server.Server;
 
+/**
+ * @author wulifu
+ */
 public class Bootstrap {
-    public static void main(String[] args) throws JSchException {
-        Server.run(args);
+    public static void main(String[] a) throws JSchException {
+        Server.run();
     }
 }

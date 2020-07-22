@@ -2,25 +2,30 @@ package rmi.server;
 
 import rmi.constant.Constants;
 import rmi.constant.Handler;
-import rmi.constant.Himpl;
+import rmi.constant.HandlerImpl;
 
-import java.net.MalformedURLException;
-import java.rmi.AlreadyBoundException;
-import java.rmi.Naming;
-import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
+/**
+ * @author wulifu
+ */
 public class Server {
-    public static void run(String[] args) {
+    /**
+     * if method for remote does not extend <class>java.rmi.server.UnicastRemoteObject</class>
+     * need sleep to hold daemon listen thread
+     * <code>
+     *      if (!(handler instanceof UnicastRemoteObject)) {
+     *                 Thread.sleep(Long.MAX_VALUE);
+     *      }
+     * </code>
+     */
+    public static void run() {
         try {
-            Handler handler = new Himpl();
-            LocateRegistry.createRegistry(Constants.port);
-            Naming.bind("rmi://localhost:" + Constants.port + "/handler", handler);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (AlreadyBoundException e) {
+            Handler handler = new HandlerImpl();
+            Registry registry = LocateRegistry.createRegistry(Constants.port);
+            registry.bind("handler", handler);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

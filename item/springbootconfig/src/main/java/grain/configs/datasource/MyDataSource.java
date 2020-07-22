@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 /**
  * @author wulifu
- * @implNote 可创建 内含主备的数据源,在某个数据源丢失后自动切换其他数据源
+ * @apiNote 可创建 内含主备的数据源,在某个数据源丢失后自动切换其他数据源
  * @see javax.sql.DataSource
  */
 @Slf4j

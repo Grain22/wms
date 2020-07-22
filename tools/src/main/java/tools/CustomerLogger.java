@@ -14,7 +14,7 @@ import static java.util.regex.Pattern.compile;
 
 /**
  * @author laowu 类似slf4j的日志,就是输出一下结果和位置
- * @date 11/13/2018 6:09 PM
+ * @date  11/13/2018 6:09 PM
  */
 public class CustomerLogger {
     public static final String WORK_SPACE = "." + separator + "temporary" + separator + "write";

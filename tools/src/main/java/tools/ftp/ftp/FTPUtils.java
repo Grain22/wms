@@ -6,7 +6,6 @@ import sun.net.ftp.FtpClient;
 import sun.net.ftp.FtpProtocolException;
 import sun.net.ftp.impl.DefaultFtpClientProvider;
 import tools.ftp.ShowProgressInfo;
-import tools.ftp.ShowProgress;
 
 import java.io.*;
 import java.net.InetSocketAddress;
@@ -116,8 +115,7 @@ public class FTPUtils {
      *
      * @param source 服务器上的文件名
      * @param target 本地生成的文件名
-     * @return
-     * @throws Exception
+     * @return long for file length
      */
     public long downloadFile(String source, String target) {
         long result = 0;

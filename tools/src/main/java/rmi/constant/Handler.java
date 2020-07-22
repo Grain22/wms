@@ -10,11 +10,11 @@ import java.rmi.RemoteException;
  */
 public interface Handler extends Remote {
     /**
-     * rmi 测试
-     *
-     * @param id id
-     * @return string
+     * rmi test
+     * @param id id生成
+     * @param centerId 节点序列号
+     * @return id
      * @throws RemoteException
      */
-    String getMsg(int id) throws RemoteException;
+    String getMsg(int id,int centerId) throws RemoteException;
 }

@@ -14,17 +14,6 @@ public class NumberUtils {
     private static final char[] DIGIT_CHARS = DIGIT_STRING.toCharArray();
     private static final BigInteger INTEGER0 = new BigInteger("0");
 
-    public static void SnowFlakeDemo() {
-        String phone_11 = "99999999999";
-        long l = System.currentTimeMillis();
-        String time = String.valueOf(l);
-        String index = "999";
-        String device = "999";
-        String id = time + device + phone_11 + index;
-        String s = numToRadix(id, 32);
-        System.out.println(s);
-    }
-
     /**
      * 10进制转任意进制
      */
