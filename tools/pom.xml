@@ -156,5 +156,12 @@
             <artifactId>jsch</artifactId>
             <version>0.1.55</version>
         </dependency>
+
+        <!--package scan-->
+        <dependency>
+            <groupId>io.github.classgraph</groupId>
+            <artifactId>classgraph</artifactId>
+            <version>4.8.87</version>
+        </dependency>
     </dependencies>
 </project>

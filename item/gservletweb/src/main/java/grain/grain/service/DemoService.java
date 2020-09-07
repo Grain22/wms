@@ -1,6 +1,6 @@
 package grain.grain.service;
 
-import spring.framework.annotation.GService;
+import grain.spring.framework.annotation.GService;
 
 /**
  * @author laowu

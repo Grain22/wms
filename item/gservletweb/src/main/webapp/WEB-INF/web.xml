@@ -11,7 +11,7 @@
     <display-name>Archetype Created Web grain.Application</display-name>
     <servlet>
         <servlet-name>gmvc</servlet-name>
-        <servlet-class>spring.framework.servlet.GDispatcherServlet</servlet-class>
+        <servlet-class>grain.spring.framework.servlet.GDispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>classpath*:application.properties</param-value>

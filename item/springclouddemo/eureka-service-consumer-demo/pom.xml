@@ -10,11 +10,14 @@
         <version>20190411</version>
     </parent>
 
-    <groupId>grain</groupId>
     <artifactId>consumer</artifactId>
     <version>demo</version>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+        </dependency>
         <!--负载均衡-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

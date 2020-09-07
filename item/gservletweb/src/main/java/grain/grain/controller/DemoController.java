@@ -1,10 +1,10 @@
 package grain.grain.controller;
 
 import grain.grain.service.DemoService;
-import spring.framework.annotation.GController;
-import spring.framework.annotation.GInject;
-import spring.framework.annotation.GRequestMapping;
-import spring.framework.annotation.GRequestParam;
+import grain.spring.framework.annotation.GController;
+import grain.spring.framework.annotation.GInject;
+import grain.spring.framework.annotation.GRequestMapping;
+import grain.spring.framework.annotation.GRequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

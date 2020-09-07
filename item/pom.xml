@@ -18,6 +18,7 @@
         <module>redisDemo</module>
         <module>taskgroup</module>
         <module>springbootconfig</module>
+        <module>window</module>
     </modules>
     <dependencies>
         <dependency>

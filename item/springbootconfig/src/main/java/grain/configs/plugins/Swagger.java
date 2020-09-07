@@ -24,7 +24,7 @@ public class Swagger {
                 .apiInfo(apiInfo())
                 .select()
                 //为当前包路径
-                .apis(RequestHandlerSelectors.basePackage("com.ebupt"))
+                .apis(RequestHandlerSelectors.basePackage("grain"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -32,13 +32,13 @@ public class Swagger {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 //页面标题
-                .title("视频制作网站接口API")
+                .title("spring boot config template")
                 //创建人
                 .contact(new Contact("Grain", null, "laowu875054886@live.com"))
                 //版本号
                 .version("1.0")
                 //描述
-                .description("")
+                .description("have fun")
                 .build();
     }
 }
