@@ -7,3 +7,5 @@ spring:
     name: provider
 server:
   port: 8801
+logging:
+  config: classpath:logback-spring.xml

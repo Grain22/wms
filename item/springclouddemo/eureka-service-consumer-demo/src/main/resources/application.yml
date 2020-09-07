@@ -7,3 +7,5 @@ spring:
     name: consumer
 server:
   port: 8881
+logging:
+  config: classpath:logback-spring.xml
