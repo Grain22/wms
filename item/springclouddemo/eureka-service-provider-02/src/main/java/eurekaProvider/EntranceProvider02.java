@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @EnableEurekaClient
 @SpringBootApplication
-public class EntranceProvider {
+public class EntranceProvider02 {
     @Value("${server.port}")
     String port;
 
     public static void main(String[] args) {
-        SpringApplication.run(EntranceProvider.class, args);
+        SpringApplication.run(EntranceProvider02.class, args);
     }
 
     @RequestMapping("/test")

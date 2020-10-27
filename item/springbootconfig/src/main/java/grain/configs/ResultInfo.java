@@ -26,11 +26,7 @@ public class ResultInfo {
         this.desc = success.description;
     }
 
-    public static String success() {
-        return SUCCESS.json();
-    }
-
-    public static String system(String desc) {
+      public static String system(String desc) {
         return UNKNOWN.copy().setDesc(desc).json();
     }
 

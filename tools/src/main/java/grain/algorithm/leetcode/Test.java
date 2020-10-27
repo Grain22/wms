@@ -1,47 +1,44 @@
 package grain.algorithm.leetcode;
 
+import java.util.*;
+
 /**
  * @author wulifu
  * @date 2020/8/25 16:54
  */
 public class Test {
-    public static void main(String[] args) {
-        System.out.println(System.currentTimeMillis());
-        for (int i : new int[]{4, 5, 6, 7, 0, 1, 2}) {
-            System.out.println(new Test().search(new int[]{4, 5, 6, 7, 0, 1, 2}, i));
+    static Set<Character> num = new HashSet<>(Arrays.asList('0', '1', '2', '3', '4', '5', '6', '7', '8', '9'));
+    static Set<Character> sign = new HashSet<>(Arrays.asList('+', '-'));
+
+    private static void print(int[][] ints) {
+        for (int i = 0; i < ints.length; i++) {
+            for (int l = 0; l < ints[i].length; l++) {
+                System.out.print(String.format("%9d", ints[i][l]));
+            }
+            System.out.println();
         }
+        System.out.println();
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        System.out.println(System.currentTimeMillis());
+        List<String> list = Arrays.asList("  005047e+6  "
+                , " 0.1 "
+                , "abc"
+                , "1 a"
+                , "2e10"
+                , " -90e3 "
+                , " 1e"
+                , "e3"
+                , " 6e-1"
+                , " 99e2.5 "
+                , "53.5e93"
+                , " --6 "
+                , "-+3"
+                , "95a54e53");
+        System.out.println();
         System.out.println(System.currentTimeMillis());
     }
 
-    public int search(int[] nums, int target) {
-        return find(nums, 0, nums.length - 1, target);
-    }
 
-    public int find(int[] nums, int left, int right, int target) {
-        if (nums[left] == target) {
-            return left;
-        }
-        if (nums[right] == target) {
-            return right;
-        }
-        if (right - left == 2 && nums[left + 1] == target) {
-            return left + 1;
-        }
-        int half = right / 2 + left / 2;
-        if (nums[half] == target) {
-            return half;
-        }
-        if (nums[left] < target && nums[half] > target) {
-            return find(nums, left, half, target);
-        } else if (nums[left] > target && nums[half] > target && nums[half] > nums[left]) {
-            return find(nums, half, right, target);
-        } else if (nums[left] > target && nums[half] > target && nums[half] < nums[left]) {
-            return find(nums, left, half, target);
-        } else if (nums[left] > target && nums[half] < target && nums[right] > target) {
-            return find(nums, half, right, target);
-        } else if (nums[left] < target && nums[half] < target) {
-            return find(nums, half, right, target);
-        }
-        return -1;
-    }
 }

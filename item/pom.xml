@@ -15,10 +15,10 @@
         <module>htmlunit</module>
         <module>gservletweb</module>
         <module>springclouddemo</module>
-        <module>redisDemo</module>
         <module>taskgroup</module>
         <module>springbootconfig</module>
         <module>window</module>
+        <module>toolkit</module>
     </modules>
     <dependencies>
         <dependency>

@@ -16,6 +16,6 @@ public class Constants {
     public static ExecutorService clients;
 
     static {
-        clients = CustomThreadPool.createThreadPool("socket_clients");
+        clients = CustomThreadPool.createThreadPool("socket_clients",32,32,false,3000);
     }
 }

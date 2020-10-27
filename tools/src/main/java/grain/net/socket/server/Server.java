@@ -17,9 +17,10 @@ public class Server {
 
     public static List<Socket> clients = new ArrayList<>();
     ServerSocket server;
+    String[] args;
 
-
-    public Server() {
+    public Server(String[] args) {
+        this.args = args;
         try {
             init();
             listen();
@@ -29,22 +30,20 @@ public class Server {
     }
 
     public static void run(String[] args) {
-        new Server();
+        new Server(args);
     }
 
     private void init() throws IOException {
-        server = new ServerSocket(9002);
+        server = new ServerSocket(Integer.parseInt(args[0]));
 //        server.setSoTimeout(1000);
     }
 
     private void listen() throws IOException {
-        while (true) {
+        while (!Thread.currentThread().isInterrupted()) {
             Socket socket = server.accept();
-//            socket.setSoTimeout(1000);
             clients.add(socket);
             //Constants.clients.submit(new ChatServerHandler(socket));
-            Constants.clients.submit(new ByteTemHandler(socket));
+            Constants.clients.submit(new ByteTemHandler(socket, Integer.parseInt(args[1])));
         }
     }
-
 }

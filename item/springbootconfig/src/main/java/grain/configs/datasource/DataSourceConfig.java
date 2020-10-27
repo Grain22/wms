@@ -5,6 +5,8 @@ package grain.configs.datasource;
  */
 /*@Configuration*/
 public class DataSourceConfig {
+    public void datasource(){
+    }
 /*
     *//*@Bean*//*
     public DataSource createDateSource() {

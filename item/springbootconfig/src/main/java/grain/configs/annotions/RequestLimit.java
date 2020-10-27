@@ -5,9 +5,9 @@ import org.springframework.core.annotation.Order;
 
 import java.lang.annotation.*;
 
+@Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-@Documented
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public @interface RequestLimit {
     /**

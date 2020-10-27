@@ -12,31 +12,25 @@ public class Bootstrap {
     public static Random random = new Random();
 
     public static void print(int[][] arr) {
-        int n = arr.length;
         int m = arr[0].length;
-        for(int i = 0;i < n;i++){
-            for(int j = 0;j < m;j++){
-                if(arr[i][j] > 10){
-                    System.out.print(arr[i][j] + "\t");
-                }else {
-                    System.out.print(arr[i][j] + "\t");
-                }
+        for (int[] ints : arr) {
+            for (int j = 0; j < m; j++) {
+                System.out.print(ints[j] + "\t");
             }
             System.out.println();
         }
     }
 
     public static String input(Scanner sc) {
-        String input = sc.next();
-        return input;
+        return sc.next();
     }
 
     public static boolean isFinish(int[][] arr) {
         int n = arr.length;
         int m = arr[0].length;
-        for(int i = 0;i < n;i++){
-            for(int j = 0;j < m-1;j++){
-                if ((arr[i][j] == 0) || (arr[i][j] == arr[i][j+1])) {
+        for (int[] ints : arr) {
+            for (int j = 0; j < m - 1; j++) {
+                if ((ints[j] == 0) || (ints[j] == ints[j + 1])) {
                     return false;
                 }
             }
@@ -53,7 +47,7 @@ public class Bootstrap {
 
     public static int makeData(Random random) {
         int r = random.nextInt(10);
-        if(r >= 5){
+        if(r >= 7){
             return 2;
         }
         return 0;
@@ -198,16 +192,16 @@ public class Bootstrap {
             if (!isFinish(arr)) {
                 String input = input(sc);
                 switch (input) {
-                    case "w":
+                    case "5":
                         moveUp(arr);
                         break;
-                    case "s":
+                    case "2":
                         moveDown(arr);
                         break;
-                    case "a":
+                    case "1":
                         moveLeft(arr);
                         break;
-                    case "d":
+                    case "3":
                         moveRight(arr);
                         break;
                     default:

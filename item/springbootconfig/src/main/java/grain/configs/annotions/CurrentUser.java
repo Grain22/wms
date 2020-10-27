@@ -15,6 +15,6 @@ public @interface CurrentUser {
      *
      * @return
      */
-    String value() default "0";
+    String value() default "userName";
 
 }

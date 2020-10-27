@@ -1,4 +1,4 @@
-package database.entity;
+package tools.entity;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
