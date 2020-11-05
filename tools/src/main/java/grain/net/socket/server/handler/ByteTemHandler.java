@@ -21,8 +21,8 @@ public class ByteTemHandler implements Runnable {
             while (true) {
                 byte[] header = new byte[readLength];
                 socket.getInputStream().read(header);
-                for (int i = 0; i < header.length; i++) {
-                    System.out.print(header[i]);
+                for (byte b : header) {
+                    System.out.print(b);
                 }
                 System.out.println();
                 byte[] bytes1 = new byte[10];

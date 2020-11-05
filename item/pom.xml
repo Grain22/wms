@@ -19,6 +19,7 @@
         <module>springbootconfig</module>
         <module>window</module>
         <module>toolkit</module>
+        <module>spring-cloud</module>
     </modules>
     <dependencies>
         <dependency>

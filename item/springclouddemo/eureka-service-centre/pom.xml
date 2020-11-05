@@ -10,7 +10,6 @@
         <version>20190411</version>
     </parent>
 
-    <groupId>grain</groupId>
     <artifactId>service-centre</artifactId>
     <version>demo</version>
     <dependencies>
