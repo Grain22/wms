@@ -8,7 +8,6 @@
     <artifactId>wms</artifactId>
     <packaging>pom</packaging>
     <version>20190411</version>
-
     <build>
         <plugins>
             <plugin>

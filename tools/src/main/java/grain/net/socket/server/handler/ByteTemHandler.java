@@ -1,11 +1,14 @@
 package grain.net.socket.server.handler;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.net.Socket;
 import java.util.Random;
 
 /**
  * @author wulifu
  */
+@Slf4j
 public class ByteTemHandler implements Runnable {
     Socket socket;
     int readLength;
@@ -21,10 +24,11 @@ public class ByteTemHandler implements Runnable {
             while (true) {
                 byte[] header = new byte[readLength];
                 socket.getInputStream().read(header);
+                StringBuilder sb = new StringBuilder("");
                 for (byte b : header) {
-                    System.out.print(b);
+                    sb.append(b).append(" ");
                 }
-                System.out.println();
+                log.info(sb.toString());
                 byte[] bytes1 = new byte[10];
                 System.arraycopy(header, 0, bytes1, 0, bytes1.length);
                 bytes1[8] = 48;

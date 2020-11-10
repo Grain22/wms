@@ -1,5 +1,6 @@
 package tools.file;
 
+import lombok.extern.slf4j.Slf4j;
 import tools.CustomerLogger;
 import tools.data.DateUtils;
 
@@ -14,6 +15,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.jar.JarFile;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static java.io.File.separator;
 
@@ -21,6 +24,7 @@ import static java.io.File.separator;
  * @author laowu
  */
 @SuppressWarnings("unused")
+@Slf4j
 public class FileUtils {
 
     private static final String DEF_PATH = separator + "temporary";
@@ -32,15 +36,15 @@ public class FileUtils {
     private static boolean isUnitTest() {
         try {
             StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-
             for (int i = stackTrace.length - 1; i >= 0; --i) {
                 if (stackTrace[i].getClassName().startsWith("org.junit.")) {
                     return true;
                 }
             }
-        } catch (Exception var3) {
+            return false;
+        } catch (Exception ignored) {
+            return false;
         }
-        return false;
     }
 
     private static File getRootJarFile(JarFile jarFile) {
@@ -164,10 +168,10 @@ public class FileUtils {
         return dir.delete();
     }
 
-    public static ArrayList<String> getAllFilePaths(File filePath, ArrayList<String> filePaths) {
+    public static void getAllFilePaths(File filePath, ArrayList<String> filePaths) {
         File[] files = filePath.listFiles();
         if (files == null) {
-            return filePaths;
+            return;
         }
         for (File f : files) {
             if (f.isDirectory()) {
@@ -177,7 +181,6 @@ public class FileUtils {
                 filePaths.add(f.getPath());
             }
         }
-        return filePaths;
     }
 
     public static File getFile(String s) {
@@ -224,5 +227,26 @@ public class FileUtils {
             return split[split.length - 1];
         }
         return "";
+    }
+
+    public static List<File> getFiles(File root, Pattern compile) {
+        List<File> files = new ArrayList<>();
+        if (root.exists()) {
+            if (root.isDirectory()) {
+                log.debug("find path is dir now on {}", root.getAbsolutePath());
+                for (File file : Objects.requireNonNull(root.listFiles())) {
+                    files.addAll(getFiles(file, compile));
+                }
+            } else if (root.isFile()) {
+                log.debug("find path is file now on {}", root.getAbsolutePath());
+                String name = root.getName();
+                Matcher matcher = compile.matcher(name);
+                if (matcher.find()) {
+                    log.info("add file {}", root.getAbsolutePath());
+                    files.add(root);
+                }
+            }
+        }
+        return files;
     }
 }
