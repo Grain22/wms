@@ -2,6 +2,7 @@ package grain.net.socket.server;
 
 import grain.net.socket.constants.Constants;
 import grain.net.socket.server.handler.ByteTemHandler;
+import grain.net.socket.server.handler.BytesServerHandler;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -19,19 +20,17 @@ public class Server {
     public static List<Socket> clients = new ArrayList<>();
     ServerSocket server;
     String[] args;
+    boolean forNew;
 
-    public Server(String[] args) {
+    public Server(String[] args, boolean forNew) {
         this.args = args;
+        this.forNew = forNew;
         try {
             init();
             listen();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }
-
-    public static void run(String[] args) {
-        new Server(args);
     }
 
     private void init() throws IOException {
@@ -44,7 +43,11 @@ public class Server {
             Socket socket = server.accept();
             clients.add(socket);
             //Constants.clients.submit(new ChatServerHandler(socket));
-            Constants.clients.submit(new ByteTemHandler(socket, Integer.parseInt(args[1])));
+            if (forNew) {
+                Constants.clients.submit(new BytesServerHandler(socket));
+            } else {
+                Constants.clients.submit(new ByteTemHandler(socket, Integer.parseInt(args[1])));
+            }
         }
     }
 }

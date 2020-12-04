@@ -2,12 +2,15 @@ package tools.file;
 
 import lombok.extern.slf4j.Slf4j;
 import tools.CustomerLogger;
+import tools.IO.Closeables;
 import tools.data.DateUtils;
 
 import java.io.*;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
 import java.util.ArrayList;
@@ -74,14 +77,6 @@ public class FileUtils {
         }
     }
 
-    public static void writeToFile(String string) {
-        writeToFile(Collections.singletonList(string));
-    }
-
-    private static void writeToFile(List<String> strings) {
-        writeToFile(strings, null);
-    }
-
     /**
      * write to file
      *
@@ -89,11 +84,11 @@ public class FileUtils {
      * @param filePath path
      * @param fileName name
      */
-    public static void writeToFile(List<String> strings, String filePath, String fileName) {
-        writeToFile(strings, filePath + separator + fileName);
+    public static void writeToFile(List<String> strings, Charset charset, String filePath, String fileName, boolean autoFeed, boolean append) {
+        writeToFile(strings, charset, filePath + separator + fileName, autoFeed, append);
     }
 
-    public static void writeToFile(List<String> strings, String pathWithName) {
+    public static void writeToFile(List<String> strings, Charset charset, String pathWithName, boolean autoFeed, boolean append) {
         try {
             File file;
             if (Objects.isNull(pathWithName)) {
@@ -106,11 +101,18 @@ public class FileUtils {
             if (!file.exists()) {
                 boolean newFile = file.createNewFile();
             }
-            FileWriter writer = new FileWriter(file, append);
+            FileOutputStream fileOutputStream = new FileOutputStream(file, append);
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, charset);
+            BufferedWriter writer = new BufferedWriter(outputStreamWriter);
             for (String tem : strings) {
-                writer.write(tem + "\n");
+                writer.write(tem);
+                if (autoFeed) {
+                    writer.write("\n");
+                }
             }
-            writer.close();
+            Closeables.close(writer);
+            Closeables.close(outputStreamWriter);
+            Closeables.close(fileOutputStream);
             logger.log("write to file : " + file.getAbsolutePath() + " success");
         } catch (IOException e) {
             e.printStackTrace();
@@ -124,11 +126,10 @@ public class FileUtils {
      * @return string list
      */
     public static List<String> readFromFile(String pathWithName) {
-        String encoding = "utf8";
-        return readFromFile(pathWithName, encoding);
+        return readFromFile(pathWithName, StandardCharsets.UTF_8);
     }
 
-    public static List<String> readFromFile(String pathWithName, String encoding) {
+    public static List<String> readFromFile(String pathWithName, Charset encoding) {
         File file = new File(pathWithName);
         if (file.exists() && file.isFile()) {
             List<String> list = new ArrayList<>();
@@ -208,7 +209,7 @@ public class FileUtils {
     }
 
     public static String getFileName(Object url) {
-        File file = null;
+        File file;
         if (url instanceof URL) {
             file = new File(((URL) url).getPath());
         } else {

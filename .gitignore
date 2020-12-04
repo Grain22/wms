@@ -10,3 +10,6 @@ target/
 .svn/
 .settings/
 /logs/
+/temporary/
+/key.privateKey
+/key.publicKey
