@@ -70,20 +70,4 @@ public class RsaUtils {
         KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
         return (RSAPrivateKey) keyFactory.generatePrivate(spec);
     }
-
-    public static void main(String[] args) throws Exception {
-        System.out.println(Integer.MAX_VALUE);
-        KeyPair generator = generator();
-        String privateKeyString = getPrivateKeyString(generator.getPrivate());
-        String publicKeyString = getPublicKeyString(generator.getPublic());
-        FileUtils.writeToFile(Collections.singletonList(privateKeyString), StandardCharsets.UTF_8, "./key.privateKey", false,false);
-        FileUtils.writeToFile(Collections.singletonList(publicKeyString), StandardCharsets.UTF_8, "./key.publicKey", false,false);
-        String privateKey = FileUtils.readFromFile("./key.privateKey", StandardCharsets.UTF_8).get(0);
-        String publicKey = FileUtils.readFromFile("./key.publicKey", StandardCharsets.UTF_8).get(0);
-        String sing = "sign with rsa";
-        byte[] sign = sign(sing.getBytes(), getPrivateKey(privateKey));
-        boolean verify = verify(sing.getBytes(), sign, getPublicKey(publicKey));
-        System.out.println(verify);
-        System.out.println();
-    }
 }
