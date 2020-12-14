@@ -14,7 +14,6 @@
     <modules>
         <module>htmlunit</module>
         <module>gservletweb</module>
-        <module>springclouddemo</module>
         <module>taskgroup</module>
         <module>springbootconfig</module>
         <module>window</module>

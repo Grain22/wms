@@ -1,9 +1,0 @@
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8000/eureka
-spring:
-  application:
-    name: provider
-server:
-  port: 8802
