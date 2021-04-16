@@ -13,12 +13,12 @@
     <packaging>pom</packaging>
     <modules>
         <module>htmlunit</module>
-        <module>gservletweb</module>
-        <module>taskgroup</module>
-        <module>springbootconfig</module>
+        <module>g-servlet-web</module>
+        <module>task-group</module>
         <module>window</module>
         <module>toolkit</module>
         <module>spring-cloud</module>
+        <module>spring-cloud-alibaba</module>
     </modules>
     <dependencies>
         <dependency>
