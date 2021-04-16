@@ -1,9 +1,7 @@
 package grain.net.socket.server;
 
-import grain.net.socket.constants.Constants;
 import grain.net.socket.server.handler.ByteTemHandler;
 import grain.net.socket.server.handler.BytesServerHandler;
-import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -42,12 +40,8 @@ public class Server {
         while (!Thread.currentThread().isInterrupted()) {
             Socket socket = server.accept();
             clients.add(socket);
-            //Constants.clients.submit(new ChatServerHandler(socket));
-            if (forNew) {
-                Constants.clients.submit(new BytesServerHandler(socket));
-            } else {
-                Constants.clients.submit(new ByteTemHandler(socket, Integer.parseInt(args[1])));
-            }
+            new Thread(new ByteTemHandler(socket,Integer.valueOf(args[1]))).start();
+//            new Thread(new BytesServerHandler(socket, Integer.parseInt(args[1]))).start();
         }
     }
 }

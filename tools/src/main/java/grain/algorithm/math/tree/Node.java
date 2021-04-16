@@ -1,4 +1,4 @@
-package grain.tree;
+package grain.algorithm.math.tree;
 
 
 import lombok.Data;

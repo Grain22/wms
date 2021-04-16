@@ -3,7 +3,7 @@ package grain.net.socket.server.handler;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.Socket;
-import java.util.Random;
+import java.security.SecureRandom;
 
 /**
  * @author wulifu
@@ -12,18 +12,22 @@ import java.util.Random;
 public class ByteTemHandler implements Runnable {
     Socket socket;
     int readLength;
+    boolean intercept = false;
 
-    public ByteTemHandler(Socket s,int readLength) {
+    public ByteTemHandler(Socket s, int readLength) {
         socket = s;
         this.readLength = readLength;
+    }
+    public void intercept(){
+        this.intercept = true;
     }
 
     @Override
     public void run() {
         try {
-            while (true) {
+            while (!intercept) {
                 byte[] header = new byte[readLength];
-                socket.getInputStream().read(header);
+                log.info("read {}",socket.getInputStream().read(header));
                 StringBuilder sb = new StringBuilder("");
                 for (byte b : header) {
                     sb.append(b).append(" ");
@@ -32,10 +36,11 @@ public class ByteTemHandler implements Runnable {
                 byte[] bytes1 = new byte[10];
                 System.arraycopy(header, 0, bytes1, 0, bytes1.length);
                 bytes1[8] = 48;
+                Thread.sleep(new SecureRandom().nextInt(10) + 50);
                 socket.getOutputStream().write(bytes1);
             }
         } catch (Exception e) {
-            System.out.println(socket.getLocalPort()+""+e.getMessage());
+            System.out.println(socket.getLocalPort() + "" + e.getMessage());
         }
     }
 }

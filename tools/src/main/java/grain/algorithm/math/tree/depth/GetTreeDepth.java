@@ -1,6 +1,6 @@
-package grain.tree.depth;
+package grain.algorithm.math.tree.depth;
 
-import grain.tree.Node;
+import grain.algorithm.math.tree.Node;
 
 /**
  * @author laowu
