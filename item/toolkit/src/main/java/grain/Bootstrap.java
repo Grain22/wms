@@ -7,12 +7,11 @@ import java.util.Map;
 
 public class Bootstrap {
     public static void main(String[] args) {
-        Thread call = new Thread(() -> new Server(new String[]{"9002", "100"}, false));
-        Thread key = new Thread(() -> new Server(new String[]{"9003", "99"}, false));
-        Thread all = new Thread(() -> new Server(new String[]{"9004"}, true));
-        call.start();
-        key.start();
-        all.start();
+        System.out.println("use sleep"/* + args[0]*/);
+        new Thread(() -> new Server(new String[]{"9002", "100"}, false)).start();
+        new Thread(() -> new Server(new String[]{"9003", "99"}, false)).start();
+//        Thread all = new Thread(() -> new Server(new String[]{"9004", args[0]}, true));
+//        all.start();
     }
 
     public static void run(String[] args) {
