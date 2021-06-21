@@ -3,8 +3,8 @@ package tools.ftp.ftp;
 import sun.net.TelnetInputStream;
 import sun.net.TelnetOutputStream;
 import sun.net.ftp.FtpClient;
+import sun.net.ftp.FtpClientProvider;
 import sun.net.ftp.FtpProtocolException;
-import sun.net.ftp.impl.DefaultFtpClientProvider;
 import tools.ftp.ShowProgressInfo;
 
 import java.io.*;
@@ -27,7 +27,7 @@ public class FTPUtils {
     FtpClient ftpClient = null;
 
     public static FtpClient getFTPClient(String HOST, String PORT, String NAME, String PWD) throws IOException, FtpProtocolException {
-        FtpClient ftpClient = DefaultFtpClientProvider.provider().createFtpClient();
+        FtpClient ftpClient = FtpClientProvider.provider().createFtpClient();
         SocketAddress socketAddress = new InetSocketAddress(HOST, Integer.parseInt(PORT));
         ftpClient.connect(socketAddress);
         if (ftpClient.isConnected()) {
