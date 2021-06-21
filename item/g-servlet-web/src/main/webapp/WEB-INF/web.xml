@@ -10,7 +10,7 @@
          id="WebApp_ID" version="3.0">
     <display-name>Archetype Created Web grain.Application</display-name>
     <servlet>
-        <servlet-name>gmvc</servlet-name>
+        <servlet-name>g-mvc</servlet-name>
         <servlet-class>grain.spring.framework.servlet.GDispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
@@ -20,7 +20,7 @@
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>gmvc</servlet-name>
+        <servlet-name>g-mvc</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
 

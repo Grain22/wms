@@ -9,8 +9,6 @@
     <version>0.0.1-SNAPSHOT</version>
     <modules>
         <module>server-8001</module>
-        <module>server-8002</module>
-        <module>server-8003</module>
     </modules>
     <name>eureka-server</name>
     <description>注册中心</description>
