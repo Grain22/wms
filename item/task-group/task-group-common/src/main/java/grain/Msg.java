@@ -4,10 +4,9 @@ import com.alibaba.fastjson.JSON;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 /**
- * @author wulifu
+ * @author grain
  */
 @Data
 @NoArgsConstructor
@@ -17,7 +16,6 @@ public class Msg {
     public static final int code_unhandled_error = 500;
     public static final int code_file_transfer_error = 501;
     public static final int code_task_info_error = 502;
-    @NonNull
     private int code;
     private String message;
     private Object data;

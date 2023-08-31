@@ -1,15 +1,14 @@
 package grain;
 
-import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.Session;
-import tools.ftp.sftp.SftpSession;
+import org.grain.tools.ftp.sftp.SftpSession;
 
 import java.io.File;
-import java.io.FileInputStream;
+import java.nio.file.Files;
 
 /**
- * @author wulifu
+ * @author grain
  * sftp 中文名测试
  */
 public class SftpChineseTest {
@@ -18,10 +17,9 @@ public class SftpChineseTest {
         Session session = gansu.getSession();
         ChannelSftp sftp = (ChannelSftp) session.openChannel("sftp");
         sftp.connect();
-        File file = new File("C:\\Users\\wulifu\\Desktop\\3.docx");
+        File file = new File("C:\\Users\\grain\\Desktop\\3.docx");
         if (file.exists()) {
-            sftp.put(new FileInputStream(file),"./3.docx");
+            sftp.put(Files.newInputStream(file.toPath()), "./3.docx");
         }
-        System.out.println("");
     }
 }

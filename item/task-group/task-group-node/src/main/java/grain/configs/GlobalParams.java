@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * @author wulifu
+ * @author grain
  */
 @Component
 @ConfigurationProperties(prefix = "self.properties")

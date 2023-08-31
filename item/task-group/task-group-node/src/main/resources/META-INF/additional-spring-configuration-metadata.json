@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "self.properties.host-address",
+      "type": "java.lang.String",
+      "description": "Description for self.properties.host-address."
+    },
+    {
+      "name": "self.properties.host-port",
+      "type": "java.lang.String",
+      "description": "Description for self.properties.host-port."
+    }
+  ]
+}

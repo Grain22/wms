@@ -3,28 +3,43 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>wms</artifactId>
-        <groupId>grain</groupId>
-        <version>20190411</version>
+        <artifactId>JavaCollection</artifactId>
+        <groupId>org.grain</groupId>
+        <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>item</artifactId>
     <packaging>pom</packaging>
+    <artifactId>item</artifactId>
     <modules>
-        <module>htmlunit</module>
         <module>g-servlet-web</module>
         <module>task-group</module>
-        <module>window</module>
         <module>toolkit</module>
         <module>spring-cloud</module>
         <module>spring-cloud-alibaba</module>
     </modules>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>3.0.7</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <dependency>
-            <groupId>grain</groupId>
-            <artifactId>core</artifactId>
-            <version>20190411</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>2.0.32</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

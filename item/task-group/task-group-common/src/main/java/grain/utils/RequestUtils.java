@@ -17,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
- * @author wulifu
+ * @author grain
  */
 @Slf4j
 public class RequestUtils {
@@ -45,12 +45,11 @@ public class RequestUtils {
         return JSON.parseObject(s, clazz);
     }
 
-    public static boolean postUploadFile(String url, MultiValueMap<String, Object> multiValueMap, File file) {
+    public static void postUploadFile(String url, MultiValueMap<String, Object> multiValueMap, File file) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().set(1, new StringHttpMessageConverter(StandardCharsets.UTF_8));
         multiValueMap.add("file", new FileSystemResource(file));
         restTemplate.postForObject(url, multiValueMap, String.class);
-        return true;
     }
 
     public static boolean postGetFile(String url, MultiValueMap<String, ?> keyValues, String filePath) {

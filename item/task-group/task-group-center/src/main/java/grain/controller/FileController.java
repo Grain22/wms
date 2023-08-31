@@ -15,14 +15,14 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @author wulifu
+ * @author grain
  */
 @Controller
 @RequestMapping("file")
 public class FileController {
     @PostMapping(value = "download", produces = "application/octet-stream;charset=UTF-8")
     public ResponseEntity<byte[]> download(String id) throws IOException {
-        File file = new File("C:\\Users\\wulifu\\Desktop\\task.sh");
+        File file = new File("C:\\Users\\grain\\Desktop\\task.sh");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         headers.setContentDispositionFormData("attachment", file.getName());
@@ -33,7 +33,7 @@ public class FileController {
     public Msg upload(String id, MultipartFile file) {
         try {
             System.out.println(id);
-            file.transferTo(new File("C:\\Users\\wulifu\\Desktop\\task.sh." + id));
+            file.transferTo(new File("C:\\Users\\grain\\Desktop\\task.sh." + id));
             return Msg.success();
         } catch (IOException e) {
             return Msg.error(Msg.code_file_transfer_error, e.getMessage());

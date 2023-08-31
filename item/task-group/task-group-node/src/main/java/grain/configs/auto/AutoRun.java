@@ -4,17 +4,17 @@ import grain.Msg;
 import grain.command.Command;
 import grain.configs.GlobalParams;
 import grain.utils.RequestUtils;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import javax.annotation.PostConstruct;
 import java.io.File;
 
 /**
- * @author wulifu
+ * @author grain
  */
 @Slf4j
 @Component
@@ -37,7 +37,7 @@ public class AutoRun {
             log.info("节点注册 {}", register);
 
             String url = "http://localhost:19951/api/file/upload";
-            String file = "C:\\Users\\wulifu\\Desktop\\task.sh";
+            String file = "C:\\Users\\grain\\Desktop\\task.sh";
             MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
             map.add("id", "fdafdsafdasfdsa");
             RequestUtils.postUploadFile(url, map, new File(file));

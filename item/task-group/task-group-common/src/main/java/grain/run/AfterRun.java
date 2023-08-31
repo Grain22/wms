@@ -1,7 +1,7 @@
 package grain.run;
 
 /**
- * @author wulifu
+ * @author grain
  */
 public interface AfterRun {
 

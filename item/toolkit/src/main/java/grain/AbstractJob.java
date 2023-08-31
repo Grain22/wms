@@ -1,7 +1,7 @@
 package grain;
 
 /**
- * @author wulifu
+ * @author grain
  * 任务统一接口
  */
 public interface AbstractJob {

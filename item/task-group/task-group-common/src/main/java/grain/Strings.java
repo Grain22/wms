@@ -1,7 +1,7 @@
 package grain;
 
 /**
- * @author wulifu
+ * @author grain
  */
 public class Strings {
 

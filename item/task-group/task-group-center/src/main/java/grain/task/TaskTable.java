@@ -10,7 +10,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 /**
- * @author wulifu
+ * @author grain
  */
 public class TaskTable {
     private static final List<TaskInfo> TASK_INFOS = new CopyOnWriteArrayList<>();
@@ -53,14 +53,13 @@ public class TaskTable {
         }
     }
 
-    public static List<TaskInfo> sortPriorityDate(List<TaskInfo> list) {
+    public static void sortPriorityDate(List<TaskInfo> list) {
         list.sort((o1, o2) -> {
             if (o1.getTask().getPriority() == o2.getTask().getPriority()) {
                 return o1.getTask().getAddedDate().compareTo(o2.getTask().getAddedDate());
             }
             return o1.getTask().getPriority() - o2.getTask().getPriority();
         });
-        return list;
     }
 
     public static List<TaskInfo> disableNodeTask(List<String> disable) {

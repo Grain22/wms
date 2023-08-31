@@ -14,15 +14,15 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import tools.data.DateUtils;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * @author wulifu
+ * @author grain
  */
 @Slf4j
 @Component
@@ -74,7 +74,7 @@ public class NodeManager {
             try {
                 SecureRandom instanceStrong = SecureRandom.getInstanceStrong();
                 int wait = instanceStrong.nextInt(100);
-                tasks.add(new Task().setTaskId(getId()).setTaskLong(wait * 10000).setAddedDate(DateUtils.getTimeStringLong()).setPriority(instanceStrong.nextInt(9)));
+                tasks.add(new Task().setTaskId(getId()).setTaskLong(wait * 10000).setAddedDate(LocalDateTime.now().toString()).setPriority(instanceStrong.nextInt(9)));
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
@@ -96,7 +96,7 @@ public class NodeManager {
          * 任务排序
          * 排序方式 优先级 > 加入时间
          */
-        taskInfos = TaskTable.sortPriorityDate(taskInfos);
+        TaskTable.sortPriorityDate(taskInfos);
         /*
          * 节点任务分配
          */

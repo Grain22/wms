@@ -5,14 +5,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationBeanNameGenerator;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.lang.NonNullApi;
 import org.springframework.util.Assert;
-import org.springframework.util.ClassUtils;
-
-import java.beans.Introspector;
 
 /**
- * @author wulifu
+ * @author grain
  */
 @SpringBootApplication
 @ComponentScan(nameGenerator = CustomerBeanNameGenerator.class)

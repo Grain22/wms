@@ -14,7 +14,7 @@ import static grain.utils.RequestUtils.getUrl;
 import static grain.utils.RequestUtils.sendPost;
 
 /**
- * @author wulifu
+ * @author grain
  */
 @Slf4j
 public class NodeCommand {

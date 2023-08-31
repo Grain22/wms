@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-import tools.data.DigestUtil;
+import org.grain.tools.data.DigestUtil;
 
 /**
- * @author wulifu
+ * @author grain
  */
 @Data
 @NoArgsConstructor

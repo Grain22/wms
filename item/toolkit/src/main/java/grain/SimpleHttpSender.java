@@ -3,7 +3,10 @@ package grain;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +24,7 @@ public class SimpleHttpSender {
         String s = bufferedReader.readLine();
         Unirest.config().verifySsl(false);
         HttpResponse<String> response = Unirest.post(map.get("url"))
-                .header("Authorization", "SignWithMd5 appkey=3000007438,timestamp=123456789,signature=3e5253dcda8b0687def851f2324e23cb")
+                .header("Authorization", "SignWithMd5 apikey=3000007438,timestamp=123456789,signature=3e5253decode8b0687def851f2324e23cb")
                 .header("Content-Type", "application/json")
                 .body(s)
                 .asString();
